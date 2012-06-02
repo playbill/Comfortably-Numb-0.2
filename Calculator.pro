@@ -7,9 +7,13 @@ SOURCES += main.cpp \
     mainwindow.cpp \
     element.cpp \
     constante.cpp \
-    reel.cpp
+    reel.cpp \
+    entier.cpp \
+    rationnel.cpp
 HEADERS += mainwindow.h \
     element.h \
     constante.h \
-    reel.h
+    reel.h \
+    entier.h \
+    rationnel.h
 FORMS += mainwindow.ui

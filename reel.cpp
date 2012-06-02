@@ -4,7 +4,7 @@ Reel::Reel(float r): Constante(), x(r)
 {
 }
 
-QString Reel::toQstring(){}
+    QString Reel::toQstring(){}
     Reel& Reel::toReel(){return *this;}
     Element& Reel::toRationnel(){}
     Element& Reel::toEntier(){}
