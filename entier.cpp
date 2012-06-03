@@ -1,14 +1,15 @@
 #include "entier.h"
 
+/*
 Entier::Entier(int r): Constante(), x(r)
 {
 }
 
-    QString Entier::toQstring(){}
+    QString Entier::toQString(){return QString(x);}
     Entier& Entier::toEntier(){return *this;}
-    Element& Entier::toRationnel(){}
-    Element& Entier::toReel(){}
-    Element& Entier::toComplexe(){}
+    Rationnel& Entier::toRationnel(){}
+    Reel& Entier::toReel(){}
+    Complexe& Entier::toComplexe(){}
     void Entier::afficher(std::ostream& f) const{}
     Entier& Entier::operator+(Constante& c){}
     Entier& Entier::operator-(Constante& c){}
@@ -27,3 +28,4 @@ Entier::Entier(int r): Constante(), x(r)
     Entier& Entier::sqrt(){}
     Entier& Entier::sqr(){}
     Entier& Entier::operator!(){}
+*/

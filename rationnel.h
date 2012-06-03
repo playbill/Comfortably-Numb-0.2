@@ -2,7 +2,7 @@
 #define RATIONNEL_H
 
 #include "constante.h"
-
+/*
 class Rationnel : public Constante
 {
 
@@ -10,13 +10,13 @@ private:
     int x;
     int y;
 public:
-    Rationnel(int x, int y);
+    Rationnel(int x, int y = 1);
     ~Rationnel(){}
-    QString toQstring();
-    Rationnel& toReel();
-    Element& toRationnel();
-    Element& toEntier();
-    Element& toComplexe();
+    QString toQString();
+    Reel& toReel();
+    Rationnel& toRationnel();
+    Entier& toEntier();
+    Complexe& toComplexe();
     void afficher(std::ostream& f=std::cout) const;
     Rationnel& operator+(Constante& c);
     Rationnel& operator-(Constante& c);
@@ -36,6 +36,6 @@ public:
     Rationnel& sqr();
     Rationnel& operator!();
 
-};
+};*/
 
 #endif // RATIONNEL_H

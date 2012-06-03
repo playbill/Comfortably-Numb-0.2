@@ -1,8 +1,8 @@
 #ifndef ENTIER_H
 #define ENTIER_H
 
-#include "constante.h"
-#include "reel.h"
+/*#include "constante.h"
+
 
 class Entier : public Constante
 {
@@ -11,11 +11,11 @@ private :
 public:
     Entier(int r);
     ~Entier(){}
-    QString toQstring();
-    Element& toReel();
-    Element& toRationnel();
+    QString toQString();
+    Reel& toReel();
+    Rationnel& toRationnel();
     Entier& toEntier();
-    Element& toComplexe();
+    Complexe& toComplexe();
     void afficher(std::ostream& f=std::cout) const;
     Entier& operator+(Constante& c);
     Entier& operator-(Constante& c);
@@ -35,6 +35,6 @@ public:
     Entier& sqr();
     Entier& operator!();
 
-};
+};*/
 
 #endif // ENTIER_H

@@ -1,0 +1,12 @@
+INPUT(
+./release\main.o
+./release\mainwindow.o
+./release\element.o
+./release\constante.o
+./release\reel.o
+./release\entier.o
+./release\rationnel.o
+./release\complexe.o
+./release\pile.o
+./release\moc_mainwindow.o
+);

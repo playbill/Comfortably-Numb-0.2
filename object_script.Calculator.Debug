@@ -1,0 +1,12 @@
+INPUT(
+./debug\main.o
+./debug\mainwindow.o
+./debug\element.o
+./debug\constante.o
+./debug\reel.o
+./debug\entier.o
+./debug\rationnel.o
+./debug\complexe.o
+./debug\pile.o
+./debug\moc_mainwindow.o
+);
