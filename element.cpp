@@ -115,19 +115,7 @@ Reel& Reel::operator*(Constante& c)
     x = x* c.toReel().x;
     return *this;
 }
-Reel& Reel::pow(int x){}
-Reel& Reel::cos(){}
-Reel& Reel::sin(){}
-Reel& Reel::tan(){}
-Reel& Reel::cosh(){}
-Reel& Reel::sinh(){}
-Reel& Reel::tanh(){}
-Reel& Reel::ln(){}
-Reel& Reel::log(){}
-Reel& Reel::inv(){}
-Reel& Reel::sqrt(){}
-Reel& Reel::sqr(){}
-Reel& Reel::operator!(){}
+
 
 Rationnel::Rationnel(int num, int den): x(num), y(den)
 {
@@ -187,70 +175,6 @@ Rationnel& Rationnel::operator*(Constante& c)
 
 }
 
-Rationnel& Rationnel::pow(int x)
-{
-
-}
-
-Rationnel& Rationnel::cos()
-{
-
-}
-
-Rationnel& Rationnel::sin()
-{
-
-}
-
-Rationnel& Rationnel::tan()
-{
-
-}
-
-Rationnel& Rationnel::cosh()
-{
-
-}
-
-Rationnel& Rationnel::sinh()
-{
-
-}
-
-Rationnel& Rationnel::tanh()
-{
-
-}
-
-Rationnel& Rationnel::ln()
-{
-
-}
-
-Rationnel& Rationnel::log()
-{
-
-}
-
-Rationnel& Rationnel::inv()
-{
-
-}
-
-Rationnel& Rationnel::sqrt()
-{
-
-}
-
-Rationnel& Rationnel::sqr()
-{
-
-}
-
-Rationnel& Rationnel::operator!()
-{
-
-}
 
 Entier::Entier(int r): Constante(), x(r)
 {
@@ -266,19 +190,7 @@ Entier::Entier(int r): Constante(), x(r)
     Entier& Entier::operator-(Constante& c){}
     Entier& Entier::operator/(Constante& c){}
     Entier& Entier::operator*(Constante& c){}
-    Entier& Entier::pow(int x){}
-    Entier& Entier::cos(){}
-    Entier& Entier::sin(){}
-    Entier& Entier::tan(){}
-    Entier& Entier::cosh(){}
-    Entier& Entier::sinh(){}
-    Entier& Entier::tanh(){}
-    Entier& Entier::ln(){}
-    Entier& Entier::log(){}
-    Entier& Entier::inv(){}
-    Entier& Entier::sqrt(){}
-    Entier& Entier::sqr(){}
-    Entier& Entier::operator!(){}
+
 
     Complexe::Complexe(Constante* x, Constante* y): re(x),im(y)
 {
@@ -298,17 +210,5 @@ Entier::Entier(int r): Constante(), x(r)
     Complexe& Complexe::operator-(Constante& c){}
     Complexe& Complexe::operator/(Constante& c){}
     Complexe& Complexe::operator*(Constante& c){}
-    Complexe& Complexe::pow(int x){}
-    Complexe& Complexe::cos(){}
-    Complexe& Complexe::sin(){}
-    Complexe& Complexe::tan(){}
-    Complexe& Complexe::cosh(){}
-    Complexe& Complexe::sinh(){}
-    Complexe& Complexe::tanh(){}
-    Complexe& Complexe::ln(){}
-    Complexe& Complexe::log(){}
-    Complexe& Complexe::inv(){}
-    Complexe& Complexe::sqrt(){}
-    Complexe& Complexe::sqr(){}
-    Complexe& Complexe::operator!(){}
+
 

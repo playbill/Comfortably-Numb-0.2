@@ -55,19 +55,6 @@ class Constante : public Element
         virtual Constante& operator-(Constante& c) = 0;
         virtual Constante& operator/(Constante& c) = 0;
         virtual Constante& operator*(Constante& c) = 0;
-        virtual Constante& pow(int x) = 0;
-        virtual Constante& cos() = 0;
-        virtual Constante& sin() = 0;
-        virtual Constante& tan() = 0;
-        virtual Constante& cosh() = 0;
-        virtual Constante& sinh() = 0;
-        virtual Constante& tanh() = 0;
-        virtual Constante& ln() = 0;
-        virtual Constante& log() = 0;
-        virtual Constante& inv() = 0;
-        virtual Constante& sqrt() = 0;
-        virtual Constante& sqr() = 0;
-        virtual Constante& operator!() = 0;
     };
 
 
@@ -92,19 +79,7 @@ class Reel : public Constante
         Reel& operator-(Constante& c);
         Reel& operator/(Constante& c);
         Reel& operator*(Constante& c);
-        Reel& pow(int x);
-        Reel& cos();
-        Reel& sin();
-        Reel& tan();
-        Reel& cosh();
-        Reel& sinh();
-        Reel& tanh();
-        Reel& ln();
-        Reel& log();
-        Reel& inv();
-        Reel& sqrt();
-        Reel& sqr();
-        Reel& operator!();
+
 };
 
 
@@ -127,19 +102,7 @@ class Rationnel : public Constante
         Rationnel& operator-(Constante& c);
         Rationnel& operator/(Constante& c);
         Rationnel& operator*(Constante& c);
-        Rationnel& pow(int x);
-        Rationnel& cos();
-        Rationnel& sin();
-        Rationnel& tan();
-        Rationnel& cosh();
-        Rationnel& sinh();
-        Rationnel& tanh();
-        Rationnel& ln();
-        Rationnel& log();
-        Rationnel& inv();
-        Rationnel& sqrt();
-        Rationnel& sqr();
-        Rationnel& operator!();
+
 
 };
 
@@ -162,19 +125,6 @@ class Entier : public Constante
         Entier& operator-(Constante& c);
         Entier& operator/(Constante& c);
         Entier& operator*(Constante& c);
-        Entier& pow(int x);
-        Entier& cos();
-        Entier& sin();
-        Entier& tan();
-        Entier& cosh();
-        Entier& sinh();
-        Entier& tanh();
-        Entier& ln();
-        Entier& log();
-        Entier& inv();
-        Entier& sqrt();
-        Entier& sqr();
-        Entier& operator!();
 
 };
 
@@ -196,19 +146,6 @@ class Complexe : public Element
         Complexe& operator-(Constante& c);
         Complexe& operator/(Constante& c);
         Complexe& operator*(Constante& c);
-        Complexe& pow(int x);
-        Complexe& cos();
-        Complexe& sin();
-        Complexe& tan();
-        Complexe& cosh();
-        Complexe& sinh();
-        Complexe& tanh();
-        Complexe& ln();
-        Complexe& log();
-        Complexe& inv();
-        Complexe& sqrt();
-        Complexe& sqr();
-        Complexe& operator!();
 };
 
 

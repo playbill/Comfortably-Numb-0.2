@@ -22,7 +22,9 @@ Pile::Pile(): pile(new QStack<Element*>()){}
 * \fn ~Pile()
 * \brief Fonction :  constructeur, construit la pile
 */
-Pile::~Pile(){delete pile;}
+Pile::~Pile(){
+    pile->clear();
+    delete pile;}
 
 /**
 * \fn  Pile& donneInstance()
