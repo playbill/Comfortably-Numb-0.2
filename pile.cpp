@@ -146,3 +146,8 @@ void Pile::drop(){
 delete pile->pop(); /*!< on enlève l'élement du haut de la pile et on le delete */
 }
 
+
+
+
+
+

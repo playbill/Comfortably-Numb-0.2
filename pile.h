@@ -31,23 +31,7 @@ class Pile{
         void dup();
         void drop();
         void clear();
-        Constante& addition();
-        Constante& multiplication();
-        Constante& soustraction();
-        Constante& division();
-        Constante& pow();
-        Constante& cos();
-        Constante& sin();
-        Constante& tan();
-        Constante& cosh();
-        Constante& sinh();
-        Constante& tanh();
-        Constante& ln();
-        Constante& log();
-        Constante& inv();
-        Constante& sqrt();
-        Constante& sqr();
-        Constante& operator!();
+
 };
 
 #endif // PILE_H

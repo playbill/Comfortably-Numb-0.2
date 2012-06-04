@@ -6,18 +6,10 @@ TEMPLATE = app
 SOURCES += main.cpp \
     mainwindow.cpp \
     element.cpp \
-    constante.cpp \
-    reel.cpp \
-    entier.cpp \
-    rationnel.cpp \
-    complexe.cpp \
-    pile.cpp
+    pile.cpp \
+    calculateur.cpp
 HEADERS += mainwindow.h \
     element.h \
-    constante.h \
-    reel.h \
-    entier.h \
-    rationnel.h \
-    complexe.h \
-    pile.h
+    pile.h \
+    calculateur.h
 FORMS += mainwindow.ui
