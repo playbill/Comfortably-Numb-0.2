@@ -7,14 +7,11 @@ class Calculateur
 {
     private :
         Pile* pile;
-        bool isComplexe;
-        bool isEntier;
-        bool isDegre;
-        bool isRadian;
-        bool isRationnel;
-
-
-
+        bool Complexe;
+        bool Entier;
+        bool Degre;
+        bool Radian;
+        bool Rationnel;
 
     public:
         Calculateur();

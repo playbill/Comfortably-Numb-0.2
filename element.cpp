@@ -92,34 +92,60 @@ Complexe& Reel::toComplexe()
 
 void Reel::afficher(std::ostream& f) const{}
 
-Reel& Reel::operator+(Constante& c)
+Element& Reel::operator+(Element& c)
 {
     x = x + c.toReel().x;
     return *this;
 }
 
-Reel& Reel::operator-(Constante& c)
+Element& Reel::operator-(Element& c)
 {
     x = x - c.toReel().x;
     return *this;
 }
 
-Reel& Reel::operator/(Constante& c)
+Element& Reel::operator/(Element& c)
 {
     x = x/ c.toReel().x;
     return *this;
 }
 
-Reel& Reel::operator*(Constante& c)
+Element& Reel::operator*(Element& c)
 {
     x = x* c.toReel().x;
     return *this;
 }
 
+/**
+*\class Rationnel
+*
+*
+*/
+
 
 Rationnel::Rationnel(int num, int den): x(num), y(den)
 {
 
+}
+
+int Rationnel::getX()
+{
+    return x;
+}
+
+int Rationnel::getY()
+{
+    return y;
+}
+
+int Rationnel::setX(int value)
+{
+    return x = value ;
+}
+
+int Rationnel::setY(int value)
+{
+    return y = value ;
 }
 
 QString Rationnel::toQString() const
@@ -155,60 +181,162 @@ void Rationnel::afficher(std::ostream& f) const
 
 }
 
-Rationnel& Rationnel::operator+(Constante& c)
+Element& Rationnel::operator+(Element& c)
 {
 
 }
 
-Rationnel& Rationnel::operator-(Constante& c)
+Element& Rationnel::operator-(Element& c)
 {
 
 }
 
-Rationnel& Rationnel::operator/(Constante& c)
+Element& Rationnel::operator/(Element& c)
 {
 
 }
 
-Rationnel& Rationnel::operator*(Constante& c)
+Element& Rationnel::operator*(Element& c)
 {
 
 }
 
+/**
+*
+*\class Entier
+*
+*/
 
 Entier::Entier(int r): Constante(), x(r)
 {
 }
 
-    QString Entier::toQString() const {return QString(x);}
-    Entier& Entier::toEntier(){return *this;}
-    Rationnel& Entier::toRationnel(){}
-    Reel& Entier::toReel(){}
-    Complexe& Entier::toComplexe(){}
-    void Entier::afficher(std::ostream& f) const{}
-    Entier& Entier::operator+(Constante& c){}
-    Entier& Entier::operator-(Constante& c){}
-    Entier& Entier::operator/(Constante& c){}
-    Entier& Entier::operator*(Constante& c){}
+int Entier::getX()
+{
+    return x;
+}
 
+QString Entier::toQString() const
+{
+    return QString(x);
+}
 
+Entier& Entier::toEntier()
+{
+    return *this;
+}
+
+Rationnel& Entier::toRationnel()
+{
+
+}
+
+Reel& Entier::toReel()
+{
+
+}
+
+Complexe& Entier::toComplexe()
+{
+
+}
+
+void Entier::afficher(std::ostream& f) const
+{
+}
+
+Element& Entier::operator+(Element& e)
+{    
+    if(typeid(e) == typeid(Complexe))
+    {
+        Complexe ecast = dynamic_cast<Complexe &>(e);
+        if(typeid(ecast.getRe()) == typeid(Entier))
+        {
+            Entier* ccast = dynamic_cast<Entier *>(ecast.getRe());
+            Entier* tmp = new Entier(ccast->getX()+ this->getX());
+            return *(new Complexe(tmp));
+        }
+        else if(typeid(ecast.getRe()) == typeid(Reel))
+        {
+            Reel* rcast = dynamic_cast<Reel *>(ecast.getRe());
+            Reel* tmp = new Reel(rcast->getX() + (float) this->getX());
+            return *(new Complexe(tmp));
+        }
+        else if(typeid(ecast.getRe()) == typeid(Rationnel))
+        {
+            Rationnel* rcast = dynamic_cast<Rationnel *>(ecast.getRe());
+            Rationnel* tmp = new Rationnel(rcast->getX() + this->getX());
+            return *(new Complexe(tmp));
+        }
+
+    }
+    if(typeid(e) == typeid(Entier))
+    {
+        Entier ecast = dynamic_cast<Entier &>(e);
+        return *(new Entier(ecast.getX()+this->getX()));
+    }
+    if(typeid(e) == typeid(Rationnel))
+    {
+        Rationnel rcast = dynamic_cast<Rationnel &>(e);
+        return *(new Rationnel(rcast.getX()+this->getX()));
+    }
+    if(typeid(e) == typeid(Reel))
+    {
+        Reel rcast = dynamic_cast<Reel &>(e);
+        return *(new Reel(rcast.getX()+(float)this->getX()));
+    }
+}
+
+Element& Entier::operator-(Element& c)
+{
+    if(typeid(c) == typeid(Complexe)){}
+    if(typeid(c) == typeid(Entier)){}
+    if(typeid(c) == typeid(Rationnel)){}
+    if(typeid(c) == typeid(Reel)){}
+}
+
+Element& Entier::operator/(Element& c)
+{
+    if(typeid(c) == typeid(Complexe)){
+    }
+    if(typeid(c) == typeid(Entier)){}
+    if(typeid(c) == typeid(Rationnel)){}
+    if(typeid(c) == typeid(Reel)){}
+}
+
+Element& Entier::operator*(Element& c)
+{
+if(typeid(c) == typeid(Complexe)){}
+if(typeid(c) == typeid(Entier)){}
+if(typeid(c) == typeid(Rationnel)){}
+if(typeid(c) == typeid(Reel)){}
+}
+
+/**
+*
+*\class Complexe
+*
+*/
     Complexe::Complexe(Constante* x, Constante* y): re(x),im(y)
 {
 }
 
-    QString Complexe::toQString() const
-    {   QString tmp;
-        tmp = 'a';
-        return tmp;
-    }
-    Reel& Complexe::toReel(){}
-    Rationnel& Complexe::toRationnel(){}
-    Entier& Complexe::toEntier(){}
-    Complexe& Complexe::toComplexe(){return *this;}
-    void Complexe::afficher(std::ostream& f) const{}
-    Complexe& Complexe::operator+(Constante& c){}
-    Complexe& Complexe::operator-(Constante& c){}
-    Complexe& Complexe::operator/(Constante& c){}
-    Complexe& Complexe::operator*(Constante& c){}
+Constante* Complexe::getRe(){return re; }
+
+QString Complexe::toQString() const
+{   QString tmp;
+    tmp = 'a';
+    return tmp;
+}
+
+Reel& Complexe::toReel(){}
+Rationnel& Complexe::toRationnel(){}
+Entier& Complexe::toEntier(){}
+Complexe& Complexe::toComplexe(){return *this;}
+void Complexe::afficher(std::ostream& f) const{}
+Complexe& Complexe::operator+(Constante& c){}
+Complexe& Complexe::operator-(Constante& c){}
+Complexe& Complexe::operator/(Constante& c){}
+Complexe& Complexe::operator*(Constante& c){}
 
 
