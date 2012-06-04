@@ -12,7 +12,7 @@ class Calculateur
         bool isDegre;
         bool isRadian;
         bool isRationnel;
-        bool isReel;
+
 
 
 
