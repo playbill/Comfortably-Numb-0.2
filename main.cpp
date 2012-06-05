@@ -1,6 +1,7 @@
 #include <QtGui/QApplication>
 #include "mainwindow.h"
 #include "element.h"
+#include <QDEBUG>
 
 int main(int argc, char *argv[])
 {

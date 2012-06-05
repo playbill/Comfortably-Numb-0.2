@@ -95,7 +95,7 @@ class Rationnel : public Constante
     public:
         Rationnel(int x, int y = 1);
         ~Rationnel(){}
-        virtual int getX();
+        int getX();
         int getY();
         int setX(int);
         int setY(int);
