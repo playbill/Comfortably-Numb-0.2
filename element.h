@@ -39,6 +39,8 @@ class Element
         virtual Rationnel& toRationnel() = 0;
         virtual Entier& toEntier() = 0;
         virtual Complexe& toComplexe() = 0;
+        virtual Element* clone() = 0;
+        virtual Element* sign() = 0;
 
 
 };
@@ -58,6 +60,9 @@ class Constante : public Element
         virtual Element& operator-(Element& c) = 0;
         virtual Element& operator/(Element& c) = 0;
         virtual Element& operator*(Element& c) = 0;
+        virtual Constante* clone() = 0;
+        virtual Constante* sign() = 0;
+
     };
 
 
@@ -82,6 +87,8 @@ class Reel : public Constante
         Element& operator-(Element& c);
         Element& operator/(Element& c);
         Element& operator*(Element& c);
+        Reel* clone();
+        Reel* sign();
 
 };
 
@@ -109,8 +116,8 @@ class Rationnel : public Constante
         Element& operator-(Element& c);
         Element& operator/(Element& c);
         Element& operator*(Element& c);
-
-
+        Rationnel* clone();
+        Rationnel* sign();
 };
 
 
@@ -134,7 +141,8 @@ class Entier : public Constante
         Element& operator-(Element& c);
         Element& operator/(Element& c);
         Element& operator*(Element& c);
-
+        Entier* clone();
+        Entier* sign();
 };
 
 class Complexe : public Element
@@ -149,6 +157,7 @@ class Complexe : public Element
         Constante* getIm();
         QString toQString() const;
         Reel& toReel();
+        Complexe* conjugue();
         Rationnel& toRationnel();
         Entier& toEntier();
         Complexe& toComplexe();
@@ -157,6 +166,8 @@ class Complexe : public Element
         Element& operator-(Element& c);
         Element& operator/(Element& c);
         Element& operator*(Element& c);
+        Complexe* clone();
+        Complexe* sign();
 };
 
 class Expression : public Element
@@ -177,7 +188,8 @@ class Expression : public Element
         Element& operator-(Element& c);
         Element& operator/(Element& c);
         Element& operator*(Element& c);
-
+        Expression* clone();
+        Expression* sign(){}
 };
 
 

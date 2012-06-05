@@ -291,6 +291,16 @@ Element& Reel::operator*(Element& e)
 }
 }
 
+Reel* Reel::clone()
+{
+    return new Reel(this->getX());
+}
+
+Reel* Reel::sign()
+{
+    return new Reel(-this->getX());
+}
+
 /**
 *\class Rationnel
 *
@@ -374,6 +384,16 @@ Element& Rationnel::operator/(Element& c)
 Element& Rationnel::operator*(Element& c)
 {
 
+}
+
+Rationnel* Rationnel::clone()
+{
+    return new Rationnel(this->getX(),this->getY());
+}
+
+Rationnel* Rationnel::sign()
+{
+    return new Rationnel(-this->getX(),this->getY());
 }
 
 /**
@@ -520,6 +540,8 @@ Element& Entier::operator-(Element& e)
         return *(new Reel((float)this->getX() - rcast.getX()));
     }
 }
+
+
 /**
 *\fn Element& operator/(Element& c)
 *
@@ -620,6 +642,16 @@ Element& Entier::operator*(Element& e)
     }
 }
 
+Entier* Entier::clone()
+{
+    return new Entier(this->getX());
+}
+
+Entier* Entier::sign()
+{
+    return new Entier(-this->getX());
+}
+
 /**
 *
 *\class Complexe
@@ -642,12 +674,34 @@ Reel& Complexe::toReel(){}
 Rationnel& Complexe::toRationnel(){}
 Entier& Complexe::toEntier(){}
 Complexe& Complexe::toComplexe(){return *this;}
+Complexe* Complexe::conjugue()
+{
+   Constante* c1 = this->getRe()->clone();
+   Constante* c2 = this->getIm()->sign();
+
+    return (new Complexe(c1,c2));
+}
 void Complexe::afficher(std::ostream& f) const{}
 Element& Complexe::operator+(Element& c){}
 Element& Complexe::operator-(Element& c){}
 Element& Complexe::operator/(Element& c){}
 Element& Complexe::operator*(Element& c){}
 
+Complexe* Complexe::clone()
+{
+    Constante* c1 = this->getRe()->clone();
+    Constante* c2 = this->getIm()->clone();
+
+    return new Complexe(c1,c2);
+}
+
+Complexe* Complexe::sign()
+{
+    Constante* c1 = this->getRe()->sign();
+    Constante* c2 = this->getIm()->sign();
+
+    return new Complexe(c1,c2);
+}
 /**
 *
 *\class Expression
@@ -699,6 +753,9 @@ Element& Expression::operator/(Element& c)
 Element& Expression::operator*(Element& c)
 {
 }
-
+Expression* Expression::clone()
+{
+    return new Expression(this->getX());
+}
 
 
