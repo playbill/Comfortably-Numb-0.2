@@ -1,5 +1,5 @@
 #include "calculateur.h"
-//TIT EST ICI
+
 Calculateur::Calculateur()
 {
     pile->donneInstance();
