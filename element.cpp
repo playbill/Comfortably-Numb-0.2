@@ -270,21 +270,26 @@ Element& Entier::operator+(Element& e)
         }
 
     }
-    if(typeid(e) == typeid(Entier))
+    else if(typeid(e) == typeid(Entier))
     {
         Entier ecast = dynamic_cast<Entier &>(e);
         return *(new Entier(ecast.getX()+this->getX()));
     }
-    if(typeid(e) == typeid(Rationnel))
+    else if(typeid(e) == typeid(Expression))
+    {
+        Expression ecast = dynamic_cast<Expression &>(e);
+        return *(new Expression(this->toQString() + ecast.getX()));
+    }
+    else if(typeid(e) == typeid(Rationnel))
     {
         Rationnel rcast = dynamic_cast<Rationnel &>(e);
         return *(new Rationnel(rcast.getX()+this->getX()));
     }
-    if(typeid(e) == typeid(Reel))
+    else if(typeid(e) == typeid(Reel))
     {
         Reel rcast = dynamic_cast<Reel &>(e);
         return *(new Reel(rcast.getX()+(float)this->getX()));
-    }
+    }    
 }
 
 Element& Entier::operator-(Element& c)
@@ -334,9 +339,11 @@ Rationnel& Complexe::toRationnel(){}
 Entier& Complexe::toEntier(){}
 Complexe& Complexe::toComplexe(){return *this;}
 void Complexe::afficher(std::ostream& f) const{}
-Complexe& Complexe::operator+(Constante& c){}
-Complexe& Complexe::operator-(Constante& c){}
-Complexe& Complexe::operator/(Constante& c){}
-Complexe& Complexe::operator*(Constante& c){}
+Element& Complexe::operator+(Element& c){}
+Element& Complexe::operator-(Element& c){}
+Element& Complexe::operator/(Element& c){}
+Element& Complexe::operator*(Element& c){}
 
+QString Expression::getX(){}
+Expression::Expression(QString s){}
 

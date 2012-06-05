@@ -9,6 +9,7 @@ class Entier;
 class Rationnel;
 class Constante;
 class Complexe;
+class Expression;
 
 class Element
 {
@@ -152,10 +153,30 @@ class Complexe : public Element
         Entier& toEntier();
         Complexe& toComplexe();
         void afficher(std::ostream& f=std::cout) const;
-        Complexe& operator+(Constante& c);
-        Complexe& operator-(Constante& c);
-        Complexe& operator/(Constante& c);
-        Complexe& operator*(Constante& c);
+        Element& operator+(Element& c);
+        Element& operator-(Element& c);
+        Element& operator/(Element& c);
+        Element& operator*(Element& c);
+};
+
+class Expression : public Element
+{
+    private :
+        QString x;
+
+    public :
+        Expression(QString);
+        QString toQString() const;
+        QString getX();
+        virtual Reel& toReel();
+        virtual Rationnel& toRationnel();
+        virtual Entier& toEntier();
+        virtual Complexe& toComplexe();
+        Element& operator+(Element& c);
+        Element& operator-(Element& c);
+        Element& operator/(Element& c);
+        Element& operator*(Element& c);
+
 };
 
 
