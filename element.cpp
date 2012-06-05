@@ -443,7 +443,7 @@ Element& Entier::operator+(Element& e)
         else if(typeid(ecast.getRe()) == typeid(Rationnel*))
         {
             Rationnel* rcast = dynamic_cast<Rationnel *>(ecast.getRe());
-            Rationnel* tmp = new Rationnel(rcast->getX() + this->getX());
+            Rationnel* tmp = new Rationnel(rcast->getX() + (this->getX()*rcast->getY()), rcast->getY());
             return *(new Complexe(tmp, ecast.getIm()));
         }
 
@@ -461,7 +461,7 @@ Element& Entier::operator+(Element& e)
     else if(typeid(e) == typeid(Rationnel))
     {
         Rationnel rcast = dynamic_cast<Rationnel &>(e);
-        return *(new Rationnel(rcast.getX()+this->getX()));
+        return *(new Rationnel(rcast.getX()+(this->getX()*rcast.getY()), rcast.getY()));
     }
     else if(typeid(e) == typeid(Reel))
     {
@@ -494,7 +494,7 @@ Element& Entier::operator-(Element& e)
         else if(typeid(ecast.getRe()) == typeid(Rationnel*))
         {
             Rationnel* rcast = dynamic_cast<Rationnel *>(ecast.getRe());
-            Rationnel* tmp = new Rationnel(this->getX() - rcast->getX());
+            Rationnel* tmp = new Rationnel(this->getX()*rcast->getY() - rcast->getX(), rcast->getY());
             return *(new Complexe(tmp, ecast.getIm()));
         }
 
@@ -512,7 +512,7 @@ Element& Entier::operator-(Element& e)
     else if(typeid(e) == typeid(Rationnel))
     {
         Rationnel rcast = dynamic_cast<Rationnel &>(e);
-        return *(new Rationnel(this->getX() - rcast.getX()));
+        return *(new Rationnel(this->getX()*rcast.getY() - rcast.getX(), rcast.getY()));
     }
     else if(typeid(e) == typeid(Reel))
     {
@@ -545,7 +545,7 @@ Element& Entier::operator/(Element& e)
         else if(typeid(ecast.getRe()) == typeid(Rationnel*))
         {
             Rationnel* rcast = dynamic_cast<Rationnel *>(ecast.getRe());
-            Rationnel* tmp = new Rationnel(this->getX() / rcast->getX());
+            Rationnel* tmp = new Rationnel(this->getX()*rcast->getY() , rcast->getX());
             return *(new Complexe(tmp, ecast.getIm()));
         }
 
@@ -563,7 +563,7 @@ Element& Entier::operator/(Element& e)
     else if(typeid(e) == typeid(Rationnel))
     {
         Rationnel rcast = dynamic_cast<Rationnel &>(e);
-        return *(new Rationnel(this->getX() / rcast.getX()));
+        return *(new Rationnel(this->getX()*rcast.getY(), rcast.getX()));
     }
     else if(typeid(e) == typeid(Reel))
     {
@@ -593,7 +593,7 @@ Element& Entier::operator*(Element& e)
         else if(typeid(ecast.getRe()) == typeid(Rationnel*))
         {
             Rationnel* rcast = dynamic_cast<Rationnel *>(ecast.getRe());
-            Rationnel* tmp = new Rationnel(rcast->getX() * this->getX());
+            Rationnel* tmp = new Rationnel(rcast->getX() * this->getX(), rcast->getY());
             return *(new Complexe(tmp, ecast.getIm()));
         }
 
@@ -611,7 +611,7 @@ Element& Entier::operator*(Element& e)
     else if(typeid(e) == typeid(Rationnel))
     {
         Rationnel rcast = dynamic_cast<Rationnel &>(e);
-        return *(new Rationnel(rcast.getX()*this->getX()));
+        return *(new Rationnel(rcast.getX()*this->getX(), rcast.getY()));
     }
     else if(typeid(e) == typeid(Reel))
     {
