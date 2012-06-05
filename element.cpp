@@ -278,7 +278,7 @@ Element& Entier::operator+(Element& e)
     else if(typeid(e) == typeid(Expression))
     {
         Expression ecast = dynamic_cast<Expression &>(e);
-        return *(new Expression(this->toQString() + ecast.getX()));
+        return *(new Expression(' + ' + this->toQString() + ' ' + ecast.getX()));
     }
     else if(typeid(e) == typeid(Rationnel))
     {
@@ -292,29 +292,151 @@ Element& Entier::operator+(Element& e)
     }    
 }
 
-Element& Entier::operator-(Element& c)
+Element& Entier::operator-(Element& e)
 {
-    if(typeid(c) == typeid(Complexe)){}
-    if(typeid(c) == typeid(Entier)){}
-    if(typeid(c) == typeid(Rationnel)){}
-    if(typeid(c) == typeid(Reel)){}
-}
+     if(typeid(e) == typeid(Complexe))
+    {
+        Complexe ecast = dynamic_cast<Complexe &>(e);
 
-Element& Entier::operator/(Element& c)
-{
-    if(typeid(c) == typeid(Complexe)){
+        if(typeid(ecast.getRe()) == typeid(Entier))
+        {
+            Entier* ccast = dynamic_cast<Entier *>(ecast.getRe());
+            Entier* tmp = new Entier(ccast->getX() - this->getX());
+            return *(new Complexe(tmp));
+        }
+        else if(typeid(ecast.getRe()) == typeid(Reel))
+        {
+            Reel* rcast = dynamic_cast<Reel *>(ecast.getRe());
+            Reel* tmp = new Reel(rcast->getX() - (float) this->getX());
+            return *(new Complexe(tmp));
+        }
+        else if(typeid(ecast.getRe()) == typeid(Rationnel))
+        {
+            Rationnel* rcast = dynamic_cast<Rationnel *>(ecast.getRe());
+            Rationnel* tmp = new Rationnel(rcast->getX() - this->getX());
+            return *(new Complexe(tmp));
+        }
+
     }
-    if(typeid(c) == typeid(Entier)){}
-    if(typeid(c) == typeid(Rationnel)){}
-    if(typeid(c) == typeid(Reel)){}
+    else if(typeid(e) == typeid(Entier))
+    {
+        Entier ecast = dynamic_cast<Entier &>(e);
+        return *(new Entier(ecast.getX()-this->getX()));
+    }
+    else if(typeid(e) == typeid(Expression))
+    {
+        Expression ecast = dynamic_cast<Expression &>(e);
+        return *(new Expression(' - ' + this->toQString() + ' ' + ecast.getX()));
+    }
+    else if(typeid(e) == typeid(Rationnel))
+    {
+        Rationnel rcast = dynamic_cast<Rationnel &>(e);
+        return *(new Rationnel(rcast.getX()-this->getX()));
+    }
+    else if(typeid(e) == typeid(Reel))
+    {
+        Reel rcast = dynamic_cast<Reel &>(e);
+        return *(new Reel(rcast.getX()-(float)this->getX()));
+    }
+}
+/**
+*\fn Element& operator/(Element& c)
+*
+*/
+
+Element& Entier::operator/(Element& e)
+{
+    if(typeid(e) == typeid(Complexe))
+    {
+        Complexe ecast = dynamic_cast<Complexe &>(e);
+        if(typeid(ecast.getRe()) == typeid(Entier))
+        {
+            Entier* ccast = dynamic_cast<Entier *>(ecast.getRe());
+            Entier* tmp = new Entier(ccast->getX()/ this->getX());
+            return *(new Complexe(tmp));
+        }
+        else if(typeid(ecast.getRe()) == typeid(Reel))
+        {
+            Reel* rcast = dynamic_cast<Reel *>(ecast.getRe());
+            Reel* tmp = new Reel(rcast->getX() / (float) this->getX());
+            return *(new Complexe(tmp));
+        }
+        else if(typeid(ecast.getRe()) == typeid(Rationnel))
+        {
+            Rationnel* rcast = dynamic_cast<Rationnel *>(ecast.getRe());
+            Rationnel* tmp = new Rationnel(rcast->getX() / this->getX());
+            return *(new Complexe(tmp));
+        }
+
+    }
+    else if(typeid(e) == typeid(Entier))
+    {
+        Entier ecast = dynamic_cast<Entier &>(e);
+        return *(new Entier(ecast.getX()/this->getX()));
+    }
+    else if(typeid(e) == typeid(Expression))
+    {
+        Expression ecast = dynamic_cast<Expression &>(e);
+        return *(new Expression('/' + this->toQString() + ' ' + ecast.getX())); /*! < \todo réfléchir à ça */
+    }
+    else if(typeid(e) == typeid(Rationnel))
+    {
+        Rationnel rcast = dynamic_cast<Rationnel &>(e);
+        return *(new Rationnel(rcast.getX()+this->getX()));
+    }
+    else if(typeid(e) == typeid(Reel))
+    {
+        Reel rcast = dynamic_cast<Reel &>(e);
+        return *(new Reel(rcast.getX()+(float)this->getX()));
+    }
 }
 
-Element& Entier::operator*(Element& c)
+Element& Entier::operator*(Element& e)
 {
-if(typeid(c) == typeid(Complexe)){}
-if(typeid(c) == typeid(Entier)){}
-if(typeid(c) == typeid(Rationnel)){}
-if(typeid(c) == typeid(Reel)){}
+
+    if(typeid(e) == typeid(Complexe))
+    {
+        Complexe ecast = dynamic_cast<Complexe &>(e);
+        if(typeid(ecast.getRe()) == typeid(Entier))
+        {
+            Entier* ccast = dynamic_cast<Entier *>(ecast.getRe());
+            Entier* tmp = new Entier(ccast->getX()* this->getX());
+            return *(new Complexe(tmp));
+        }
+        else if(typeid(ecast.getRe()) == typeid(Reel))
+        {
+            Reel* rcast = dynamic_cast<Reel *>(ecast.getRe());
+            Reel* tmp = new Reel(rcast->getX() * (float) this->getX());
+            return *(new Complexe(tmp));
+        }
+        else if(typeid(ecast.getRe()) == typeid(Rationnel))
+        {
+            Rationnel* rcast = dynamic_cast<Rationnel *>(ecast.getRe());
+            Rationnel* tmp = new Rationnel(rcast->getX() * this->getX());
+            return *(new Complexe(tmp));
+        }
+
+    }
+    else if(typeid(e) == typeid(Entier))
+    {
+        Entier ecast = dynamic_cast<Entier &>(e);
+        return *(new Entier(ecast.getX()*this->getX()));
+    }
+    else if(typeid(e) == typeid(Expression))
+    {
+        Expression ecast = dynamic_cast<Expression &>(e);
+        return *(new Expression(' * ' + this->toQString() + ' ' + ecast.getX()));
+    }
+    else if(typeid(e) == typeid(Rationnel))
+    {
+        Rationnel rcast = dynamic_cast<Rationnel &>(e);
+        return *(new Rationnel(rcast.getX()*this->getX()));
+    }
+    else if(typeid(e) == typeid(Reel))
+    {
+        Reel rcast = dynamic_cast<Reel &>(e);
+        return *(new Reel(rcast.getX()*(float)this->getX()));
+    }
 }
 
 /**
@@ -344,6 +466,57 @@ Element& Complexe::operator-(Element& c){}
 Element& Complexe::operator/(Element& c){}
 Element& Complexe::operator*(Element& c){}
 
-QString Expression::getX(){}
-Expression::Expression(QString s){}
+/**
+*
+*\class Expression
+*
+*/
+
+Expression::Expression(QString s): Element(), x(s)
+{
+
+}
+
+QString Expression::toQString() const
+{
+}
+
+QString Expression::getX()
+{
+    return x;
+}
+
+Reel& Expression::toReel()
+{
+}
+
+Rationnel& Expression::toRationnel()
+{
+}
+
+Entier& Expression::toEntier()
+{
+}
+
+Complexe& Expression::toComplexe()
+{
+}
+
+Element& Expression::operator+(Element& c)
+{
+}
+
+Element& Expression::operator-(Element& c)
+{
+}
+
+Element& Expression::operator/(Element& c)
+{
+}
+
+Element& Expression::operator*(Element& c)
+{
+}
+
+
 

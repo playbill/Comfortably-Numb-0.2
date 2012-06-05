@@ -166,6 +166,7 @@ class Expression : public Element
 
     public :
         Expression(QString);
+        ~Expression(){}
         QString toQString() const;
         QString getX();
         virtual Reel& toReel();
