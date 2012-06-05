@@ -132,7 +132,7 @@ Element& Reel::operator+(Element& e)
     else if(typeid(e) == typeid(Rationnel))
     {
         Rationnel rcast = dynamic_cast<Rationnel &>(e);
-        return *(new Reel((rcast.getX()/rcast.getY())+this->getX()));
+        return *(new Reel(((float)rcast.getX()/(float)rcast.getY())+this->getX()));
     }
     else if(typeid(e) == typeid(Reel))
     {
@@ -181,7 +181,7 @@ Element& Reel::operator-(Element& e)
     else if(typeid(e) == typeid(Rationnel))
     {
         Rationnel rcast = dynamic_cast<Rationnel &>(e);
-        return *(new Reel(this->getX()-(rcast.getX()/rcast.getY())));
+        return *(new Reel(this->getX()-((float)rcast.getX()/(float)rcast.getY())));
     }
     else if(typeid(e) == typeid(Reel))
     {
@@ -204,13 +204,13 @@ Element& Reel::operator/(Element& e)
             Reel* tmp = new Reel(this->getX() / (float)ccast->getX());
             return *(new Complexe(tmp, ecast.getIm()));
         }
-        else if(typeid(ecast.getRe()) == typeid(Reel))
+        else if(typeid(ecast.getRe()) == typeid(Reel*))
         {
             Reel* rcast = dynamic_cast<Reel *>(ecast.getRe());
             Reel* tmp = new Reel(this->getX() / rcast->getX());
             return *(new Complexe(tmp, ecast.getIm()));
         }
-        else if(typeid(ecast.getRe()) == typeid(Rationnel))
+        else if(typeid(ecast.getRe()) == typeid(Rationnel*))
         {
             Rationnel* rcast = dynamic_cast<Rationnel *>(ecast.getRe());
             Reel* tmp = new Reel(this->getX()/((float)rcast->getX()/(float)rcast->getY()));
@@ -231,7 +231,7 @@ Element& Reel::operator/(Element& e)
     else if(typeid(e) == typeid(Rationnel))
     {
         Rationnel rcast = dynamic_cast<Rationnel &>(e);
-        return *(new Reel(this->getX()/(rcast.getX()/rcast.getY())));
+        return *(new Reel(this->getX()/((float)rcast.getX()/(float)rcast.getY())));
     }
     else if(typeid(e) == typeid(Reel))
     {
@@ -281,7 +281,7 @@ Element& Reel::operator*(Element& e)
     else if(typeid(e) == typeid(Rationnel))
     {
         Rationnel rcast = dynamic_cast<Rationnel &>(e);
-        return *(new Reel(this->getX()*(rcast.getX()/rcast.getY())));
+        return *(new Reel(this->getX()*((float)rcast.getX()/(float)rcast.getY())));
     }
     else if(typeid(e) == typeid(Reel))
     {

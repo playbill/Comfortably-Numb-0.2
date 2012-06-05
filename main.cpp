@@ -8,7 +8,16 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     MainWindow w;
     w.show();
-    Rationnel e(2);
+    Reel r(3);
+    Rationnel e(2,4);
+    Reel res = dynamic_cast<Reel &>(r + e);
+    Reel res2 = dynamic_cast<Reel &>(r * e);
+    Reel res3 = dynamic_cast<Reel &>(r / e);
+    Reel res4 = dynamic_cast<Reel &>(r - e);
+    qDebug()<<res.getX();
+    qDebug()<<res2.getX();
+    qDebug()<<res3.getX();
+    qDebug()<<res4.getX();
 
     return a.exec();
 }
