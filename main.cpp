@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
     Reel r(3.2);
     Rationnel e(2,4);
     Entier res = dynamic_cast<Entier &>(s + t);
-    Reel res2 = dynamic_cast<Reel &>(r * e);
+    Reel res2 = dynamic_cast<Reel &>(s * r);
     Reel res3 = dynamic_cast<Reel &>(r / e);
     Reel res4 = dynamic_cast<Reel &>(r - e);
     qDebug()<<res.getXAsInt()<<"/"/*res.getY()*/;

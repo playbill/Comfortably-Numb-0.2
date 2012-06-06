@@ -107,46 +107,46 @@ Element& Reel::operator+(Element& e)
 
     if(typeid(e) == typeid(Complexe))
     {
-        Complexe ecast = dynamic_cast<Complexe &>(e);
+        Complexe& ecast = dynamic_cast<Complexe &>(e);
 
         if(typeid(ecast.getRe()) == typeid(Entier*))
         {
             Entier* ccast = dynamic_cast<Entier *>(ecast.getRe());
             Reel* tmp = new Reel(ccast->getX()+ this->getXAsFloat());
-            return *(new Complexe(tmp, ecast.getIm()));
+            return *(new Complexe(tmp, ecast.getIm()->clone()));
         }
         else if(typeid(ecast.getRe()) == typeid(Reel))
         {
             Reel* rcast = dynamic_cast<Reel *>(ecast.getRe());
             Reel* tmp = new Reel(rcast->getX() + this->getX());
-            return *(new Complexe(tmp, ecast.getIm()));
+            return *(new Complexe(tmp, ecast.getIm()->clone()));
         }
         else if(typeid(ecast.getRe()) == typeid(Rationnel))
         {
             Rationnel* rcast = dynamic_cast<Rationnel *>(ecast.getRe());
             Reel* tmp = new Reel(((float)rcast->getX()/(float)rcast->getY()) + this->getX());
-            return *(new Complexe(tmp, ecast.getIm()));
+            return *(new Complexe(tmp, ecast.getIm()->clone()));
         }
 
     }
     else if(typeid(e) == typeid(Entier))
     {
-        Entier ecast = dynamic_cast<Entier &>(e);
+        Entier& ecast = dynamic_cast<Entier &>(e);
         return *(new Reel((float)ecast.getX()+this->getX()));
     }
     else if(typeid(e) == typeid(Expression))
     {
-        Expression ecast = dynamic_cast<Expression &>(e);
+        Expression& ecast = dynamic_cast<Expression &>(e);
         return *(new Expression(' + ' + this->toQString() + ' ' + ecast.getX()));
     }
     else if(typeid(e) == typeid(Rationnel))
     {
-        Rationnel rcast = dynamic_cast<Rationnel &>(e);
+        Rationnel& rcast = dynamic_cast<Rationnel &>(e);
         return *(new Reel(((float)rcast.getX()/(float)rcast.getY())+this->getX()));
     }
     else if(typeid(e) == typeid(Reel))
     {
-        Reel rcast = dynamic_cast<Reel &>(e);
+        Reel& rcast = dynamic_cast<Reel &>(e);
         return *(new Reel(rcast.getX()+this->getX()));
     }
 }
@@ -156,46 +156,46 @@ Element& Reel::operator-(Element& e)
 
     if(typeid(e) == typeid(Complexe))
     {
-        Complexe ecast = dynamic_cast<Complexe &>(e);
+        Complexe& ecast = dynamic_cast<Complexe &>(e);
 
         if(typeid(ecast.getRe()) == typeid(Entier*))
         {
             Entier* ccast = dynamic_cast<Entier *>(ecast.getRe());
             Reel* tmp = new Reel(this->getX() - (float)ccast->getX());
-            return *(new Complexe(tmp, ecast.getIm()));
+            return *(new Complexe(tmp, ecast.getIm()->clone()));
         }
         else if(typeid(ecast.getRe()) == typeid(Reel))
         {
             Reel* rcast = dynamic_cast<Reel *>(ecast.getRe());
             Reel* tmp = new Reel(this->getX() - rcast->getX());
-            return *(new Complexe(tmp, ecast.getIm()));
+            return *(new Complexe(tmp, ecast.getIm()->clone()));
         }
         else if(typeid(ecast.getRe()) == typeid(Rationnel))
         {
             Rationnel* rcast = dynamic_cast<Rationnel *>(ecast.getRe());
             Reel* tmp = new Reel(this->getX()-((float)rcast->getX()/(float)rcast->getY()));
-            return *(new Complexe(tmp, ecast.getIm()));
+            return *(new Complexe(tmp, ecast.getIm()->clone()));
         }
 
     }
     else if(typeid(e) == typeid(Entier))
     {
-        Entier ecast = dynamic_cast<Entier &>(e);
+        Entier& ecast = dynamic_cast<Entier &>(e);
         return *(new Reel(this->getX() - (float)ecast.getX()));
     }
     else if(typeid(e) == typeid(Expression))
     {
-        Expression ecast = dynamic_cast<Expression &>(e);
+        Expression& ecast = dynamic_cast<Expression &>(e);
         return *(new Expression(' - ' + this->toQString() + ' ' + ecast.getX()));
     }
     else if(typeid(e) == typeid(Rationnel))
     {
-        Rationnel rcast = dynamic_cast<Rationnel &>(e);
+        Rationnel& rcast = dynamic_cast<Rationnel &>(e);
         return *(new Reel(this->getX()-((float)rcast.getX()/(float)rcast.getY())));
     }
     else if(typeid(e) == typeid(Reel))
     {
-        Reel rcast = dynamic_cast<Reel &>(e);
+        Reel& rcast = dynamic_cast<Reel &>(e);
         return *(new Reel(this->getX()-rcast.getX()));
     }
 }
@@ -206,46 +206,46 @@ Element& Reel::operator/(Element& e)
 
     if(typeid(e) == typeid(Complexe))
     {
-        Complexe ecast = dynamic_cast<Complexe &>(e);
+        Complexe& ecast = dynamic_cast<Complexe &>(e);
 
         if(typeid(ecast.getRe()) == typeid(Entier*))
         {
             Entier* ccast = dynamic_cast<Entier *>(ecast.getRe());
             Reel* tmp = new Reel(this->getX() / (float)ccast->getX());
-            return *(new Complexe(tmp, ecast.getIm()));
+            return *(new Complexe(tmp, ecast.getIm()->clone()));
         }
         else if(typeid(ecast.getRe()) == typeid(Reel*))
         {
             Reel* rcast = dynamic_cast<Reel *>(ecast.getRe());
             Reel* tmp = new Reel(this->getX() / rcast->getX());
-            return *(new Complexe(tmp, ecast.getIm()));
+            return *(new Complexe(tmp, ecast.getIm()->clone()));
         }
         else if(typeid(ecast.getRe()) == typeid(Rationnel*))
         {
             Rationnel* rcast = dynamic_cast<Rationnel *>(ecast.getRe());
             Reel* tmp = new Reel(this->getX()/((float)rcast->getX()/(float)rcast->getY()));
-            return *(new Complexe(tmp, ecast.getIm()));
+            return *(new Complexe(tmp, ecast.getIm()->clone()));
         }
 
     }
     else if(typeid(e) == typeid(Entier))
     {
-        Entier ecast = dynamic_cast<Entier &>(e);
+        Entier& ecast = dynamic_cast<Entier &>(e);
         return *(new Reel(this->getX() / (float)ecast.getX()));
     }
     else if(typeid(e) == typeid(Expression))
     {
-        Expression ecast = dynamic_cast<Expression &>(e);
+        Expression& ecast = dynamic_cast<Expression &>(e);
         return *(new Expression(' / ' + this->toQString() + ' ' + ecast.getX()));
     }
     else if(typeid(e) == typeid(Rationnel))
     {
-        Rationnel rcast = dynamic_cast<Rationnel &>(e);
+        Rationnel& rcast = dynamic_cast<Rationnel &>(e);
         return *(new Reel(this->getX()/((float)rcast.getX()/(float)rcast.getY())));
     }
     else if(typeid(e) == typeid(Reel))
     {
-        Reel rcast = dynamic_cast<Reel &>(e);
+        Reel& rcast = dynamic_cast<Reel &>(e);
         return *(new Reel(this->getX() / rcast.getX()));
     }
 }
@@ -256,7 +256,7 @@ Element& Reel::operator*(Element& e)
 
     if(typeid(e) == typeid(Complexe))
     {
-        Complexe ecast = dynamic_cast<Complexe &>(e);
+        Complexe& ecast = dynamic_cast<Complexe &>(e);
 
         if(typeid(ecast.getRe()) == typeid(Entier*))
         {
@@ -279,22 +279,22 @@ Element& Reel::operator*(Element& e)
     }
     else if(typeid(e) == typeid(Entier))
     {
-        Entier ecast = dynamic_cast<Entier &>(e);
+        Entier& ecast = dynamic_cast<Entier &>(e);
         return *(new Reel(this->getX() * (float)ecast.getX()));
     }
     else if(typeid(e) == typeid(Expression))
     {
-        Expression ecast = dynamic_cast<Expression &>(e);
+        Expression& ecast = dynamic_cast<Expression &>(e);
         return *(new Expression(' * ' + this->toQString() + ' ' + ecast.getX()));
     }
     else if(typeid(e) == typeid(Rationnel))
     {
-        Rationnel rcast = dynamic_cast<Rationnel &>(e);
+        Rationnel& rcast = dynamic_cast<Rationnel &>(e);
         return *(new Reel(this->getX()*(rcast.getXAsFloat()/rcast.getYAsFloat())));
     }
     else if(typeid(e) == typeid(Reel))
     {
-        Reel rcast = dynamic_cast<Reel &>(e);
+        Reel& rcast = dynamic_cast<Reel &>(e);
         return *(new Reel(this->getX()*rcast.getX()));
     }
 }
@@ -486,45 +486,42 @@ Element& Entier::operator+(Element& e)
 {    
     if(typeid(e) == typeid(Complexe))
     {
-        Complexe ecast = dynamic_cast<Complexe &>(e);
+        Complexe& ecast = dynamic_cast<Complexe &>(e);
         if(typeid(ecast.getRe()) == typeid(Entier*))
         {
-            Entier* ccast = dynamic_cast<Entier *>(ecast.getRe());
-            Entier* tmp = new Entier(ccast->getX()+ this->getX());
+            Entier* tmp = new Entier(ecast.getRe()->getXAsInt()+ this->getX());
             return *(new Complexe(tmp, ecast.getIm()->clone()));
         }
         else if(typeid(ecast.getRe()) == typeid(Reel*))
         {
-            Reel* rcast = dynamic_cast<Reel *>(ecast.getRe());
-            Reel* tmp = new Reel(rcast->getX() + this->getX());
+            Reel* tmp = new Reel(ecast.getRe()->getXAsFloat() + this->getX());
             return *(new Complexe(tmp, ecast.getIm()->clone())); //toclone
         }
         else if(typeid(ecast.getRe()) == typeid(Rationnel*))
         {
-            Rationnel* rcast = dynamic_cast<Rationnel *>(ecast.getRe());
-            Rationnel* tmp = new Rationnel(rcast->getX() + (this->getX()*rcast->getY()), rcast->getY());
+            Rationnel* tmp = new Rationnel(ecast.getRe()->getXAsInt() + (this->getX()*ecast.getRe()->getYAsInt()), ecast.getRe()->getYAsInt());
             return *(new Complexe(tmp, ecast.getIm()->clone()));
         }
 
     }
     else if(typeid(e) == typeid(Entier))
     {
-        Entier ecast = dynamic_cast<Entier &>(e);
+        Entier& ecast = dynamic_cast<Entier &>(e);
         return *(new Entier((ecast.getX()+this->getX())));
     }
     else if(typeid(e) == typeid(Expression))
     {
-        Expression ecast = dynamic_cast<Expression &>(e);
+        Expression& ecast = dynamic_cast<Expression &>(e);
         return *(new Expression(' + ' + this->toQString() + ' ' + ecast.getX()));
     }
     else if(typeid(e) == typeid(Rationnel))
     {
-        Rationnel rcast = dynamic_cast<Rationnel &>(e);
+        Rationnel& rcast = dynamic_cast<Rationnel &>(e);
         return *(new Rationnel(rcast.getX()+(this->getX()*rcast.getY()), rcast.getY()));
     }
     else if(typeid(e) == typeid(Reel))
     {
-        Reel rcast = dynamic_cast<Reel &>(e);
+        Reel& rcast = dynamic_cast<Reel &>(e);
         return *(new Reel(rcast.getX()+(float)this->getX()));
     }    
 }
@@ -536,46 +533,46 @@ Element& Entier::operator-(Element& e)
 {
      if(typeid(e) == typeid(Complexe))
     {
-        Complexe ecast = dynamic_cast<Complexe &>(e);
+        Complexe& ecast = dynamic_cast<Complexe &>(e);
 
         if(typeid(ecast.getRe()) == typeid(Entier*))
         {
             Entier* ccast = dynamic_cast<Entier *>(ecast.getRe());
             Entier* tmp = new Entier(this->getX() - ccast->getX());
-            return *(new Complexe(tmp, ecast.getIm()));
+            return *(new Complexe(tmp, ecast.getIm()->clone()));
         }
         else if(typeid(ecast.getRe()) == typeid(Reel*))
         {
             Reel* rcast = dynamic_cast<Reel *>(ecast.getRe());
             Reel* tmp = new Reel((float) this->getX() - rcast->getX());
-            return *(new Complexe(tmp, ecast.getIm()));
+            return *(new Complexe(tmp, ecast.getIm()->clone()));
         }
         else if(typeid(ecast.getRe()) == typeid(Rationnel*))
         {
             Rationnel* rcast = dynamic_cast<Rationnel *>(ecast.getRe());
             Rationnel* tmp = new Rationnel(this->getX()*rcast->getY() - rcast->getX(), rcast->getY());
-            return *(new Complexe(tmp, ecast.getIm()));
+            return *(new Complexe(tmp, ecast.getIm()->clone()));
         }
 
     }
     else if(typeid(e) == typeid(Entier))
     {
-        Entier ecast = dynamic_cast<Entier &>(e);
+        Entier& ecast = dynamic_cast<Entier &>(e);
         return *(new Entier(this->getX() - ecast.getX()));
     }
     else if(typeid(e) == typeid(Expression))
     {
-        Expression ecast = dynamic_cast<Expression &>(e);
+        Expression& ecast = dynamic_cast<Expression &>(e);
         return *(new Expression(' - ' + this->toQString() + ' ' + ecast.getX()));
     }
     else if(typeid(e) == typeid(Rationnel))
     {
-        Rationnel rcast = dynamic_cast<Rationnel &>(e);
+        Rationnel& rcast = dynamic_cast<Rationnel &>(e);
         return *(new Rationnel(this->getX()*rcast.getY() - rcast.getX(), rcast.getY()));
     }
     else if(typeid(e) == typeid(Reel))
     {
-        Reel rcast = dynamic_cast<Reel &>(e);
+        Reel& rcast = dynamic_cast<Reel &>(e);
         return *(new Reel((float)this->getX() - rcast.getX()));
     }
 }
@@ -590,45 +587,45 @@ Element& Entier::operator/(Element& e)
 {
     if(typeid(e) == typeid(Complexe))
     {
-        Complexe ecast = e.toComplexe();
+        Complexe& ecast = dynamic_cast<Complexe &>(e);
         if(typeid(ecast.getRe()) == typeid(Entier*))
         {
             Entier* ccast = dynamic_cast<Entier *>(ecast.getRe());
             Entier* tmp = new Entier(this->getX() / ccast->getX());
-            return *(new Complexe(tmp, ecast.getIm()));
+            return *(new Complexe(tmp, ecast.getIm()->clone()));
         }
         else if(typeid(ecast.getRe()) == typeid(Reel*))
         {
             Reel* rcast = dynamic_cast<Reel *>(ecast.getRe());
             Reel* tmp = new Reel((float) this->getX()/rcast->getX());
-            return *(new Complexe(tmp, ecast.getIm()));
+            return *(new Complexe(tmp, ecast.getIm()->clone()));
         }
         else if(typeid(ecast.getRe()) == typeid(Rationnel*))
         {
             Rationnel* rcast = dynamic_cast<Rationnel *>(ecast.getRe());
             Rationnel* tmp = new Rationnel(this->getX()*rcast->getY() , rcast->getX());
-            return *(new Complexe(tmp, ecast.getIm()));
+            return *(new Complexe(tmp, ecast.getIm()->clone()));
         }
 
     }
     else if(typeid(e) == typeid(Entier))
     {
-        Entier ecast = dynamic_cast<Entier &>(e);
+        Entier& ecast = dynamic_cast<Entier &>(e);
         return *(new Entier(this->getX()/ecast.getX()));
     }
     else if(typeid(e) == typeid(Expression))
     {
-        Expression ecast = dynamic_cast<Expression &>(e);
+        Expression& ecast = dynamic_cast<Expression &>(e);
         return *(new Expression('/' + this->toQString() + ' ' + ecast.getX())); /*! < \todo réfléchir à ça */
     }
     else if(typeid(e) == typeid(Rationnel))
     {
-        Rationnel rcast = dynamic_cast<Rationnel &>(e);
+        Rationnel& rcast = dynamic_cast<Rationnel &>(e);
         return *(new Rationnel(this->getX()*rcast.getY(), rcast.getX()));
     }
     else if(typeid(e) == typeid(Reel))
     {
-        Reel rcast = dynamic_cast<Reel &>(e);
+        Reel& rcast = dynamic_cast<Reel &>(e);
         return *(new Reel((float)this->getX() / rcast.getX()));
     }
 }
@@ -638,7 +635,7 @@ Element& Entier::operator*(Element& e)
 
     if(typeid(e) == typeid(Complexe))
     {
-        Complexe ecast = dynamic_cast<Complexe &>(e);
+        Complexe& ecast = dynamic_cast<Complexe &>(e); // ecast est une référence
         if(typeid(ecast.getRe()) == typeid(Entier*))
         {
             Entier* ccast = dynamic_cast<Entier *>(ecast.getRe());
@@ -661,22 +658,22 @@ Element& Entier::operator*(Element& e)
     }
     else if(typeid(e) == typeid(Entier))
     {
-        Entier ecast = dynamic_cast<Entier &>(e);
+        Entier& ecast = dynamic_cast<Entier &>(e);
         return *(new Entier(ecast.getX()*this->getX()));
     }
     else if(typeid(e) == typeid(Expression))
     {
-        Expression ecast = dynamic_cast<Expression &>(e);
+        Expression& ecast = dynamic_cast<Expression &>(e);
         return *(new Expression(' * ' + this->toQString() + ' ' + ecast.getX()));
     }
     else if(typeid(e) == typeid(Rationnel))
     {
-        Rationnel rcast = dynamic_cast<Rationnel &>(e);
+        Rationnel& rcast = dynamic_cast<Rationnel &>(e);
         return *(new Rationnel(rcast.getX()*this->getX(), rcast.getY()));
     }
     else if(typeid(e) == typeid(Reel))
     {
-        Reel rcast = dynamic_cast<Reel &>(e);
+        Reel& rcast = dynamic_cast<Reel &>(e);
         return *(new Reel(rcast.getX()*(float)this->getX()));
     }
 }
