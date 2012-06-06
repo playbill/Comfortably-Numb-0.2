@@ -10,17 +10,18 @@ int main(int argc, char *argv[])
     w.show();
     /** Jeux de test **/
     Entier s(3);
+    Entier t(3.2);
     Reel r(3.2);
     Rationnel e(2,4);
-    Reel res = dynamic_cast<Reel &>(r + e);
+    Entier res = dynamic_cast<Entier &>(s + t);
     Reel res2 = dynamic_cast<Reel &>(r * e);
     Reel res3 = dynamic_cast<Reel &>(r / e);
     Reel res4 = dynamic_cast<Reel &>(r - e);
-    qDebug()<<res.getX()<<"/"/*res.getY()*/;
-    qDebug()<<res2.getX()<<"/"/*<<res2.getY()*/;
-    qDebug()<<res3.getX()<<"/"/*<<res3.getY()*/;
-    qDebug()<<res4.getX()<<"/"/*<<res4.getY()*/;
-     qDebug()<<e.getX()<<"/"<<e.getY();
+    qDebug()<<res.getXAsInt()<<"/"/*res.getY()*/;
+    qDebug()<<res2.getXAsFloat()<<"/"/*<<res2.getY()*/;
+    qDebug()<<res3.getXAsFloat()<<"/"/*<<res3.getY()*/;
+    qDebug()<<res4.getXAsFloat()<<"/"/*<<res4.getY()*/;
+     qDebug()<<e.getXAsInt()<<"/"<<e.getYAsInt();
 
 
     return a.exec();

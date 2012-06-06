@@ -43,7 +43,7 @@ Reel::Reel(float r): Constante(), x(r)
 {
 }
 
-Reel::Reel(const Reel &r): x (r.getX())
+Reel::Reel(const Reel &r): x (r.getXAsFloat())
 {
 }
 
@@ -51,9 +51,14 @@ Reel::~Reel()
 {
 }
 
-float Reel::getX() const
+float Reel::getXAsFloat() const
 {
     return x;
+}
+
+int Reel::getXAsInt() const
+{
+    return (int) x;
 }
 
 void Reel::setX(float value)
@@ -74,13 +79,13 @@ Reel& Reel::toReel()
 
 Rationnel& Reel::toRationnel()
 {
-    Rationnel* tmp = new Rationnel(x);
+    Rationnel* tmp = new Rationnel((int)x);
     return *tmp;
 }
 
 Entier& Reel::toEntier()
 {
-    Entier* tmp = new Entier(x);
+    Entier* tmp = new Entier((int)x);
     return *tmp;
 }
 
@@ -102,7 +107,7 @@ Element& Reel::operator+(Element& e)
         if(typeid(ecast.getRe()) == typeid(Entier*))
         {
             Entier* ccast = dynamic_cast<Entier *>(ecast.getRe());
-            Reel* tmp = new Reel((float)ccast->getX()+ this->getX());
+            Reel* tmp = new Reel(ccast->getX()+ this->getXAsFloat());
             return *(new Complexe(tmp, ecast.getIm()));
         }
         else if(typeid(ecast.getRe()) == typeid(Reel))
@@ -252,19 +257,18 @@ Element& Reel::operator*(Element& e)
         {
             Entier* ccast = dynamic_cast<Entier *>(ecast.getRe());
             Reel* tmp = new Reel(this->getX() * (float)ccast->getX());
-            return *(new Complexe(tmp, ecast.getIm()));
+            return *(new Complexe(tmp, ecast.getIm()->clone()));
         }
         else if(typeid(ecast.getRe()) == typeid(Reel))
         {
-            Reel* rcast = dynamic_cast<Reel *>(ecast.getRe());
-            Reel* tmp = new Reel(this->getX() * rcast->getX());
-            return *(new Complexe(tmp, ecast.getIm()));
+            Reel* tmp = new Reel(this->getX() * ecast.getRe()->getXAsFloat());
+            return *(new Complexe(tmp, ecast.getIm()->clone()));
         }
         else if(typeid(ecast.getRe()) == typeid(Rationnel))
         {
-            Rationnel* rcast = dynamic_cast<Rationnel *>(ecast.getRe());
-            Reel* tmp = new Reel(this->getX()*((float)rcast->getX()/(float)rcast->getY()));
-            return *(new Complexe(tmp, ecast.getIm()));
+
+            Reel* tmp = new Reel(this->getX()*(ecast.getRe()->getXAsFloat()/ecast.getRe()->getYAsFloat()));
+            return *(new Complexe(tmp, ecast.getIm()->clone()));
         }
 
     }
@@ -281,7 +285,7 @@ Element& Reel::operator*(Element& e)
     else if(typeid(e) == typeid(Rationnel))
     {
         Rationnel rcast = dynamic_cast<Rationnel &>(e);
-        return *(new Reel(this->getX()*((float)rcast.getX()/(float)rcast.getY())));
+        return *(new Reel(this->getX()*(rcast.getXAsFloat()/rcast.getYAsFloat())));
     }
     else if(typeid(e) == typeid(Reel))
     {
@@ -313,29 +317,39 @@ Rationnel::Rationnel(int num, int den): x(num), y(den)
 
 }
 
-int Rationnel::getX()
+float Rationnel::getXAsFloat() const
+{
+    return (float)x;
+}
+
+int Rationnel::getXAsInt() const
 {
     return x;
 }
 
-int Rationnel::getY()
+float Rationnel::getYAsFloat() const
+{
+    return (float)y;
+}
+
+int Rationnel::getYAsInt() const
 {
     return y;
 }
 
-int Rationnel::setX(int value)
+void Rationnel::setX(int value)
 {
-    return x = value ;
+     x = value ;
 }
 
-int Rationnel::setY(int value)
+void Rationnel::setY(int value)
 {
-    return y = value ;
+     y = value ;
 }
 
 QString Rationnel::toQString() const
 {
-    return QString(x/y);
+    return QString::number(x/y);
 
 }
 
@@ -351,7 +365,7 @@ Rationnel& Rationnel::toRationnel()
 
 Entier& Rationnel::toEntier()
 {
-    Entier* tmp = new Entier(x/y);
+    Entier* tmp = new Entier((int)(this->getX()/this->getY()));
     return *tmp;
 }
 
@@ -406,24 +420,29 @@ Entier::Entier(int r): Constante(), x(r)
 {
 }
 
-int Entier::getX()
+float Entier::getXAsFloat() const
+{
+    return (float)x;
+}
+
+int Entier::getXAsInt() const
 {
     return x;
 }
 
 QString Entier::toQString() const
 {
-    return QString(x);
+    return QString::number(x);
 }
 
 Entier& Entier::toEntier()
 {
-    return *this;
+    return *(this->clone());
 }
 
 Rationnel& Entier::toRationnel()
 {
-
+    return *(new Rationnel(this->getX()));
 }
 
 Reel& Entier::toReel()
@@ -433,7 +452,7 @@ Reel& Entier::toReel()
 
 Complexe& Entier::toComplexe()
 {
-
+return *(new Complexe(this));
 }
 
 void Entier::afficher(std::ostream& f) const
@@ -452,26 +471,26 @@ Element& Entier::operator+(Element& e)
         {
             Entier* ccast = dynamic_cast<Entier *>(ecast.getRe());
             Entier* tmp = new Entier(ccast->getX()+ this->getX());
-            return *(new Complexe(tmp, ecast.getIm()));
+            return *(new Complexe(tmp, ecast.getIm()->clone()));
         }
         else if(typeid(ecast.getRe()) == typeid(Reel*))
         {
             Reel* rcast = dynamic_cast<Reel *>(ecast.getRe());
-            Reel* tmp = new Reel(rcast->getX() + (float) this->getX());
-            return *(new Complexe(tmp, ecast.getIm()));
+            Reel* tmp = new Reel(rcast->getX() + this->getX());
+            return *(new Complexe(tmp, ecast.getIm()->clone())); //toclone
         }
         else if(typeid(ecast.getRe()) == typeid(Rationnel*))
         {
             Rationnel* rcast = dynamic_cast<Rationnel *>(ecast.getRe());
             Rationnel* tmp = new Rationnel(rcast->getX() + (this->getX()*rcast->getY()), rcast->getY());
-            return *(new Complexe(tmp, ecast.getIm()));
+            return *(new Complexe(tmp, ecast.getIm()->clone()));
         }
 
     }
     else if(typeid(e) == typeid(Entier))
     {
         Entier ecast = dynamic_cast<Entier &>(e);
-        return *(new Entier(ecast.getX()+this->getX()));
+        return *(new Entier((ecast.getX()+this->getX())));
     }
     else if(typeid(e) == typeid(Expression))
     {
@@ -551,7 +570,7 @@ Element& Entier::operator/(Element& e)
 {
     if(typeid(e) == typeid(Complexe))
     {
-        Complexe ecast = dynamic_cast<Complexe &>(e);
+        Complexe ecast = e.toComplexe();
         if(typeid(ecast.getRe()) == typeid(Entier*))
         {
             Entier* ccast = dynamic_cast<Entier *>(ecast.getRe());
@@ -671,9 +690,15 @@ QString Complexe::toQString() const
 }
 
 Reel& Complexe::toReel(){}
-Rationnel& Complexe::toRationnel(){}
+Rationnel& Complexe::toRationnel()
+{
+    //
+}
 Entier& Complexe::toEntier(){}
-Complexe& Complexe::toComplexe(){return *this;}
+Complexe& Complexe::toComplexe()
+{
+    return *(this->clone());
+}
 Complexe* Complexe::conjugue()
 {
    Constante* c1 = this->getRe()->clone();

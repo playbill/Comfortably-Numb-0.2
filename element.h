@@ -62,7 +62,10 @@ class Constante : public Element
         virtual Element& operator*(Element& c) = 0;
         virtual Constante* clone() = 0;
         virtual Constante* sign() = 0;
-
+        float getXAsFloat() const {}
+        float getYAsFloat() const {}
+        int getXAsInt() const {}
+        int getYAsInt() const {}
     };
 
 
@@ -75,7 +78,9 @@ class Reel : public Constante
         Reel(float r);
         Reel(const Reel& c);
         ~Reel();
-        float getX () const;
+        float getX()const {return x;}
+        float getXAsFloat() const;
+        int getXAsInt() const;
         void setX(float value);
         QString toQString() const;
         Reel& toReel();
@@ -102,10 +107,14 @@ class Rationnel : public Constante
     public:
         Rationnel(int x, int y = 1);
         ~Rationnel(){}
-        int getX();
-        int getY();
-        int setX(int);
-        int setY(int);
+        int getX()const {return x;}
+        int getY()const {return y;}
+        float getXAsFloat()const;
+        float getYAsFloat()const;
+        int getXAsInt()const;
+        int getYAsInt()const;
+        void setX(int);
+        void setY(int);
         QString toQString () const;
         Reel& toReel();
         Rationnel& toRationnel();
@@ -129,8 +138,10 @@ class Entier : public Constante
     public:
         Entier(int r);
         ~Entier(){}
-        int getX();
-        int setX();
+        int getX() const {return x;}
+        float getXAsFloat() const;
+        int getXAsInt()const;
+        void setX();
         QString toQString() const;
         Reel& toReel();
         Rationnel& toRationnel();
