@@ -61,6 +61,11 @@ int Reel::getXAsInt() const
     return (int) x;
 }
 
+float Reel::getX()const
+{
+    return x;
+}
+
 void Reel::setX(float value)
 {
     x = value;
@@ -317,6 +322,16 @@ Rationnel::Rationnel(int num, int den): x(num), y(den)
 
 }
 
+int Rationnel::getX()const
+{
+    return x;
+}
+
+int Rationnel::getY()const
+{
+    return y;
+}
+
 float Rationnel::getXAsFloat() const
 {
     return (float)x;
@@ -418,6 +433,11 @@ Rationnel* Rationnel::sign()
 
 Entier::Entier(int r): Constante(), x(r)
 {
+}
+
+int Entier::getX() const
+{
+    return x;
 }
 
 float Entier::getXAsFloat() const

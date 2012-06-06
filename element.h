@@ -78,7 +78,7 @@ class Reel : public Constante
         Reel(float r);
         Reel(const Reel& c);
         ~Reel();
-        float getX()const {return x;}
+        float getX()const;
         float getXAsFloat() const;
         int getXAsInt() const;
         void setX(float value);
@@ -107,8 +107,8 @@ class Rationnel : public Constante
     public:
         Rationnel(int x, int y = 1);
         ~Rationnel(){}
-        int getX()const {return x;}
-        int getY()const {return y;}
+        int getX()const;
+        int getY()const;
         float getXAsFloat()const;
         float getYAsFloat()const;
         int getXAsInt()const;
@@ -138,7 +138,7 @@ class Entier : public Constante
     public:
         Entier(int r);
         ~Entier(){}
-        int getX() const {return x;}
+        int getX() const;
         float getXAsFloat() const;
         int getXAsInt()const;
         void setX();
