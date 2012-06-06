@@ -3,6 +3,7 @@
 
 #include <QString>
 #include <iostream>
+#include <math.h>
 
 class Reel;
 class Entier;
@@ -63,9 +64,9 @@ class Constante : public Element
         virtual Constante* clone() = 0;
         virtual Constante* sign() = 0;
         float getXAsFloat() const {}
-        float getYAsFloat() const {}
+        float getYAsFloat() const { return 1.;}
         int getXAsInt() const {}
-        int getYAsInt() const {}
+        int getYAsInt() const { return 1.;}
     };
 
 
@@ -179,6 +180,7 @@ class Complexe : public Element
         Element& operator*(Element& c);
         Complexe* clone();
         Complexe* sign();
+        Complexe* module();
 };
 
 class Expression : public Element

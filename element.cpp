@@ -744,6 +744,12 @@ Complexe* Complexe::sign()
 
     return new Complexe(c1,c2);
 }
+
+Complexe* Complexe::module()
+{
+    Reel* tmp = new Reel (sqrt(pow(this->getIm()->getXAsFloat()/this->getIm()->getYAsFloat(),2)+pow(this->getRe()->getXAsFloat()/this->getRe()->getYAsFloat(),2)));
+    return new Complexe(tmp);
+}
 /**
 *
 *\class Expression
