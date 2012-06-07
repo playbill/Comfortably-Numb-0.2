@@ -18,7 +18,7 @@ Element* Calculateur::cast(Element* e)
     else return 0;
 }
 
-Element* Calculateur::multiplication()
+void Calculateur::multiplication()
 {
 
   if(pileC->donneInstance()->size()<2){
@@ -28,14 +28,16 @@ Element* Calculateur::multiplication()
   {
         Element* e1 = pileC->donneInstance()->pop();
         Element* e2 = pileC->donneInstance()->pop();
-        Element& res = e1->operator *(*e2);
-
-    this->cast(&res);
-    this->pileC->push(&res);
+        Element& tmp = e1->operator *(*e2);
+        Element* res = (this->cast(&tmp));
+        delete e1;
+        delete e2;
+        delete &tmp;
+        this->pileC->push(res);
     }
 }
 
-Element* Calculateur::soustraction()
+void Calculateur::soustraction()
 {
       if(pileC->donneInstance()->size()<2){
         //throw std::logic_error( "ADDITION : il n'y a pas assez de paramatres");
@@ -44,15 +46,17 @@ Element* Calculateur::soustraction()
   {
         Element* e1 = pileC->donneInstance()->pop();
         Element* e2 = pileC->donneInstance()->pop();
-        Element& res = e1->operator -(*e2);
-
-    res = *(this->cast(&res));
-    this->pileC->push(&res);
+        Element& tmp = e1->operator -(*e2);
+        Element* res = (this->cast(&tmp));
+        delete e1;
+        delete e2;
+        delete &tmp;
+        this->pileC->push(res);
     }
 
 }
 
-Element* Calculateur::division()
+void Calculateur::division()
 {
 
       if(pileC->donneInstance()->size()<2){
@@ -62,15 +66,17 @@ Element* Calculateur::division()
   {
         Element* e1 = pileC->donneInstance()->pop();
         Element* e2 = pileC->donneInstance()->pop();
-        Element& res = e1->operator /(*e2);
-
-    res = *(this->cast(&res));
-    this->pileC->push(&res);
+        Element& tmp = e1->operator /(*e2);
+        Element* res = (this->cast(&tmp));
+        delete e1;
+        delete e2;
+        delete &tmp;
+        this->pileC->push(res);
     }
 
 }
 
-Element* Calculateur::addition()
+void Calculateur::addition()
 {
       if(pileC->donneInstance()->size()<2){
         //throw std::logic_error( "ADDITION : il n'y a pas assez de paramatres");
@@ -79,16 +85,37 @@ Element* Calculateur::addition()
   {
         Element* e1 = pileC->donneInstance()->pop();
         Element* e2 = pileC->donneInstance()->pop();
-        Element& res = e1->operator +(*e2);
-
-    res = *(this->cast(&res));
-    this->pileC->push(&res);
+        Element& tmp = e1->operator +(*e2);
+        Element* res = (this->cast(&tmp));
+        delete e1;
+        delete e2;
+        delete &tmp;
+        this->pileC->push(res);
     }
 
 }
 
-Constante* pow()
+Element* Calculateur::pow()
 {
+
+    if(typeid(*this->pileC->top()) == typeid(Complexe))
+    {
+         // throw std::logic_error( "POW : le premier parametre doit être un entier");
+    }
+    else if(typeid(*this->pileC->top()) == typeid(Expression))
+    {
+         // \todo
+    }
+    else
+    {
+        Element* pow = this->pileC->top();
+
+        if(typeid(*this->pileC->top()) == typeid(Entier))
+        {
+                    Element* e = this->pileC->top();
+                    return new Entier(1);
+        }
+    }
 
 }
 
@@ -149,31 +176,31 @@ Constante* sqr()
 
 bool Calculateur::isEntier()
 {
-    return Entier;
+    return modeEntier;
 }
 
 bool Calculateur::isComplexe()
 {
-    return Complexe;
+    return modeComplexe;
 }
 
 bool Calculateur::isDegre()
 {
-    return Degre;
+    return modeDegre;
 }
 
 bool Calculateur::isRadian()
 {
-    return Radian;
+    return modeRadian;
 }
 
 bool Calculateur::isRationnel()
 {
-    return Rationnel;
+    return modeRationnel;
 }
 
 bool Calculateur::isReel()
 {
-    return Reel;
+    return modeReel;
 }
 

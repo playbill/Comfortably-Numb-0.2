@@ -161,6 +161,11 @@ int Pile::size()
     return pile->size();
 }
 
+Element* Pile::top()
+{
+    return pile->top();
+}
+
 
 
 

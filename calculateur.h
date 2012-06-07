@@ -7,21 +7,21 @@ class Calculateur
 {
     private :
         Pile* pileC;
-        bool Complexe;
-        bool Entier;
-        bool Degre;
-        bool Radian;
-        bool Rationnel;
-        bool Reel;
+        bool modeComplexe;
+        bool modeEntier;
+        bool modeDegre;
+        bool modeRadian;
+        bool modeRationnel;
+        bool modeReel;
 
     public:
         Calculateur();
         Element* cast(Element* );
-        Element* addition();
-        Element* multiplication();
-        Element* soustraction();
-        Element* division();
-        Constante* pow();
+        void addition();
+        void multiplication();
+        void soustraction();
+        void division();
+        Element* pow();
         Constante* cos();
         Constante* sin();
         Constante* tan();

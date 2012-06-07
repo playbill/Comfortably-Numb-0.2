@@ -29,6 +29,7 @@ class Pile{
         Element* depilerElement();
         void swap(const unsigned int x,const unsigned int y);
         Element* pop();
+        Element* top();
         void push(Element*);
         void dup();
         void drop();
