@@ -664,7 +664,7 @@ Element& Entier::operator*(Element& e)
     else if(typeid(e) == typeid(Expression))
     {
         Expression& ecast = dynamic_cast<Expression &>(e);
-        return *(new Expression(' * ' + this->toQString() + ' ' + ecast.getX()));
+        return *(new Expression(' * ' + this->toQString() + ' ' + ecast.getX())); // que renvoie toQString
     }
     else if(typeid(e) == typeid(Rationnel))
     {
@@ -724,10 +724,128 @@ Complexe* Complexe::conjugue()
     return (new Complexe(c1,c2));
 }
 void Complexe::afficher(std::ostream& f) const{}
-Element& Complexe::operator+(Element& c){}
-Element& Complexe::operator-(Element& c){}
-Element& Complexe::operator/(Element& c){}
-Element& Complexe::operator*(Element& c){}
+
+Element& Complexe::operator+(Element& e)
+{
+    if(typeid(e)==typeid(Expression))
+    {
+    return *(new Expression(" + " + this->toQString() + " " + e.toQString()));
+    }
+    else
+    {
+        Complexe& c = e.toComplexe();
+        Constante* c1 = this->getRe()->clone();
+        Constante* c2 = this->getIm()->clone();
+        Constante* c3 = c.getRe()->clone();
+        Constante* c4 = c.getIm()->clone();
+        Constante& c5 = dynamic_cast<Constante&>(c1->operator+(*(c3)));
+        Constante& c6 = dynamic_cast<Constante&>(c2->operator +(*(c4)));
+        Complexe* c7 = new Complexe(&c5,&c6);
+        delete &c;
+        delete c1;
+        delete c2;
+        delete c3;
+        delete c4;
+        delete &c5;
+        delete &c6;
+
+    return *c7;
+    }
+
+
+}
+Element& Complexe::operator-(Element& e)
+{
+ if(typeid(e)==typeid(Expression))
+    {
+    return *(new Expression(" - " + this->toQString() + " " + e.toQString()));
+    }
+    else
+    {
+        Complexe& c = e.toComplexe();
+        Constante* c1 = this->getRe()->clone();
+        Constante* c2 = this->getIm()->clone();
+        Constante* c3 = c.getRe()->clone();
+        Constante* c4 = c.getIm()->clone();
+        Constante& c5 = dynamic_cast<Constante&>(c1->operator-(*(c3)));
+        Constante& c6 = dynamic_cast<Constante&>(c2->operator -(*(c4)));
+        Complexe* c7 = new Complexe(&c5,&c6);
+        delete &c;
+        delete c1;
+        delete c2;
+        delete c3;
+        delete c4;
+        delete &c5;
+        delete &c6;
+
+    return *c7;
+    }
+
+}
+
+Element& Complexe::operator/(Element& e)
+{
+     if(typeid(e)==typeid(Expression))
+    {
+    return *(new Expression(" / " + this->toQString() + " " + e.toQString()));
+    }
+    else
+    {
+        Complexe& c = e.toComplexe();
+        Complexe* c_bar = c.conjugue();
+        Constante* c1 = this->getRe()->clone();
+        Constante* c2 = this->getIm()->clone();
+        Constante* c_barr = c_bar->getRe()->clone();
+        Constante* c_bari = c_bar->getIm()->clone();
+        Constante* module = c.module();
+        Constante& resr = dynamic_cast<Constante&>(((c1->operator *(*c_barr)).operator -(c2->operator *(*c_bari))));
+        Constante& resi = dynamic_cast<Constante&>(((c1->operator *(*c_bari)).operator +(c2->operator *(*c_barr))));
+        Complexe* res = new Complexe(&resr,&resi);
+        delete &c;
+        delete c_bar;
+        delete c1;
+        delete c2;
+        delete c_barr;
+        delete c_bari;
+        delete module;
+        delete &resr;
+        delete &resi;
+
+    return *res;
+    }
+}
+
+Element& Complexe::operator*(Element& e)
+{
+    if(typeid(e)==typeid(Expression))
+    {
+        return *(new Expression(" * " + this->toQString() + " " + e.toQString()));
+    }
+    else
+    {
+        Complexe& c = e.toComplexe();
+        Constante* c1 = this->getRe()->clone();
+        Constante* c2 = this->getIm()->clone();
+        Constante* cr = c.getRe()->clone();
+        Constante* ci = c.getIm()->clone();
+        /* (aa' - bb') + (ab' + a'b)*/
+        Constante& resr = dynamic_cast<Constante&>((c1->operator *(*cr)).operator -(c2->operator *(*ci)));
+        Constante& resi = dynamic_cast<Constante&>((c1->operator *(*ci)).operator +(c2->operator *(*cr)));
+        Complexe* res = new Complexe(&resr,&resi);
+        delete &c;
+        delete c1;
+        delete c2;
+        delete cr;
+        delete ci;
+        delete &resr;
+        delete &resi;
+
+    return *res;
+
+    }
+
+
+}
 
 Complexe* Complexe::clone()
 {
@@ -745,10 +863,10 @@ Complexe* Complexe::sign()
     return new Complexe(c1,c2);
 }
 
-Complexe* Complexe::module()
+Constante* Complexe::module()
 {
     Reel* tmp = new Reel (sqrt(pow(this->getIm()->getXAsFloat()/this->getIm()->getYAsFloat(),2)+pow(this->getRe()->getXAsFloat()/this->getRe()->getYAsFloat(),2)));
-    return new Complexe(tmp);
+    return tmp;
 }
 /**
 *
@@ -763,6 +881,7 @@ Expression::Expression(QString s): Element(), x(s)
 
 QString Expression::toQString() const
 {
+    return x;
 }
 
 QString Expression::getX()

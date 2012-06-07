@@ -42,6 +42,10 @@ class Element
         virtual Complexe& toComplexe() = 0;
         virtual Element* clone() = 0;
         virtual Element* sign() = 0;
+        virtual Element& operator+(Element& c){}
+        virtual Element& operator-(Element& c){}
+        virtual Element& operator/(Element& c){}
+        virtual Element& operator*(Element& c){}
 
 
 };
@@ -180,7 +184,7 @@ class Complexe : public Element
         Element& operator*(Element& c);
         Complexe* clone();
         Complexe* sign();
-        Complexe* module();
+        Constante* module();
 };
 
 class Expression : public Element
@@ -193,10 +197,10 @@ class Expression : public Element
         ~Expression(){}
         QString toQString() const;
         QString getX();
-        virtual Reel& toReel();
-        virtual Rationnel& toRationnel();
-        virtual Entier& toEntier();
-        virtual Complexe& toComplexe();
+        Reel& toReel();
+        Rationnel& toRationnel();
+        Entier& toEntier();
+        Complexe& toComplexe();
         Element& operator+(Element& c);
         Element& operator-(Element& c);
         Element& operator/(Element& c);
