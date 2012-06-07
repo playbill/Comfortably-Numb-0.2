@@ -22,15 +22,18 @@ class Pile{
 
     public:
 
-        static Pile& donneInstance();
+        static Pile* donneInstance();
         static void libereInstance();
         QStack<Element*> getPile()const;
         void empilerElement(Element * e);
         Element* depilerElement();
         void swap(const unsigned int x,const unsigned int y);
+        Element* pop();
+        void push(Element*);
         void dup();
         void drop();
         void clear();
+        int size();
 
 };
 

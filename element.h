@@ -36,12 +36,12 @@ class Element
         * Fonction virtual pure qui doit être implémenter par toutes les classes filles
         */
 
-        virtual Reel& toReel() = 0;
-        virtual Rationnel& toRationnel() = 0;
-        virtual Entier& toEntier() = 0;
-        virtual Complexe& toComplexe() = 0;
+        virtual Reel& toReel(){}
+        virtual Rationnel& toRationnel(){}
+        virtual Entier& toEntier(){}
+        virtual Complexe& toComplexe(){}
         virtual Element* clone() = 0;
-        virtual Element* sign() = 0;
+        virtual Element* sign(){return 0;}
         virtual Element& operator+(Element& c){}
         virtual Element& operator-(Element& c){}
         virtual Element& operator/(Element& c){}
@@ -197,16 +197,8 @@ class Expression : public Element
         ~Expression(){}
         QString toQString() const;
         QString getX();
-        Reel& toReel();
-        Rationnel& toRationnel();
-        Entier& toEntier();
-        Complexe& toComplexe();
-        Element& operator+(Element& c);
-        Element& operator-(Element& c);
-        Element& operator/(Element& c);
-        Element& operator*(Element& c);
         Expression* clone();
-        Expression* sign(){}
+
 };
 
 

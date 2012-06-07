@@ -31,10 +31,10 @@ Pile::~Pile(){
 * \brief Fonction :  accèder au singleton Pile
 * \return pointeur vers la pile
 */
-Pile& Pile::donneInstance(){
+Pile* Pile::donneInstance(){
     if(instanceUnique == 0)
         instanceUnique = new Pile;
-    return *instanceUnique;
+    return instanceUnique;
 }
 
 /**
@@ -145,6 +145,23 @@ pile->push(e); /*!< on le met sur le haut de la pile */
 void Pile::drop(){
 delete pile->pop(); /*!< on enlève l'élement du haut de la pile et on le delete */
 }
+
+Element* Pile::pop()
+{
+    return pile->pop();
+}
+
+void Pile::push(Element* e)
+{
+    pile->push(e);
+}
+
+int Pile::size()
+{
+    return pile->size();
+}
+
+
 
 
 

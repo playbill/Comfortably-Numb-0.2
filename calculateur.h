@@ -6,19 +6,21 @@
 class Calculateur
 {
     private :
-        Pile* pile;
+        Pile* pileC;
         bool Complexe;
         bool Entier;
         bool Degre;
         bool Radian;
         bool Rationnel;
+        bool Reel;
 
     public:
         Calculateur();
-        Constante* addition();
-        Constante* multiplication();
-        Constante* soustraction();
-        Constante* division();
+        Element* cast(Element* );
+        Element* addition();
+        Element* multiplication();
+        Element* soustraction();
+        Element* division();
         Constante* pow();
         Constante* cos();
         Constante* sin();
