@@ -15,6 +15,7 @@ Element::~Element()
 */
 Constante::Constante()
 {
+
 }
 
 /**

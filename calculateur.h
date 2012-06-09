@@ -2,6 +2,7 @@
 #define CALCULATEUR_H
 
 #include "pile.h"
+#define PI 3.14159265
 
 class Calculateur
 {
@@ -17,10 +18,11 @@ class Calculateur
     public:
         Calculateur();
         Element* cast(Element* );
-        void addition();
+        Element* addition();
         void multiplication();
         void soustraction();
         void division();
+        Element* eval();
         Element* pow();
         Constante* cos();
         Constante* sin();
@@ -30,9 +32,10 @@ class Calculateur
         Constante* tanh();
         Constante* ln();
         Constante* log();
-        Constante* inv();
-        Constante* sqrt();
-        Constante* sqr();
+        Element* inv();
+        Element* sqrt();
+        Element* sqr();
+        Element* sign();
         Constante* operator!();
         bool isComplexe();
         bool isEntier();
