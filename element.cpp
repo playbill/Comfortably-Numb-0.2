@@ -301,7 +301,7 @@ Element& Reel::operator*(Element& e)
 }
 }
 
-Reel* Reel::clone()
+Reel* Reel::clone() const
 {
     return new Reel(this->getX());
 }
@@ -416,7 +416,7 @@ Element& Rationnel::operator*(Element& c)
 
 }
 
-Rationnel* Rationnel::clone()
+Rationnel* Rationnel::clone() const
 {
     return new Rationnel(this->getX(),this->getY());
 }
@@ -642,7 +642,7 @@ Element& Entier::operator*(Element& e)
     }
 }
 
-Entier* Entier::clone()
+Entier* Entier::clone() const
 {
     return new Entier(this->getX());
 }
@@ -661,8 +661,8 @@ Entier* Entier::sign()
 {
 }
 
-Constante* Complexe::getRe(){return re; }
-Constante* Complexe::getIm(){return im; }
+Constante* Complexe::getRe() const{return re; }
+Constante* Complexe::getIm() const {return im; }
 
 QString Complexe::toQString() const
 {   QString tmp;
@@ -812,7 +812,7 @@ Element& Complexe::operator*(Element& e)
 
 }
 
-Complexe* Complexe::clone()
+Complexe* Complexe::clone() const
 {
     Constante* c1 = this->getRe()->clone();
     Constante* c2 = this->getIm()->clone();
@@ -849,12 +849,12 @@ QString Expression::toQString() const
     return x;
 }
 
-QString Expression::getX()
+QString Expression::getX() const
 {
     return x;
 }
 
-Expression* Expression::clone()
+Expression* Expression::clone() const
 {
     return new Expression(this->getX());
 }

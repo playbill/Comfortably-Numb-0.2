@@ -15,10 +15,10 @@ Element* Calculateur::cast(Element* e)
     else if(isReel()) return &e->toReel();
     else if(isRationnel()) return &e->toRationnel();
     else if(isComplexe()) return &e->toComplexe();
-    else return 0;
+    else return e->clone();
 }
 
-void Calculateur::multiplication()
+Element* Calculateur::multiplication()
 {
 
   if(pileC->donneInstance()->size()<2){
@@ -34,10 +34,11 @@ void Calculateur::multiplication()
         delete e2;
         delete &tmp;
         this->pileC->push(res);
+        return this->pileC->top();
     }
 }
 
-void Calculateur::soustraction()
+Element* Calculateur::soustraction()
 {
       if(pileC->donneInstance()->size()<2){
         //throw std::logic_error( "SOUSTRACTION : il n'y a pas assez de paramatres");
@@ -52,11 +53,12 @@ void Calculateur::soustraction()
         delete e2;
         delete &tmp;
         this->pileC->push(res);
+        return this->pileC->top();
     }
 
 }
 
-void Calculateur::division()
+Element* Calculateur::division()
 {
 
       if(pileC->donneInstance()->size()<2){
@@ -91,6 +93,7 @@ Element* Calculateur::addition()
         delete e2;
         delete &tmp;
         this->pileC->push(res);
+        return this->pileC->top();
     }
 
 }
@@ -523,4 +526,8 @@ bool Calculateur::isReel()
 {
     return modeReel;
 }
+
+
+
+
 

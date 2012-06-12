@@ -40,7 +40,7 @@ class Element
         virtual Rationnel& toRationnel(){}
         virtual Entier& toEntier(){}
         virtual Complexe& toComplexe(){}
-        virtual Element* clone() = 0;
+        virtual Element* clone()const = 0;
         virtual Element* sign(){return 0;}
         virtual Element& operator+(Element& c){}
         virtual Element& operator-(Element& c){}
@@ -65,7 +65,7 @@ class Constante : public Element
         virtual Element& operator-(Element& c) = 0;
         virtual Element& operator/(Element& c) = 0;
         virtual Element& operator*(Element& c) = 0;
-        virtual Constante* clone() = 0;
+        virtual Constante* clone() const = 0;
         virtual Constante* sign() = 0;
         float getXAsFloat() const {}
         float getYAsFloat() const { return 1.;}
@@ -97,7 +97,7 @@ class Reel : public Constante
         Element& operator-(Element& c);
         Element& operator/(Element& c);
         Element& operator*(Element& c);
-        Reel* clone();
+        Reel* clone() const;
         Reel* sign();
 
 };
@@ -130,7 +130,7 @@ class Rationnel : public Constante
         Element& operator-(Element& c);
         Element& operator/(Element& c);
         Element& operator*(Element& c);
-        Rationnel* clone();
+        Rationnel* clone() const;
         Rationnel* sign();
 };
 
@@ -157,7 +157,7 @@ class Entier : public Constante
         Element& operator-(Element& c);
         Element& operator/(Element& c);
         Element& operator*(Element& c);
-        Entier* clone();
+        Entier* clone() const;
         Entier* sign();
 };
 
@@ -169,8 +169,8 @@ class Complexe : public Element
     public:
         Complexe(Constante* x, Constante* y = 0);
         ~Complexe(){}
-        Constante* getRe();
-        Constante* getIm();
+        Constante* getRe() const;
+        Constante* getIm() const;
         QString toQString() const;
         Reel& toReel();
         Complexe* conjugue();
@@ -182,7 +182,7 @@ class Complexe : public Element
         Element& operator-(Element& c);
         Element& operator/(Element& c);
         Element& operator*(Element& c);
-        Complexe* clone();
+        Complexe* clone() const;
         Complexe* sign();
         Constante* module();
 };
@@ -196,8 +196,8 @@ class Expression : public Element
         Expression(QString);
         ~Expression(){}
         QString toQString() const;
-        QString getX();
-        Expression* clone();
+        QString getX() const;
+        Expression* clone() const;
 
 };
 
