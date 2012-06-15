@@ -3,8 +3,12 @@
 
 #include <QtGui/QMainWindow>
 #include "commandcalculateur.h"
-
-
+#include <QSignalMapper>
+#include <QPushButton>
+#include <QGridLayout>
+#include <QLineEdit>
+#include <QStringList>
+#include <QDEBUG>
 
 namespace Ui
 {
@@ -18,25 +22,38 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    void cos();
-    void sin();
-    void tan();
-    void cosh();
-    void sinh();
-    void tanh();
-    void ln();
-    void log();
-    void inv();
-    void sqrt();
-    void sqr();
-    void sign();
+    Element* getComplexe(QString str);
+    Constante* getConstante(QString str);
+
+private slots:
+    void clickedBt(QString);
+    void evaluate();
+    void cos(){}
+    void sin(){}
+    void tan(){}
+    void cosh(){}
+    void sinh(){}
+    void tanh(){}
+    void ln(){}
+    void log(){}
+    void inv(){}
+    void sqrt(){}
+    void sqr(){}
+    void sign(){}
+
 
 private:
     Ui::MainWindow *ui;
-    Calculateur leCalculateur;
+    QSignalMapper* mapper;
+    Calculateur* leCalculateur;
     QStack<Command *> pileRedo;
     QStack<Command *> pileUndo;
+    bool waitingForOperand;
+
 
 };
+
+
+
 
 #endif // MAINWINDOW_H

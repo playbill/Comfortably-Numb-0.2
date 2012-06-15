@@ -13,12 +13,26 @@ void CommandUnArg::Execute()
     (cal->*method)();
 }
 
+
+CommandPush::CommandPush(Calculateur* c, Element* e): cal(c)
+{
+    this->arg = e;
+}
+CommandPush::~CommandPush()
+{
+}
+
+void CommandPush::Execute()
+{
+    cal->push(this->arg->clone());
+}
+
+
 CommandDeuxArg::CommandDeuxArg(Calculateur* c,Element*(Calculateur::*m)()): cal(c), method(m)
 {
     this->arg1=c->getPile()->top()->clone();
     this->arg2=c->getPile()->getPile().at(c->getPile()->size()-1)->clone();
 }
-
 CommandDeuxArg::~CommandDeuxArg()
 {
 }

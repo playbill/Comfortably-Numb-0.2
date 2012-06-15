@@ -19,7 +19,7 @@ class Calculateur
     public:
 
         Calculateur();
-        Pile* getPile() const {return pileC;}
+        Pile* getPile() {return pileC;}
         Element* cast(Element* );
         Element* addition();
         Element* multiplication();
@@ -27,6 +27,7 @@ class Calculateur
         Element* division();
         Element* eval();
         Element* pow();
+        Element* duplicate();
         Constante* cos();
         Constante* sin();
         Constante* tan();
@@ -39,6 +40,8 @@ class Calculateur
         Element* sqrt();
         Element* sqr();
         Element* sign();
+        Element* push(Element*);
+        Element* pop();
         Constante* operator!();
         bool isComplexe();
         bool isEntier();

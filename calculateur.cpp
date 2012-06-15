@@ -1,21 +1,43 @@
 #include "calculateur.h"
-//je suis ici
+#include <QDEBUG>
+
 Calculateur::Calculateur()
 {
-    pileC->donneInstance();
+    pileC = Pile::donneInstance(); // on crée une instance la classe pile
+    this->modeEntier = false;
+    this->modeRationnel = false;
+    this->modeReel = false;
+    this->modeDegre = true;
+    this->modeRadian = false;
+    this->modeComplexe = true;
 }
 
 Element* Calculateur::cast(Element* e)
 {
+    if(isComplexe())
+    {   qDebug()<<"cast Complexe";
+        return e->toComplexe();
+    }
     if(typeid(e) == typeid(Expression*))
-    {
+    { qDebug()<<"cast expression";
         return e->clone();
     }
-    else if(isEntier()) return &e->toEntier();
-    else if(isReel()) return &e->toReel();
-    else if(isRationnel()) return &e->toRationnel();
-    else if(isComplexe()) return &e->toComplexe();
-    else return e->clone();
+    else if(isEntier())
+    {   qDebug()<<"cast entier";
+        return e->toEntier();
+    }
+    else if(isReel())
+    {   qDebug()<<"cast reel";
+        return e->toReel();
+    }
+    else if(isRationnel())
+    {   qDebug()<<"cast rationnel";
+        return e->toRationnel();
+    }
+    else
+    {   qDebug()<<"cast else";
+        return e->clone();
+    }
 }
 
 Element* Calculateur::multiplication()
@@ -47,7 +69,7 @@ Element* Calculateur::soustraction()
   {
         Element* e1 = pileC->donneInstance()->pop();
         Element* e2 = pileC->donneInstance()->pop();
-        Element& tmp = e1->operator -(*e2);
+        Element& tmp = e2->operator -(*e1);
         Element* res = (this->cast(&tmp));
         delete e1;
         delete e2;
@@ -68,7 +90,7 @@ Element* Calculateur::division()
   {
         Element* e1 = pileC->donneInstance()->pop();
         Element* e2 = pileC->donneInstance()->pop();
-        Element& tmp = e1->operator /(*e2);
+        Element& tmp = e2->operator /(*e1);
         Element* res = (this->cast(&tmp));
         delete e1;
         delete e2;
@@ -81,19 +103,24 @@ Element* Calculateur::division()
 Element* Calculateur::addition()
 {
       if(pileC->donneInstance()->size()<2){
+          qDebug()<<"size<2";
         //throw std::logic_error( "ADDITION : il n'y a pas assez de paramatres");
     }
   else
-  {
+  {     qDebug()<<"size>2";
         Element* e1 = pileC->donneInstance()->pop();
+        qDebug()<<"element 1 pop";
         Element* e2 = pileC->donneInstance()->pop();
+        qDebug()<<"element 2 pop";
         Element& tmp = e1->operator +(*e2);
+        qDebug()<<"addition faite";
         Element* res = (this->cast(&tmp));
+        qDebug()<<res->toQString();
         delete e1;
         delete e2;
         delete &tmp;
-        this->pileC->push(res);
-        return this->pileC->top();
+        this->getPile()->push(res);
+        return this->getPile()->top();
     }
 
 }
@@ -527,7 +554,22 @@ bool Calculateur::isReel()
     return modeReel;
 }
 
+Element* Calculateur::duplicate()
+{
+    Element* e = this->pileC->top()->clone();
+    this->pileC->push(e);
+    return pileC->top();
+}
 
+Element* Calculateur::push(Element* e)
+{
+    this->pileC->push(e);
+    return pileC->top();
+}
 
+Element* Calculateur::pop()
+{
+    return pileC->pop();
+}
 
 

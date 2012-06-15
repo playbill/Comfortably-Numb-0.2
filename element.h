@@ -36,10 +36,10 @@ class Element
         * Fonction virtual pure qui doit être implémenter par toutes les classes filles
         */
 
-        virtual Reel& toReel(){}
-        virtual Rationnel& toRationnel(){}
-        virtual Entier& toEntier(){}
-        virtual Complexe& toComplexe(){}
+        virtual Reel* toReel(){}
+        virtual Rationnel* toRationnel(){}
+        virtual Entier* toEntier(){}
+        virtual Complexe* toComplexe(){}
         virtual Element* clone()const = 0;
         virtual Element* sign(){return 0;}
         virtual Element& operator+(Element& c){}
@@ -56,10 +56,10 @@ class Constante : public Element
         Constante();
         virtual ~Constante();
         virtual QString toQString() const = 0;
-        virtual Reel& toReel() = 0;/*!< /todo quelle retour mettre reel? */
-        virtual Rationnel& toRationnel() = 0; /*! idem */
-        virtual Entier& toEntier() = 0; /*! idem */
-        virtual Complexe& toComplexe() = 0; /*! idem */
+        virtual Reel* toReel() = 0;/*!< /todo quelle retour mettre reel? */
+        virtual Rationnel* toRationnel() = 0; /*! idem */
+        virtual Entier* toEntier() = 0; /*! idem */
+        virtual Complexe* toComplexe() = 0; /*! idem */
         virtual void afficher(std::ostream& f=std::cout) const = 0;
         virtual Element& operator+(Element& c) = 0;
         virtual Element& operator-(Element& c) = 0;
@@ -88,10 +88,10 @@ class Reel : public Constante
         int getXAsInt() const;
         void setX(float value);
         QString toQString() const;
-        Reel& toReel();
-        Rationnel& toRationnel();
-        Entier& toEntier();
-        Complexe& toComplexe();
+        Reel* toReel();
+        Rationnel* toRationnel();
+        Entier* toEntier();
+        Complexe* toComplexe();
         void afficher(std::ostream& f=std::cout) const;
         Element& operator+(Element& c);
         Element& operator-(Element& c);
@@ -121,10 +121,10 @@ class Rationnel : public Constante
         void setX(int);
         void setY(int);
         QString toQString () const;
-        Reel& toReel();
-        Rationnel& toRationnel();
-        Entier& toEntier();
-        Complexe& toComplexe();
+        Reel* toReel();
+        Rationnel* toRationnel();
+        Entier* toEntier();
+        Complexe* toComplexe();
         void afficher(std::ostream& f=std::cout) const;
         Element& operator+(Element& c);
         Element& operator-(Element& c);
@@ -148,10 +148,10 @@ class Entier : public Constante
         int getXAsInt()const;
         void setX();
         QString toQString() const;
-        Reel& toReel();
-        Rationnel& toRationnel();
-        Entier& toEntier();
-        Complexe& toComplexe();
+        Reel* toReel();
+        Rationnel* toRationnel();
+        Entier* toEntier();
+        Complexe* toComplexe();
         void afficher(std::ostream& f=std::cout) const;
         Element& operator+(Element& c);
         Element& operator-(Element& c);
@@ -168,15 +168,16 @@ class Complexe : public Element
        Constante* im;
     public:
         Complexe(Constante* x, Constante* y = 0);
+        Complexe(Complexe* c);
         ~Complexe(){}
         Constante* getRe() const;
         Constante* getIm() const;
         QString toQString() const;
-        Reel& toReel();
+        Reel* toReel();
         Complexe* conjugue();
-        Rationnel& toRationnel();
-        Entier& toEntier();
-        Complexe& toComplexe();
+        Rationnel* toRationnel();
+        Entier* toEntier();
+        Complexe* toComplexe();
         void afficher(std::ostream& f=std::cout) const;
         Element& operator+(Element& c);
         Element& operator-(Element& c);

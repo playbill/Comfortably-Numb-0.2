@@ -11,10 +11,22 @@ private:
     Element* arg;
     Element* (Calculateur::*method)();
 public:
-    CommandUnArg(Calculateur*,Element*(Calculateur::*)());
+    CommandUnArg(Calculateur*,Element*(Calculateur::*)()=0);
     virtual ~CommandUnArg();
     void Execute();
 };
+
+class CommandPush : public Command
+{
+private:
+    Calculateur* cal;
+    Element* arg;
+public:
+    CommandPush(Calculateur*,Element*);
+    virtual ~CommandPush();
+    void Execute();
+};
+
 
 class CommandDeuxArg : public Command
 {

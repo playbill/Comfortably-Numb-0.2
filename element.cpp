@@ -1,5 +1,5 @@
 #include "element.h"
-
+#include <QDEBUG>
 Element::Element()
 {
 }
@@ -77,28 +77,28 @@ QString Reel::toQString () const
 {   return QString::number(x);
 }
 
-Reel& Reel::toReel()
+Reel* Reel::toReel()
 {
     Reel* tmp = new Reel(*this);
-    return *tmp;
+    return tmp;
 }
 
-Rationnel& Reel::toRationnel()
+Rationnel* Reel::toRationnel()
 {
     Rationnel* tmp = new Rationnel((int)x);
-    return *tmp;
+    return tmp;
 }
 
-Entier& Reel::toEntier()
+Entier* Reel::toEntier()
 {
     Entier* tmp = new Entier((int)x);
-    return *tmp;
+    return tmp;
 }
 
-Complexe& Reel::toComplexe()
+Complexe* Reel::toComplexe()
 {
     Complexe* tmp = new Complexe(this);
-    return *tmp;
+    return tmp;
 }
 
 void Reel::afficher(std::ostream& f) const{}
@@ -365,30 +365,32 @@ void Rationnel::setY(int value)
 
 QString Rationnel::toQString() const
 {
-    return QString::number(x/y);
+    return QString::number(x)+'/'+QString::number(y);
 
 }
 
-Reel& Rationnel::toReel()
+Reel* Rationnel::toReel()
 {
+    Reel* tmp = new Reel((this->getXAsFloat()/this->getYAsFloat()));
+    return tmp;
 }
 
-Rationnel& Rationnel::toRationnel()
+Rationnel* Rationnel::toRationnel()
 {
     Rationnel* tmp = new Rationnel(*this);
-    return *tmp;
+    return tmp;
 }
 
-Entier& Rationnel::toEntier()
+Entier* Rationnel::toEntier()
 {
     Entier* tmp = new Entier((int)(this->getX()/this->getY()));
-    return *tmp;
+    return tmp;
 }
 
-Complexe& Rationnel::toComplexe()
+Complexe* Rationnel::toComplexe()
 {
     Complexe* tmp = new Complexe(this);
-    return *tmp;
+    return tmp;
 }
 
 void Rationnel::afficher(std::ostream& f) const
@@ -456,24 +458,24 @@ QString Entier::toQString() const
     return QString::number(x);
 }
 
-Entier& Entier::toEntier()
+Entier* Entier::toEntier()
 {
-    return *(this->clone());
+    return (this->clone());
 }
 
-Rationnel& Entier::toRationnel()
+Rationnel* Entier::toRationnel()
 {
-    return *(new Rationnel(this->getX()));
+    return (new Rationnel(this->getX()));
 }
 
-Reel& Entier::toReel()
+Reel* Entier::toReel()
 {
-
+    return (new Reel(this->getXAsFloat()));
 }
 
-Complexe& Entier::toComplexe()
-{
-return *(new Complexe(this));
+Complexe* Entier::toComplexe()
+{qDebug()<<"entier::toComplexe()";
+return new Complexe(this->clone());
 }
 
 void Entier::afficher(std::ostream& f) const
@@ -658,6 +660,9 @@ Entier* Entier::sign()
 *
 */
     Complexe::Complexe(Constante* x, Constante* y): re(x),im(y)
+{   qDebug()<<x->toQString();
+}
+        Complexe::Complexe(Complexe* c): re(c->re),im(c->im)
 {
 }
 
@@ -665,20 +670,28 @@ Constante* Complexe::getRe() const{return re; }
 Constante* Complexe::getIm() const {return im; }
 
 QString Complexe::toQString() const
-{   QString tmp;
-    tmp = 'a';
+{
+    QString tmp = re->toQString() + '$';
+    if(im != 0)
+    tmp += im->toQString();
     return tmp;
 }
 
-Reel& Complexe::toReel(){}
-Rationnel& Complexe::toRationnel()
+Reel* Complexe::toReel()
 {
-    //
+    return new Reel(this->getRe()->getXAsFloat()/this->getRe()->getYAsFloat());
 }
-Entier& Complexe::toEntier(){}
-Complexe& Complexe::toComplexe()
+Rationnel* Complexe::toRationnel()
 {
-    return *(this->clone());
+    return new Rationnel(this->getRe()->getXAsInt(),this->getRe()->getYAsInt());
+}
+Entier* Complexe::toEntier()
+{
+    return new Entier((int)(this->getRe()->getXAsFloat()/this->getRe()->getYAsFloat()));
+}
+Complexe* Complexe::toComplexe()
+{
+    return (this->clone());
 }
 Complexe* Complexe::conjugue()
 {
@@ -693,15 +706,17 @@ Element& Complexe::operator+(Element& e)
 {
     if(typeid(e)==typeid(Expression))
     {
+        qDebug()<<"expression";
     return *(new Expression(this->toQString() + " " + e.toQString() + ' + '));
     }
     else
-    {
-        Complexe& c = e.toComplexe();
+    {    qDebug()<<"pas expression";
+        Complexe* c = e.toComplexe();
         Constante* c1 = this->getRe()->clone();
         Constante* c2 = this->getIm()->clone();
-        Constante* c3 = c.getRe()->clone();
-        Constante* c4 = c.getIm()->clone();
+        Constante* c3 = c->getRe()->clone();
+        Constante* c4 = c->getIm()->clone();
+        qDebug()<<"clone";
         Constante& c5 = dynamic_cast<Constante&>(c1->operator+(*(c3)));
         Constante& c6 = dynamic_cast<Constante&>(c2->operator +(*(c4)));
         Complexe* c7 = new Complexe(&c5,&c6);
@@ -712,7 +727,7 @@ Element& Complexe::operator+(Element& e)
         delete c4;
         delete &c5;
         delete &c6;
-
+qDebug()<<"va t-elle jusqu'au bout";
     return *c7;
     }
 
@@ -726,11 +741,11 @@ Element& Complexe::operator-(Element& e)
     }
     else
     {
-        Complexe& c = e.toComplexe();
+        Complexe* c = e.toComplexe();
         Constante* c1 = this->getRe()->clone();
         Constante* c2 = this->getIm()->clone();
-        Constante* c3 = c.getRe()->clone();
-        Constante* c4 = c.getIm()->clone();
+        Constante* c3 = c->getRe()->clone();
+        Constante* c4 = c->getIm()->clone();
         Constante& c5 = dynamic_cast<Constante&>(c1->operator-(*(c3)));
         Constante& c6 = dynamic_cast<Constante&>(c2->operator -(*(c4)));
         Complexe* c7 = new Complexe(&c5,&c6);
@@ -755,13 +770,13 @@ Element& Complexe::operator/(Element& e)
     }
     else
     {
-        Complexe& c = e.toComplexe();
-        Complexe* c_bar = c.conjugue();
+        Complexe* c = e.toComplexe();
+        Complexe* c_bar = c->conjugue();
         Constante* c1 = this->getRe()->clone();
         Constante* c2 = this->getIm()->clone();
         Constante* c_barr = c_bar->getRe()->clone();
         Constante* c_bari = c_bar->getIm()->clone();
-        Constante* module = c.module();
+        Constante* module = c->module();
         /*(Z1/Z2) = Z1*Z2bar / |Z1| */
         Constante& resr = dynamic_cast<Constante&>(((c1->operator *(*c_barr)).operator -(c2->operator *(*c_bari))));
         Constante& resi = dynamic_cast<Constante&>(((c1->operator *(*c_bari)).operator +(c2->operator *(*c_barr))));
@@ -788,7 +803,7 @@ Element& Complexe::operator*(Element& e)
     }
     else
     {
-        Complexe& c = e.toComplexe();
+        Complexe c = e.toComplexe();
         Constante* c1 = this->getRe()->clone();
         Constante* c2 = this->getIm()->clone();
         Constante* cr = c.getRe()->clone();
