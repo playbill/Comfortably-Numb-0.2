@@ -218,7 +218,7 @@ Element* Calculateur::pow()
 
 }
 
-Constante* Calculateur::cos()
+Element* Calculateur::cos()
 {
             if(typeid(*this->pileC->top()) == typeid(Expression))
     {
@@ -248,7 +248,7 @@ Constante* Calculateur::cos()
 
 }
 
-Constante* Calculateur::sin()
+Element* Calculateur::sin()
 {
     if(typeid(*this->pileC->top()) == typeid(Expression))
     {
@@ -277,7 +277,7 @@ Constante* Calculateur::sin()
     }
 }
 
-Constante* Calculateur::tan()
+Element* Calculateur::tan()
 {
         if(typeid(*this->pileC->top()) == typeid(Expression))
     {
@@ -307,7 +307,7 @@ Constante* Calculateur::tan()
 
 }
 
-Constante* Calculateur::cosh()
+Element* Calculateur::cosh()
 {
         if(typeid(*this->pileC->top()) == typeid(Expression))
     {
@@ -336,7 +336,7 @@ Constante* Calculateur::cosh()
     }
 }
 
-Constante* Calculateur::sinh()
+Element* Calculateur::sinh()
 {
             if(typeid(*this->pileC->top()) == typeid(Expression))
     {
@@ -366,7 +366,7 @@ Constante* Calculateur::sinh()
 
 }
 
-Constante* Calculateur::tanh()
+Element* Calculateur::tanh()
 {
         if(typeid(*this->pileC->top()) == typeid(Expression))
     {
@@ -395,7 +395,7 @@ Constante* Calculateur::tanh()
     }
 }
 
-Constante* Calculateur::ln()
+Element* Calculateur::ln()
 {
             if(typeid(*this->pileC->top()) == typeid(Expression))
     {
@@ -440,7 +440,7 @@ Constante* Calculateur::ln()
 
 }
 
-Constante* Calculateur::log()
+Element* Calculateur::log()
 {
                 if(typeid(*this->pileC->top()) == typeid(Expression))
     {

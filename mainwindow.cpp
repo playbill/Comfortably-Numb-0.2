@@ -206,7 +206,84 @@ void MainWindow::evaluate()
                 multiplication->Execute();
                 ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
             }
-
+            else if(c[i]=='sqr')
+            {
+                CommandUnArg* sqr =  new CommandUnArg(leCalculateur,&Calculateur::sqr);
+                sqr->Execute();
+                ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
+            }
+            else if(c[i]=='^')
+            {
+                CommandDeuxArg* pow =  new CommandDeuxArg(leCalculateur,&Calculateur::pow);
+                pow->Execute();
+                ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
+            }
+            else if(c[i]=='ln')
+            {
+                CommandUnArg* ln =  new CommandUnArg(leCalculateur,&Calculateur::ln);
+                ln->Execute();
+                ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
+            }
+            else if(c[i]=='log')
+            {
+                CommandUnArg* log =  new CommandUnArg(leCalculateur,&Calculateur::log);
+                log->Execute();
+                ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
+            }
+            else if(c[i]=='cos')
+            {
+                CommandUnArg* cos =  new CommandUnArg(leCalculateur,&Calculateur::cos);
+                cos->Execute();
+                ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
+            }
+            else if(c[i]=='cosh')
+            {
+                CommandUnArg* cosh =  new CommandUnArg(leCalculateur,&Calculateur::cosh);
+                cosh->Execute();
+                ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
+            }
+            else if(c[i]=='sin')
+            {
+                CommandUnArg* sin =  new CommandUnArg(leCalculateur,&Calculateur::sin);
+                sin->Execute();
+                ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
+            }
+            else if(c[i]=='sinh')
+            {
+                CommandUnArg* sinh =  new CommandUnArg(leCalculateur,&Calculateur::sinh);
+                sinh->Execute();
+                ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
+            }
+            else if(c[i]=='tan')
+            {
+                CommandUnArg* tan =  new CommandUnArg(leCalculateur,&Calculateur::tan);
+                tan->Execute();
+                ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
+            }
+            else if(c[i]=='tanh')
+            {
+                CommandUnArg* tanh =  new CommandUnArg(leCalculateur,&Calculateur::tanh);
+                tanh->Execute();
+                ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
+            }
+            else if(c[i]=='inv')
+            {
+                CommandUnArg* inv =  new CommandUnArg(leCalculateur,&Calculateur::inv);
+                inv->Execute();
+                ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
+            }
+            else if(c[i]=='sqrt')
+            {
+                CommandUnArg* sqrt =  new CommandUnArg(leCalculateur,&Calculateur::sqrt);
+                sqrt->Execute();
+                ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
+            }
+             else if(c[i]=='sign')
+            {
+                CommandUnArg* sign =  new CommandUnArg(leCalculateur,&Calculateur::sign);
+                sign->Execute();
+                ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
+            }
         }
     }
 }
