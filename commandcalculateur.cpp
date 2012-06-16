@@ -25,6 +25,7 @@ CommandPush::~CommandPush()
 void CommandPush::Execute()
 {
     cal->push(this->arg->clone());
+    qDebug()<<"execute"<<arg->toQString();
 }
 
 

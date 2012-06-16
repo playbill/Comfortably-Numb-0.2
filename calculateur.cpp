@@ -36,7 +36,7 @@ Element* Calculateur::cast(Element* e)
     }
     else
     {   qDebug()<<"cast else";
-        return e->clone();
+        return e->toReel();
     }
 }
 
@@ -50,6 +50,8 @@ Element* Calculateur::multiplication()
   {
         Element* e1 = pileC->donneInstance()->pop();
         Element* e2 = pileC->donneInstance()->pop();
+        qDebug()<<e1->toQString();
+        qDebug()<<e2->toQString();
         Element& tmp = e1->operator *(*e2);
         Element* res = (this->cast(&tmp));
         delete e1;
@@ -90,12 +92,16 @@ Element* Calculateur::division()
   {
         Element* e1 = pileC->donneInstance()->pop();
         Element* e2 = pileC->donneInstance()->pop();
+        qDebug()<<"test";
         Element& tmp = e2->operator /(*e1);
+        qDebug()<<"la division";
         Element* res = (this->cast(&tmp));
         delete e1;
         delete e2;
+        qDebug()<<"tmp to qstring"<<res->toQString();
         delete &tmp;
-        this->pileC->push(res);
+        this->getPile()->push(res);
+        qDebug()<<this->getPile()->top()->toQString();
     }
 
 }
@@ -114,6 +120,7 @@ Element* Calculateur::addition()
         qDebug()<<"element 2 pop";
         Element& tmp = e1->operator +(*e2);
         qDebug()<<"addition faite";
+        qDebug()<<tmp.toQString();
         Element* res = (this->cast(&tmp));
         qDebug()<<res->toQString();
         delete e1;

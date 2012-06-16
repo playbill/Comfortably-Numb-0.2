@@ -2,6 +2,7 @@
 #define COMMANDCALCULATEUR_H
 #include "command.h"
 #include "calculateur.h"
+#include <QDEBUG>
 
 
 class CommandUnArg : public Command

@@ -163,21 +163,17 @@ void MainWindow::evaluate()
         qDebug()<<"tour "<<j<<" : "<<*c;
         if(c[i].isDigit())
         {
-            /*while(c[i].isDigit() || c[i] == '.' || c[i] =='/' || c[i] == '$') //indexof
-            {
-                i++;
-            }
 
-            nb = str.left(i);*/
             Element* e;
 
             if(str.contains("$") && this->leCalculateur->isComplexe())
             {
                 e = this->getComplexe(str);
+
             }
             else
             {
-                e = this->getConstante (str);           
+                e = this->getConstante (str);
             }
             CommandPush* push = new CommandPush(leCalculateur,e);
             push->Execute();
@@ -260,7 +256,7 @@ Constante* MainWindow::getConstante(QString str)
     }
     else
     {
-        res = e;
+        res = e->toReel();
     }
     return res;
 

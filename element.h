@@ -67,10 +67,10 @@ class Constante : public Element
         virtual Element& operator*(Element& c) = 0;
         virtual Constante* clone() const = 0;
         virtual Constante* sign() = 0;
-        float getXAsFloat() const {}
-        float getYAsFloat() const { return 1.;}
-        int getXAsInt() const {}
-        int getYAsInt() const { return 1.;}
+        virtual float getXAsFloat() const {}
+        virtual float getYAsFloat() const { return 1.;}
+        virtual int getXAsInt() const {}
+        virtual int getYAsInt() const { return 1.;}
     };
 
 
@@ -167,7 +167,7 @@ class Complexe : public Element
        Constante* re;
        Constante* im;
     public:
-        Complexe(Constante* x, Constante* y = 0);
+        Complexe(Constante* x, Constante* y = new Entier(0));
         Complexe(Complexe* c);
         ~Complexe(){}
         Constante* getRe() const;
