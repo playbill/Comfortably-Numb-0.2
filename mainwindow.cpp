@@ -32,58 +32,55 @@ MainWindow::MainWindow(QWidget *parent)
     mapper->setMapping(ui->num8Button, "8");
     connect(ui->num9Button, SIGNAL(clicked()), mapper, SLOT(map()));
     mapper->setMapping(ui->num9Button, "9");
-    //opERATEUR
+    /**Operateur **/
     connect(ui->opPlusButton, SIGNAL(clicked()), mapper, SLOT(map()));
-    mapper->setMapping(ui->opPlusButton, "+");
+    mapper->setMapping(ui->opPlusButton, " + ");
     connect(ui->opMoinsButton, SIGNAL(clicked()), mapper, SLOT(map()));
-    mapper->setMapping(ui->opMoinsButton, "-");
+    mapper->setMapping(ui->opMoinsButton, " - ");
     connect(ui->opVirguleButton, SIGNAL(clicked()), mapper, SLOT(map()));
     mapper->setMapping(ui->opVirguleButton, ".");
     connect(ui->opSignButton, SIGNAL(clicked()), mapper, SLOT(map()));
-    mapper->setMapping(ui->opSignButton, "SIGN");
+    mapper->setMapping(ui->opSignButton, " SIGN ");
     connect(ui->opInvButton, SIGNAL(clicked()), mapper, SLOT(map()));
-    mapper->setMapping(ui->opInvButton, "INV");
+    mapper->setMapping(ui->opInvButton, " INV ");
     connect(ui->opFoisButton, SIGNAL(clicked()), mapper, SLOT(map()));
-    mapper->setMapping(ui->opFoisButton, "*");
+    mapper->setMapping(ui->opFoisButton, " * ");
     connect(ui->opDivButton, SIGNAL(clicked()), mapper, SLOT(map()));
-    mapper->setMapping(ui->opDivButton, "/");
+    mapper->setMapping(ui->opDivButton, " / ");
     //connect(ui->BtExpression, SIGNAL(clicked()), mapper, SLOT(map()));
-    //mapper->setMapping(ui->BtExpression, "'");
+    //mapper->setMapping(ui->BtExpression, " ' ");
     connect(ui->opPowButton, SIGNAL(clicked()), mapper, SLOT(map()));
-    mapper->setMapping(ui->opPowButton, "^");
-    //connect(ui->BtEspace, SIGNAL(clicked()), mapper, SLOT(map()));
-   // mapper->setMapping(ui->BtEspace, " ");
+    mapper->setMapping(ui->opPowButton, " ^ ");
+
     //FONCTION
     connect(ui->opFactButton, SIGNAL(clicked()), mapper, SLOT(map()));
-    mapper->setMapping(ui->opFactButton, "!");
-    //connect(ui->BtComplexe, SIGNAL(clicked()), mapper, SLOT(map()));
-    //mapper->setMapping(ui->BtComplexe, "$");
+    mapper->setMapping(ui->opFactButton, " ! ");
+    connect(ui->complexeButton, SIGNAL(clicked()), mapper, SLOT(map()));
+    mapper->setMapping(ui->complexeButton, "$");
     //connect(ui->BtModulo, SIGNAL(clicked()), mapper, SLOT(map()));
     //mapper->setMapping(ui->BtModulo, "%");
-    connect(ui->opPowButton, SIGNAL(clicked()), mapper, SLOT(map()));
-    mapper->setMapping(ui->opPowButton, "^");
     connect(ui->opSinButton, SIGNAL(clicked()), mapper, SLOT(map()));
-    mapper->setMapping(ui->opSinButton, "SIN");
+    mapper->setMapping(ui->opSinButton, " SIN ");
     connect(ui->opSinhButton, SIGNAL(clicked()), mapper, SLOT(map()));
-    mapper->setMapping(ui->opSinhButton, "SINH");
+    mapper->setMapping(ui->opSinhButton, " SINH ");
     connect(ui->opCoshButton, SIGNAL(clicked()), mapper, SLOT(map()));
-    mapper->setMapping(ui->opCoshButton, "COSH");
+    mapper->setMapping(ui->opCoshButton, " COSH ");
     connect(ui->opCosButton, SIGNAL(clicked()), mapper, SLOT(map()));
-    mapper->setMapping(ui->opCosButton, "COS");
+    mapper->setMapping(ui->opCosButton, " COS ");
     connect(ui->opTanButton, SIGNAL(clicked()), mapper, SLOT(map()));
-    mapper->setMapping(ui->opTanButton, "TAN");
+    mapper->setMapping(ui->opTanButton, " TAN ");
     connect(ui->opTanhButton, SIGNAL(clicked()), mapper, SLOT(map()));
-    mapper->setMapping(ui->opTanhButton, "TANH");
+    mapper->setMapping(ui->opTanhButton, " TANH ");
     connect(ui->opLnButton, SIGNAL(clicked()), mapper, SLOT(map()));
-    mapper->setMapping(ui->opLnButton, "LN");
+    mapper->setMapping(ui->opLnButton, " LN ");
     connect(ui->opLogButton, SIGNAL(clicked()), mapper, SLOT(map()));
-    mapper->setMapping(ui->opLogButton, "LOG");
+    mapper->setMapping(ui->opLogButton, " LOG ");
     connect(ui->opSqrButton, SIGNAL(clicked()), mapper, SLOT(map()));
-    mapper->setMapping(ui->opSqrButton, "SQR");
+    mapper->setMapping(ui->opSqrButton, " SQR ");
     connect(ui->opSqrtButton, SIGNAL(clicked()), mapper, SLOT(map()));
-    mapper->setMapping(ui->opSqrtButton, "SQRT");
+    mapper->setMapping(ui->opSqrtButton, " SQRT ");
     connect(ui->opCubeButton, SIGNAL(clicked()), mapper, SLOT(map()));
-    mapper->setMapping(ui->opCubeButton, "CUBE");
+    mapper->setMapping(ui->opCubeButton, " CUBE ");
 
 //OPERATION SUR LA PILE
 
@@ -100,7 +97,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->opEspaceButton, SIGNAL(clicked()), mapper, SLOT(map()));
     mapper->setMapping(ui->opEspaceButton, " ");
     connect(ui->opEvalButton, SIGNAL(clicked()), mapper, SLOT(map()));
-    mapper->setMapping(ui->opEvalButton, "EVAL");
+    mapper->setMapping(ui->opEvalButton, " EVAL ");
     connect(mapper, SIGNAL(mapped(QString)), this, SLOT(clickedBt(QString)));
 }
 
@@ -123,9 +120,10 @@ void MainWindow::evaluate()
     }
 
 
-    txt.replace("+"," + ");
-    txt.replace("-"," - ");
-    txt.replace("*"," * ");
+    //txt.replace("+"," + ");
+    //txt.replace("-"," - ");
+    //txt.replace("*"," * ");
+    txt.simplified();
     QString nb;
     QStringList list = txt.split(' ');
 
@@ -135,7 +133,6 @@ void MainWindow::evaluate()
       {
         //\todo warning : attention vous n'êtes pas en en mode reel
       }
-      if(str.count(".")>1) return;//\todo throw exception
 
       if(str.count("$")>1) return;  //\todo throw exception
 
@@ -163,7 +160,7 @@ void MainWindow::evaluate()
         qDebug()<<"tour "<<j<<" : "<<*c;
         if(c[i].isDigit())
         {
-
+            
             Element* e;
 
             if(str.contains("$") && this->leCalculateur->isComplexe())
@@ -172,7 +169,7 @@ void MainWindow::evaluate()
 
             }
             else
-            {
+            {   
                 e = this->getConstante (str);
             }
             CommandPush* push = new CommandPush(leCalculateur,e);

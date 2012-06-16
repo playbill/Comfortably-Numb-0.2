@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'mainwindow.ui'
 **
-** Created: Thu 14. Jun 09:49:13 2012
+** Created: Sun 17. Jun 00:21:39 2012
 **      by: Qt User Interface Compiler version 4.5.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -64,6 +64,7 @@ public:
     QPushButton *opEvalButton;
     QLineEdit *display;
     QPushButton *opEspaceButton;
+    QPushButton *complexeButton;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -218,10 +219,15 @@ public:
         display->setAcceptDrops(false);
         display->setLayoutDirection(Qt::LeftToRight);
         display->setAutoFillBackground(true);
+        display->setReadOnly(true);
         opEspaceButton = new QPushButton(centralWidget);
         opEspaceButton->setObjectName(QString::fromUtf8("opEspaceButton"));
         opEspaceButton->setGeometry(QRect(140, 310, 41, 31));
         opEspaceButton->setLayoutDirection(Qt::LeftToRight);
+        complexeButton = new QPushButton(centralWidget);
+        complexeButton->setObjectName(QString::fromUtf8("complexeButton"));
+        complexeButton->setGeometry(QRect(190, 310, 41, 31));
+        complexeButton->setLayoutDirection(Qt::LeftToRight);
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
@@ -250,19 +256,21 @@ public:
         num3Button->setText(QApplication::translate("MainWindow", "3", 0, QApplication::UnicodeUTF8));
         num3Button->setShortcut(QApplication::translate("MainWindow", "3", 0, QApplication::UnicodeUTF8));
         opDivButton->setText(QApplication::translate("MainWindow", "/", 0, QApplication::UnicodeUTF8));
-        opDivButton->setShortcut(QApplication::translate("MainWindow", "Ctrl+A", 0, QApplication::UnicodeUTF8));
+        opDivButton->setShortcut(QApplication::translate("MainWindow", "/", 0, QApplication::UnicodeUTF8));
         opVirguleButton->setText(QApplication::translate("MainWindow", ",", 0, QApplication::UnicodeUTF8));
-        opVirguleButton->setShortcut(QApplication::translate("MainWindow", ",", 0, QApplication::UnicodeUTF8));
+        opVirguleButton->setShortcut(QApplication::translate("MainWindow", ".", 0, QApplication::UnicodeUTF8));
         opFoisButton->setText(QApplication::translate("MainWindow", "*", 0, QApplication::UnicodeUTF8));
+        opFoisButton->setShortcut(QApplication::translate("MainWindow", "*", 0, QApplication::UnicodeUTF8));
         opPlusButton->setText(QApplication::translate("MainWindow", "+", 0, QApplication::UnicodeUTF8));
         opPlusButton->setShortcut(QApplication::translate("MainWindow", "+", 0, QApplication::UnicodeUTF8));
         opMoinsButton->setText(QApplication::translate("MainWindow", "-", 0, QApplication::UnicodeUTF8));
+        opMoinsButton->setShortcut(QApplication::translate("MainWindow", "-", 0, QApplication::UnicodeUTF8));
         num2Button->setText(QApplication::translate("MainWindow", "2", 0, QApplication::UnicodeUTF8));
         num2Button->setShortcut(QApplication::translate("MainWindow", "2", 0, QApplication::UnicodeUTF8));
         num4Button->setText(QApplication::translate("MainWindow", "4", 0, QApplication::UnicodeUTF8));
         num4Button->setShortcut(QApplication::translate("MainWindow", "4", 0, QApplication::UnicodeUTF8));
         opEgalButton->setText(QApplication::translate("MainWindow", "=", 0, QApplication::UnicodeUTF8));
-        opEgalButton->setShortcut(QApplication::translate("MainWindow", "=", 0, QApplication::UnicodeUTF8));
+        opEgalButton->setShortcut(QApplication::translate("MainWindow", "Return", 0, QApplication::UnicodeUTF8));
         num1Button->setText(QApplication::translate("MainWindow", "1", 0, QApplication::UnicodeUTF8));
         num1Button->setShortcut(QApplication::translate("MainWindow", "1", 0, QApplication::UnicodeUTF8));
         num8Button->setText(QApplication::translate("MainWindow", "8", 0, QApplication::UnicodeUTF8));
@@ -284,7 +292,7 @@ public:
         opSignButton->setText(QApplication::translate("MainWindow", "SIGN", 0, QApplication::UnicodeUTF8));
         opCoshButton->setText(QApplication::translate("MainWindow", "cosh", 0, QApplication::UnicodeUTF8));
         opFactButton->setText(QApplication::translate("MainWindow", "!", 0, QApplication::UnicodeUTF8));
-        opFactButton->setShortcut(QString());
+        opFactButton->setShortcut(QApplication::translate("MainWindow", "!", 0, QApplication::UnicodeUTF8));
         opTanButton->setText(QApplication::translate("MainWindow", "tan", 0, QApplication::UnicodeUTF8));
         opLogButton->setText(QApplication::translate("MainWindow", "log", 0, QApplication::UnicodeUTF8));
         opLogButton->setShortcut(QString());
@@ -297,6 +305,8 @@ public:
         display->setText(QApplication::translate("MainWindow", "0", 0, QApplication::UnicodeUTF8));
         opEspaceButton->setText(QApplication::translate("MainWindow", "_", 0, QApplication::UnicodeUTF8));
         opEspaceButton->setShortcut(QApplication::translate("MainWindow", "Space", 0, QApplication::UnicodeUTF8));
+        complexeButton->setText(QApplication::translate("MainWindow", "$", 0, QApplication::UnicodeUTF8));
+        complexeButton->setShortcut(QApplication::translate("MainWindow", "$", 0, QApplication::UnicodeUTF8));
         Q_UNUSED(MainWindow);
     } // retranslateUi
 
