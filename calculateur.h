@@ -41,6 +41,7 @@ class Calculateur
         Element* sqr();
         Element* cube();
         Element* mod();
+        Element* fact();
         Element* sign();
         Element* push(Element*);
         Element* pop();

@@ -131,6 +131,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->opEspaceButton, SIGNAL(clicked()), mapper, SLOT(map()));
     mapper->setMapping(ui->opEspaceButton, " ");
     connect(ui->opEvalButton, SIGNAL(clicked()), mapper, SLOT(map()));
+    connect(mapper, SIGNAL(mapped(QString)), this, SLOT(clickedBt(QString)));
 }
 
 MainWindow::~MainWindow()
@@ -273,6 +274,12 @@ void MainWindow::evaluate()
             {
                 CommandUnArg* cube =  new CommandUnArg(leCalculateur,&Calculateur::cube);
                 cube->Execute();
+                ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
+            }
+            else if(c[i]=='!')
+            {
+                CommandDeuxArg* fact=  new CommandDeuxArg(leCalculateur,&Calculateur::fact);
+                fact->Execute();
                 ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
             }
             else if(c[i]=='%')

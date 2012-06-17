@@ -20,8 +20,8 @@
    <widget class="QPushButton" name="num6Button">
     <property name="geometry">
      <rect>
-      <x>420</x>
-      <y>230</y>
+      <x>440</x>
+      <y>213</y>
       <width>41</width>
       <height>31</height>
      </rect>
@@ -39,8 +39,8 @@
    <widget class="QPushButton" name="num3Button">
     <property name="geometry">
      <rect>
-      <x>420</x>
-      <y>190</y>
+      <x>440</x>
+      <y>173</y>
       <width>41</width>
       <height>31</height>
      </rect>
@@ -58,8 +58,8 @@
    <widget class="QPushButton" name="opDivButton">
     <property name="geometry">
      <rect>
-      <x>420</x>
-      <y>150</y>
+      <x>440</x>
+      <y>133</y>
       <width>41</width>
       <height>31</height>
      </rect>
@@ -77,8 +77,8 @@
    <widget class="QPushButton" name="opPointButton">
     <property name="geometry">
      <rect>
-      <x>420</x>
-      <y>310</y>
+      <x>440</x>
+      <y>293</y>
       <width>41</width>
       <height>31</height>
      </rect>
@@ -96,8 +96,8 @@
    <widget class="QPushButton" name="opFoisButton">
     <property name="geometry">
      <rect>
-      <x>470</x>
-      <y>150</y>
+      <x>490</x>
+      <y>133</y>
       <width>41</width>
       <height>31</height>
      </rect>
@@ -115,8 +115,8 @@
    <widget class="QPushButton" name="opPlusButton">
     <property name="geometry">
      <rect>
-      <x>470</x>
-      <y>230</y>
+      <x>490</x>
+      <y>213</y>
       <width>41</width>
       <height>31</height>
      </rect>
@@ -134,8 +134,8 @@
    <widget class="QPushButton" name="opMoinsButton">
     <property name="geometry">
      <rect>
-      <x>470</x>
-      <y>190</y>
+      <x>490</x>
+      <y>173</y>
       <width>41</width>
       <height>31</height>
      </rect>
@@ -153,8 +153,8 @@
    <widget class="QPushButton" name="num2Button">
     <property name="geometry">
      <rect>
-      <x>370</x>
-      <y>190</y>
+      <x>390</x>
+      <y>173</y>
       <width>41</width>
       <height>31</height>
      </rect>
@@ -172,8 +172,8 @@
    <widget class="QPushButton" name="num4Button">
     <property name="geometry">
      <rect>
-      <x>320</x>
-      <y>230</y>
+      <x>340</x>
+      <y>213</y>
       <width>41</width>
       <height>31</height>
      </rect>
@@ -191,8 +191,8 @@
    <widget class="QPushButton" name="opEgalButton">
     <property name="geometry">
      <rect>
-      <x>470</x>
-      <y>270</y>
+      <x>490</x>
+      <y>253</y>
       <width>41</width>
       <height>71</height>
      </rect>
@@ -210,8 +210,8 @@
    <widget class="QPushButton" name="num1Button">
     <property name="geometry">
      <rect>
-      <x>320</x>
-      <y>190</y>
+      <x>340</x>
+      <y>173</y>
       <width>41</width>
       <height>31</height>
      </rect>
@@ -229,8 +229,8 @@
    <widget class="QPushButton" name="num8Button">
     <property name="geometry">
      <rect>
-      <x>370</x>
-      <y>270</y>
+      <x>390</x>
+      <y>253</y>
       <width>41</width>
       <height>31</height>
      </rect>
@@ -248,8 +248,8 @@
    <widget class="QPushButton" name="num9Button">
     <property name="geometry">
      <rect>
-      <x>420</x>
-      <y>270</y>
+      <x>440</x>
+      <y>253</y>
       <width>41</width>
       <height>31</height>
      </rect>
@@ -267,8 +267,8 @@
    <widget class="QPushButton" name="num7Button">
     <property name="geometry">
      <rect>
-      <x>320</x>
-      <y>270</y>
+      <x>340</x>
+      <y>253</y>
       <width>41</width>
       <height>31</height>
      </rect>
@@ -286,8 +286,8 @@
    <widget class="QPushButton" name="num5Button">
     <property name="geometry">
      <rect>
-      <x>370</x>
-      <y>230</y>
+      <x>390</x>
+      <y>213</y>
       <width>41</width>
       <height>31</height>
      </rect>
@@ -305,8 +305,8 @@
    <widget class="QPushButton" name="num0Button">
     <property name="geometry">
      <rect>
-      <x>320</x>
-      <y>310</y>
+      <x>340</x>
+      <y>293</y>
       <width>91</width>
       <height>31</height>
      </rect>
@@ -370,7 +370,7 @@
    <widget class="QCheckBox" name="modeComplexe">
     <property name="geometry">
      <rect>
-      <x>250</x>
+      <x>170</x>
       <y>110</y>
       <width>72</width>
       <height>18</height>
@@ -383,9 +383,9 @@
    <widget class="QGroupBox" name="modeConstante">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>140</y>
-      <width>281</width>
+      <x>10</x>
+      <y>130</y>
+      <width>311</width>
       <height>21</height>
      </rect>
     </property>
@@ -408,9 +408,9 @@
     <widget class="QRadioButton" name="modeRationnel">
      <property name="geometry">
       <rect>
-       <x>80</x>
+       <x>70</x>
        <y>0</y>
-       <width>61</width>
+       <width>71</width>
        <height>18</height>
       </rect>
      </property>
@@ -448,9 +448,9 @@
    <widget class="QGroupBox" name="modeAngle">
     <property name="geometry">
      <rect>
-      <x>20</x>
+      <x>10</x>
       <y>110</y>
-      <width>221</width>
+      <width>151</width>
       <height>21</height>
      </rect>
     </property>
@@ -462,7 +462,7 @@
       <rect>
        <x>10</x>
        <y>0</y>
-       <width>51</width>
+       <width>61</width>
        <height>18</height>
       </rect>
      </property>
@@ -473,9 +473,9 @@
     <widget class="QRadioButton" name="modeRadiant">
      <property name="geometry">
       <rect>
-       <x>80</x>
+       <x>70</x>
        <y>0</y>
-       <width>61</width>
+       <width>71</width>
        <height>18</height>
       </rect>
      </property>
@@ -487,10 +487,10 @@
    <widget class="QGroupBox" name="groupBox_3">
     <property name="geometry">
      <rect>
-      <x>15</x>
-      <y>170</y>
-      <width>291</width>
-      <height>191</height>
+      <x>10</x>
+      <y>200</y>
+      <width>311</width>
+      <height>141</height>
      </rect>
     </property>
     <property name="title">
@@ -499,9 +499,9 @@
     <widget class="QPushButton" name="opSinhButton">
      <property name="geometry">
       <rect>
-       <x>125</x>
-       <y>20</y>
-       <width>41</width>
+       <x>220</x>
+       <y>53</y>
+       <width>31</width>
        <height>31</height>
       </rect>
      </property>
@@ -515,9 +515,9 @@
     <widget class="QPushButton" name="opEspaceButton">
      <property name="geometry">
       <rect>
-       <x>125</x>
-       <y>140</y>
-       <width>41</width>
+       <x>140</x>
+       <y>93</y>
+       <width>31</width>
        <height>31</height>
       </rect>
      </property>
@@ -534,9 +534,9 @@
     <widget class="QPushButton" name="opCosButton">
      <property name="geometry">
       <rect>
-       <x>75</x>
-       <y>60</y>
-       <width>41</width>
+       <x>100</x>
+       <y>53</y>
+       <width>31</width>
        <height>31</height>
       </rect>
      </property>
@@ -550,9 +550,9 @@
     <widget class="QPushButton" name="opCubeButton">
      <property name="geometry">
       <rect>
-       <x>225</x>
-       <y>100</y>
-       <width>41</width>
+       <x>100</x>
+       <y>13</y>
+       <width>31</width>
        <height>31</height>
       </rect>
      </property>
@@ -566,9 +566,9 @@
     <widget class="QPushButton" name="opInvButton">
      <property name="geometry">
       <rect>
-       <x>175</x>
-       <y>100</y>
-       <width>41</width>
+       <x>60</x>
+       <y>93</y>
+       <width>31</width>
        <height>31</height>
       </rect>
      </property>
@@ -582,9 +582,9 @@
     <widget class="QPushButton" name="opPowButton">
      <property name="geometry">
       <rect>
-       <x>25</x>
-       <y>20</y>
-       <width>41</width>
+       <x>60</x>
+       <y>13</y>
+       <width>31</width>
        <height>31</height>
       </rect>
      </property>
@@ -592,15 +592,15 @@
       <enum>Qt::LeftToRight</enum>
      </property>
      <property name="text">
-      <string>POW</string>
+      <string>pow</string>
      </property>
     </widget>
     <widget class="QPushButton" name="opSqrButton">
      <property name="geometry">
       <rect>
-       <x>225</x>
-       <y>60</y>
-       <width>41</width>
+       <x>140</x>
+       <y>13</y>
+       <width>31</width>
        <height>31</height>
       </rect>
      </property>
@@ -614,9 +614,9 @@
     <widget class="QPushButton" name="opTanButton">
      <property name="geometry">
       <rect>
-       <x>75</x>
-       <y>100</y>
-       <width>41</width>
+       <x>20</x>
+       <y>53</y>
+       <width>31</width>
        <height>31</height>
       </rect>
      </property>
@@ -630,25 +630,25 @@
     <widget class="QPushButton" name="opEvalButton">
      <property name="geometry">
       <rect>
-       <x>25</x>
-       <y>140</y>
-       <width>41</width>
-       <height>31</height>
+       <x>260</x>
+       <y>53</y>
+       <width>31</width>
+       <height>71</height>
       </rect>
      </property>
      <property name="layoutDirection">
       <enum>Qt::LeftToRight</enum>
      </property>
      <property name="text">
-      <string>EVAL</string>
+      <string>eval</string>
      </property>
     </widget>
     <widget class="QPushButton" name="opSinButton">
      <property name="geometry">
       <rect>
-       <x>75</x>
-       <y>20</y>
-       <width>41</width>
+       <x>180</x>
+       <y>53</y>
+       <width>31</width>
        <height>31</height>
       </rect>
      </property>
@@ -662,9 +662,9 @@
     <widget class="QPushButton" name="opModButton">
      <property name="geometry">
       <rect>
-       <x>25</x>
-       <y>60</y>
-       <width>41</width>
+       <x>100</x>
+       <y>93</y>
+       <width>31</width>
        <height>31</height>
       </rect>
      </property>
@@ -672,15 +672,15 @@
       <enum>Qt::LeftToRight</enum>
      </property>
      <property name="text">
-      <string>MOD</string>
+      <string>mod</string>
      </property>
     </widget>
     <widget class="QPushButton" name="opLogButton">
      <property name="geometry">
       <rect>
-       <x>175</x>
-       <y>60</y>
-       <width>41</width>
+       <x>220</x>
+       <y>13</y>
+       <width>31</width>
        <height>31</height>
       </rect>
      </property>
@@ -697,9 +697,9 @@
     <widget class="QPushButton" name="complexeButton">
      <property name="geometry">
       <rect>
-       <x>175</x>
-       <y>140</y>
-       <width>41</width>
+       <x>180</x>
+       <y>93</y>
+       <width>31</width>
        <height>31</height>
       </rect>
      </property>
@@ -716,9 +716,9 @@
     <widget class="QPushButton" name="opTanhButton">
      <property name="geometry">
       <rect>
-       <x>125</x>
-       <y>100</y>
-       <width>41</width>
+       <x>60</x>
+       <y>53</y>
+       <width>31</width>
        <height>31</height>
       </rect>
      </property>
@@ -732,9 +732,9 @@
     <widget class="QPushButton" name="opLnButton">
      <property name="geometry">
       <rect>
-       <x>175</x>
-       <y>20</y>
-       <width>41</width>
+       <x>260</x>
+       <y>13</y>
+       <width>31</width>
        <height>31</height>
       </rect>
      </property>
@@ -748,9 +748,9 @@
     <widget class="QPushButton" name="opFactButton">
      <property name="geometry">
       <rect>
-       <x>75</x>
-       <y>140</y>
-       <width>41</width>
+       <x>20</x>
+       <y>13</y>
+       <width>31</width>
        <height>31</height>
       </rect>
      </property>
@@ -767,9 +767,9 @@
     <widget class="QPushButton" name="opSqrtButton">
      <property name="geometry">
       <rect>
-       <x>225</x>
-       <y>20</y>
-       <width>41</width>
+       <x>180</x>
+       <y>13</y>
+       <width>31</width>
        <height>31</height>
       </rect>
      </property>
@@ -783,9 +783,9 @@
     <widget class="QPushButton" name="opCoshButton">
      <property name="geometry">
       <rect>
-       <x>125</x>
-       <y>60</y>
-       <width>41</width>
+       <x>140</x>
+       <y>53</y>
+       <width>31</width>
        <height>31</height>
       </rect>
      </property>
@@ -799,8 +799,53 @@
     <widget class="QPushButton" name="opSignButton">
      <property name="geometry">
       <rect>
-       <x>25</x>
-       <y>100</y>
+       <x>20</x>
+       <y>93</y>
+       <width>31</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="layoutDirection">
+      <enum>Qt::LeftToRight</enum>
+     </property>
+     <property name="text">
+      <string>sign</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="opExpressionButton">
+     <property name="geometry">
+      <rect>
+       <x>220</x>
+       <y>93</y>
+       <width>31</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="layoutDirection">
+      <enum>Qt::LeftToRight</enum>
+     </property>
+     <property name="text">
+      <string>'</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>150</y>
+      <width>311</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string/>
+    </property>
+    <widget class="QPushButton" name="opSwapButton">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
        <width>41</width>
        <height>31</height>
       </rect>
@@ -809,25 +854,107 @@
       <enum>Qt::LeftToRight</enum>
      </property>
      <property name="text">
-      <string>SIGN</string>
+      <string>swap</string>
+     </property>
+     <property name="shortcut">
+      <string>!</string>
      </property>
     </widget>
-   </widget>
-   <widget class="QPushButton" name="opExpressionButton">
-    <property name="geometry">
-     <rect>
-      <x>240</x>
-      <y>310</y>
-      <width>41</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="layoutDirection">
-     <enum>Qt::LeftToRight</enum>
-    </property>
-    <property name="text">
-     <string>'</string>
-    </property>
+    <widget class="QPushButton" name="opMeanButton">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>10</y>
+       <width>41</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="layoutDirection">
+      <enum>Qt::LeftToRight</enum>
+     </property>
+     <property name="text">
+      <string>mean</string>
+     </property>
+     <property name="shortcut">
+      <string>!</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="opSumButton">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>10</y>
+       <width>41</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="layoutDirection">
+      <enum>Qt::LeftToRight</enum>
+     </property>
+     <property name="text">
+      <string>sum</string>
+     </property>
+     <property name="shortcut">
+      <string>!</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="opDropButton">
+     <property name="geometry">
+      <rect>
+       <x>160</x>
+       <y>10</y>
+       <width>41</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="layoutDirection">
+      <enum>Qt::LeftToRight</enum>
+     </property>
+     <property name="text">
+      <string>drop</string>
+     </property>
+     <property name="shortcut">
+      <string>!</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="opDupButton">
+     <property name="geometry">
+      <rect>
+       <x>210</x>
+       <y>10</y>
+       <width>41</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="layoutDirection">
+      <enum>Qt::LeftToRight</enum>
+     </property>
+     <property name="text">
+      <string>dup</string>
+     </property>
+     <property name="shortcut">
+      <string>!</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="opClearButton">
+     <property name="geometry">
+      <rect>
+       <x>260</x>
+       <y>10</y>
+       <width>41</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="layoutDirection">
+      <enum>Qt::LeftToRight</enum>
+     </property>
+     <property name="text">
+      <string>clear</string>
+     </property>
+     <property name="shortcut">
+      <string>!</string>
+     </property>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">

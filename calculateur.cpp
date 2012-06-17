@@ -119,6 +119,34 @@ Element* Calculateur::addition()
     }
 
 }
+Element* Calculateur::fact()
+{
+    if(typeid(*this->pileC->top()) == typeid(Expression))
+    {
+        this->eval();
+    }
+    if(typeid(*this->pileC->top()) == typeid(Complexe))
+    {   qDebug()<<"on est en complexe";
+         // throw std::logic_error( "mod : le premier parametre doit être une constante");
+    }
+    if(typeid(*this->pileC->top()) != typeid(Entier))
+    {   qDebug()<<"on est en non entier";
+        // \todo throw stc:: il faut que ce soit un entier attention nous le convertissons
+    }
+    if(typeid(*this->pileC->top()) == typeid(Entier))
+    {   qDebug()<<"on est en entier";
+        Entier* m = dynamic_cast<Entier*>(this->pileC->pop()); /*!< module */
+        int a,f;
+        for(a=1,f=1;a<m->getXAsInt()+1;f*=a,a++);
+        this->push(new Entier(f));
+        delete m;
+    }
+    else
+    {
+        //\todo throw error
+    }
+}
+
 Element* Calculateur::mod()
 {
     if(typeid(*this->pileC->top()) == typeid(Expression))
