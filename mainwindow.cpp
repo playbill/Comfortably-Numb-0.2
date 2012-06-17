@@ -42,6 +42,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->modeRadiant, SIGNAL(toggled(bool)), this, SLOT(toModeRadiant()));
     connect(ui->modeEntier, SIGNAL(toggled(bool)), this, SLOT(toModeEntier()));
     connect(ui->opEgalButton, SIGNAL(clicked()), this, SLOT(evaluate()));
+    connect(ui->opEvalButton, SIGNAL(clicked()), this, SLOT(eval()));
     //connect(ui->BtVider, SIGNAL(clicked()), ui->entreeTxt, SLOT(clear()));
     //connect(ui->BtEnvoyer, SIGNAL(clicked()), this, SLOT(envoyer()));
     // PAVE NUMERIQUE
@@ -70,8 +71,8 @@ MainWindow::MainWindow(QWidget *parent)
     mapper->setMapping(ui->opPlusButton, " + ");
     connect(ui->opMoinsButton, SIGNAL(clicked()), mapper, SLOT(map()));
     mapper->setMapping(ui->opMoinsButton, " - ");
-    connect(ui->opVirguleButton, SIGNAL(clicked()), mapper, SLOT(map()));
-    mapper->setMapping(ui->opVirguleButton, ".");
+    connect(ui->opPointButton, SIGNAL(clicked()), mapper, SLOT(map()));
+    mapper->setMapping(ui->opPointButton, ".");
     connect(ui->opSignButton, SIGNAL(clicked()), mapper, SLOT(map()));
     mapper->setMapping(ui->opSignButton, " SIGN ");
     connect(ui->opInvButton, SIGNAL(clicked()), mapper, SLOT(map()));
@@ -80,8 +81,8 @@ MainWindow::MainWindow(QWidget *parent)
     mapper->setMapping(ui->opFoisButton, " * ");
     connect(ui->opDivButton, SIGNAL(clicked()), mapper, SLOT(map()));
     mapper->setMapping(ui->opDivButton, " / ");
-    //connect(ui->BtExpression, SIGNAL(clicked()), mapper, SLOT(map()));
-    //mapper->setMapping(ui->BtExpression, " ' ");
+    connect(ui->opExpressionButton, SIGNAL(clicked()), mapper, SLOT(map()));
+    mapper->setMapping(ui->opExpressionButton, " ' ");
     connect(ui->opPowButton, SIGNAL(clicked()), mapper, SLOT(map()));
     mapper->setMapping(ui->opPowButton, " ^ ");
 
@@ -90,8 +91,8 @@ MainWindow::MainWindow(QWidget *parent)
     mapper->setMapping(ui->opFactButton, " ! ");
     connect(ui->complexeButton, SIGNAL(clicked()), mapper, SLOT(map()));
     mapper->setMapping(ui->complexeButton, "$");
-    //connect(ui->BtModulo, SIGNAL(clicked()), mapper, SLOT(map()));
-    //mapper->setMapping(ui->BtModulo, "%");
+    connect(ui->opModButton, SIGNAL(clicked()), mapper, SLOT(map()));
+    mapper->setMapping(ui->opModButton, " % ");
     connect(ui->opSinButton, SIGNAL(clicked()), mapper, SLOT(map()));
     mapper->setMapping(ui->opSinButton, " SIN ");
     connect(ui->opSinhButton, SIGNAL(clicked()), mapper, SLOT(map()));
@@ -130,8 +131,6 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->opEspaceButton, SIGNAL(clicked()), mapper, SLOT(map()));
     mapper->setMapping(ui->opEspaceButton, " ");
     connect(ui->opEvalButton, SIGNAL(clicked()), mapper, SLOT(map()));
-    mapper->setMapping(ui->opEvalButton, " EVAL ");
-    connect(mapper, SIGNAL(mapped(QString)), this, SLOT(clickedBt(QString)));
 }
 
 MainWindow::~MainWindow()
@@ -183,15 +182,38 @@ void MainWindow::evaluate()
 
     qDebug()<<list;
     int j=0;
+    bool expression = false;
+    QString res;
     int i;
     foreach (QString str, list)
     {
-        qDebug()<<str;
-        qDebug()<<str;
         QChar* c = str.data();
         i = 0;
-        qDebug()<<"tour "<<j<<" : "<<*c;
-        if(c[i].isDigit())
+        if(str.compare("'")==0 && expression == true )
+        {
+            if(res.isEmpty())
+            {
+                //\todo trow_error
+            }
+            else
+            {
+                Expression* e = new Expression(res);
+                CommandPush* push = new CommandPush(leCalculateur,e);
+                push->Execute();
+                ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
+                res = "";
+                expression = false;
+            }
+        }
+        else if(str.compare("'")==0)
+        {
+            expression = true;
+        }
+        else if(expression == true)
+        {
+            res += " " + str;
+        }
+        else if(c[i].isDigit())
         {
             
             Element* e;
@@ -207,7 +229,6 @@ void MainWindow::evaluate()
             }
             CommandPush* push = new CommandPush(leCalculateur,e);
             push->Execute();
-            qDebug()<<"test";
             ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
             j++;
         }
@@ -243,7 +264,7 @@ void MainWindow::evaluate()
                 ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
             }
             else if(str.contains("sqr", Qt::CaseInsensitive))
-            {   qDebug()<<"on est dans sqr";
+            {
                 CommandUnArg* sqr =  new CommandUnArg(leCalculateur,&Calculateur::sqr);
                 sqr->Execute();
                 ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
@@ -254,11 +275,16 @@ void MainWindow::evaluate()
                 cube->Execute();
                 ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
             }
+            else if(c[i]=='%')
+            {
+                CommandDeuxArg* mod=  new CommandDeuxArg(leCalculateur,&Calculateur::mod);
+                mod->Execute();
+                ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
+            }
             else if(c[i]=='^')
             {
                 CommandDeuxArg* pow =  new CommandDeuxArg(leCalculateur,&Calculateur::pow);
                 pow->Execute();
-                qDebug()<<"un bug ici";
                 ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
             }
             else if(str.contains("ln", Qt::CaseInsensitive))
@@ -326,7 +352,7 @@ void MainWindow::evaluate()
 }
 
 void MainWindow::toModeEntier()
-{   qDebug()<<"toModeEntier()";
+{
     this->leCalculateur->setToEntier();
 }
 
@@ -352,7 +378,7 @@ void MainWindow::toModeDegre()
 
 void MainWindow::toModeComplexe()
 {
-    if(this->leCalculateur->isComplexe())
+    if(!this->leCalculateur->isComplexe())
     {
         this->leCalculateur->setToComplexe();
     }
@@ -381,18 +407,15 @@ Constante* MainWindow::getConstante(QString str)
     if(str.contains("."))
     {
         e = new Reel(str.toFloat());
-        qDebug()<<"reel";
     }
     else if(str.contains("/"))
     {
 
         e = new Rationnel(str.split('/')[0].toInt(),str.split('/')[1].toInt());
-        qDebug()<<"Rationnel";
     }
     else
     {
         e = new Entier(str.toInt());
-        qDebug()<<"Entier";
     }
     Constante* res;
     if(this->leCalculateur->isEntier())
@@ -408,8 +431,6 @@ Constante* MainWindow::getConstante(QString str)
     else if(this->leCalculateur->isReel())
     {
         res = e->toReel();
-        qDebug()<<"transormatio en reel";
-        qDebug()<<res->toQString();
     }
     else
     {
@@ -419,9 +440,26 @@ Constante* MainWindow::getConstante(QString str)
 
 }
 
+void MainWindow::eval()
+{
+    if(typeid(*this->leCalculateur->getPile()->top()) != typeid(Expression))
+    {
+        //\todo ce n'est pas une expression
+         ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
+
+    }
+    else
+    {
+        Element* exp = this->leCalculateur->pop();
+        ui->display->setText(exp->toQString());
+        this->evaluate();
+    }
+}
+
  void MainWindow::clickedBt(QString txt)
  {
      if (waitingForOperand) {
+         qDebug()<<"passe par là";
          ui->display->clear();
          waitingForOperand = false;
      }

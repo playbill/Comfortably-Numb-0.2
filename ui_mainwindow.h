@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'mainwindow.ui'
 **
-** Created: Sun 17. Jun 02:13:11 2012
+** Created: Sun 17. Jun 13:16:01 2012
 **      by: Qt User Interface Compiler version 4.5.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -35,7 +35,7 @@ public:
     QPushButton *num6Button;
     QPushButton *num3Button;
     QPushButton *opDivButton;
-    QPushButton *opVirguleButton;
+    QPushButton *opPointButton;
     QPushButton *opFoisButton;
     QPushButton *opPlusButton;
     QPushButton *opMoinsButton;
@@ -79,6 +79,7 @@ public:
     QPushButton *opSqrtButton;
     QPushButton *opCoshButton;
     QPushButton *opSignButton;
+    QPushButton *opExpressionButton;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -103,10 +104,10 @@ public:
         opDivButton->setObjectName(QString::fromUtf8("opDivButton"));
         opDivButton->setGeometry(QRect(420, 150, 41, 31));
         opDivButton->setLayoutDirection(Qt::LeftToRight);
-        opVirguleButton = new QPushButton(centralWidget);
-        opVirguleButton->setObjectName(QString::fromUtf8("opVirguleButton"));
-        opVirguleButton->setGeometry(QRect(420, 310, 41, 31));
-        opVirguleButton->setLayoutDirection(Qt::LeftToRight);
+        opPointButton = new QPushButton(centralWidget);
+        opPointButton->setObjectName(QString::fromUtf8("opPointButton"));
+        opPointButton->setGeometry(QRect(420, 310, 41, 31));
+        opPointButton->setLayoutDirection(Qt::LeftToRight);
         opFoisButton = new QPushButton(centralWidget);
         opFoisButton->setObjectName(QString::fromUtf8("opFoisButton"));
         opFoisButton->setGeometry(QRect(470, 150, 41, 31));
@@ -276,6 +277,10 @@ public:
         opSignButton->setObjectName(QString::fromUtf8("opSignButton"));
         opSignButton->setGeometry(QRect(25, 100, 41, 31));
         opSignButton->setLayoutDirection(Qt::LeftToRight);
+        opExpressionButton = new QPushButton(centralWidget);
+        opExpressionButton->setObjectName(QString::fromUtf8("opExpressionButton"));
+        opExpressionButton->setGeometry(QRect(240, 310, 41, 31));
+        opExpressionButton->setLayoutDirection(Qt::LeftToRight);
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
@@ -308,8 +313,8 @@ public:
         num3Button->setShortcut(QApplication::translate("MainWindow", "3", 0, QApplication::UnicodeUTF8));
         opDivButton->setText(QApplication::translate("MainWindow", "/", 0, QApplication::UnicodeUTF8));
         opDivButton->setShortcut(QApplication::translate("MainWindow", "/", 0, QApplication::UnicodeUTF8));
-        opVirguleButton->setText(QApplication::translate("MainWindow", ",", 0, QApplication::UnicodeUTF8));
-        opVirguleButton->setShortcut(QApplication::translate("MainWindow", ".", 0, QApplication::UnicodeUTF8));
+        opPointButton->setText(QApplication::translate("MainWindow", ".", 0, QApplication::UnicodeUTF8));
+        opPointButton->setShortcut(QApplication::translate("MainWindow", ".", 0, QApplication::UnicodeUTF8));
         opFoisButton->setText(QApplication::translate("MainWindow", "*", 0, QApplication::UnicodeUTF8));
         opFoisButton->setShortcut(QApplication::translate("MainWindow", "*", 0, QApplication::UnicodeUTF8));
         opPlusButton->setText(QApplication::translate("MainWindow", "+", 0, QApplication::UnicodeUTF8));
@@ -368,6 +373,7 @@ public:
         opSqrtButton->setText(QApplication::translate("MainWindow", "sqrt", 0, QApplication::UnicodeUTF8));
         opCoshButton->setText(QApplication::translate("MainWindow", "cosh", 0, QApplication::UnicodeUTF8));
         opSignButton->setText(QApplication::translate("MainWindow", "SIGN", 0, QApplication::UnicodeUTF8));
+        opExpressionButton->setText(QApplication::translate("MainWindow", "'", 0, QApplication::UnicodeUTF8));
         toolBar->setWindowTitle(QApplication::translate("MainWindow", "toolBar", 0, QApplication::UnicodeUTF8));
         Q_UNUSED(MainWindow);
     } // retranslateUi

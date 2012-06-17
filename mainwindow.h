@@ -28,6 +28,7 @@ public:
 private slots:
     void clickedBt(QString);
     void evaluate();
+    void eval();
     void toModeEntier();
     void toModeReel();
     void toModeRationnel();

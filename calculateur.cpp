@@ -50,8 +50,6 @@ Element* Calculateur::multiplication()
   {
         Element* e1 = pileC->donneInstance()->pop();
         Element* e2 = pileC->donneInstance()->pop();
-        qDebug()<<e1->toQString();
-        qDebug()<<e2->toQString();
         Element& tmp = e1->operator *(*e2);
         Element* res = (this->cast(&tmp));
         delete e1;
@@ -92,16 +90,12 @@ Element* Calculateur::division()
   {
         Element* e1 = pileC->donneInstance()->pop();
         Element* e2 = pileC->donneInstance()->pop();
-        qDebug()<<"test";
         Element& tmp = e2->operator /(*e1);
-        qDebug()<<"la division";
         Element* res = (this->cast(&tmp));
         delete e1;
         delete e2;
-        qDebug()<<"tmp to qstring"<<res->toQString();
         delete &tmp;
         this->getPile()->push(res);
-        qDebug()<<this->getPile()->top()->toQString();
     }
 
 }
@@ -109,20 +103,14 @@ Element* Calculateur::division()
 Element* Calculateur::addition()
 {
       if(pileC->donneInstance()->size()<2){
-          qDebug()<<"size<2";
         //throw std::logic_error( "ADDITION : il n'y a pas assez de paramatres");
     }
   else
-  {     qDebug()<<"size>2";
+  {
         Element* e1 = pileC->donneInstance()->pop();
-        qDebug()<<"element 1 pop";
         Element* e2 = pileC->donneInstance()->pop();
-        qDebug()<<"element 2 pop";
         Element& tmp = e1->operator +(*e2);
-        qDebug()<<"addition faite";
-        qDebug()<<tmp.toQString();
         Element* res = (this->cast(&tmp));
-        qDebug()<<res->toQString();
         delete e1;
         delete e2;
         delete &tmp;
@@ -131,20 +119,72 @@ Element* Calculateur::addition()
     }
 
 }
-
-Element* Calculateur::pow()
+Element* Calculateur::mod()
 {
-qDebug()<<"ici c'est pow";
     if(typeid(*this->pileC->top()) == typeid(Expression))
-    {   qDebug()<<"Expression";
+    {
         this->eval();
     }
     if(typeid(*this->pileC->top()) == typeid(Complexe))
-    {   qDebug()<<"Complexe";
+    {   qDebug()<<"on est en complexe";
+         // throw std::logic_error( "mod : le premier parametre doit être une constante");
+    }
+    if(typeid(*this->pileC->top()) != typeid(Entier))
+    {   qDebug()<<"on est en non entier";
+        // \todo throw stc:: il faut que ce soit un entier attention nous le convertissons
+    }
+    if(typeid(*this->pileC->top()) == typeid(Entier))
+    {   qDebug()<<"on est en entier";
+        Entier* m = dynamic_cast<Entier*>(this->pileC->pop()); /*!< module */
+        qDebug()<<"l'entier est"<<m->toQString();
+
+        if(typeid(*this->pileC->top()) == typeid(Expression))
+        { qDebug()<<"on est en expression";
+            this->eval();
+        }
+        if(typeid(*this->pileC->top()) == typeid(Complexe))
+        {   qDebug()<<"on est en complexe";
+            this->pileC->push(m);
+            // \todo throw error
+        }
+        if(typeid(*this->pileC->top()) != typeid(Entier))
+        {   qDebug()<<"on est en non entier";
+            // \todo nous le convertissons
+        }
+        if(typeid(*this->pileC->top()) == typeid(Entier))
+        {   qDebug()<<"on est en entier";
+            Entier* e = dynamic_cast<Entier*>(this->pileC->pop());
+            qDebug()<<e->toQString();
+            Entier* tmp = new Entier(e->getXAsInt()%m->getXAsInt());
+            qDebug()<<tmp->toQString();
+            delete m;
+            delete e;
+            this->pileC->push(tmp);
+            return tmp;
+        }
+        else
+        {
+            //\todo throw error
+        }
+    }
+    else
+    {
+        //\todo throw error
+    }
+}
+
+Element* Calculateur::pow()
+{
+    if(typeid(*this->pileC->top()) == typeid(Expression))
+    {
+        this->eval();
+    }
+    if(typeid(*this->pileC->top()) == typeid(Complexe))
+    {
          // throw std::logic_error( "POW : le premier parametre doit être un entier");
     }
     else if(typeid(*this->pileC->top())== typeid(Entier))
-    {   qDebug()<<"Entier";
+    {
         Entier* e = dynamic_cast<Entier*>(this->pileC->pop());
 
         if(typeid(*this->pileC->top()) == typeid(Expression))
@@ -189,36 +229,33 @@ qDebug()<<"ici c'est pow";
 
         }
         else
-        {qDebug()<<"Rien1";
+        {
         // erreur
         }
     }
     else if(typeid(*this->pileC->top()) == typeid(Reel) || typeid(*this->pileC->top()) == typeid(Rationnel))
-    {   qDebug()<<"puissance reelle ou rationnelle";
+    {
         Constante* p = dynamic_cast<Constante*>(this->pileC->pop());
 
         if((typeid(*this->pileC->top()) == typeid(Entier))||(typeid(*this->pileC->top()) == typeid(Rationnel)) || typeid(*this->pileC->top()) == typeid(Reel))
         {
             Constante* c = dynamic_cast<Constante*>(this->pileC->pop());
-            qDebug()<<"deuxième pop()";
             Reel* tmp = new Reel(::pow(c->getXAsFloat()/c->getYAsFloat(),p->getXAsFloat()/p->getYAsFloat()));
             Element* res = this->cast(tmp);
             delete p;
             delete c;
             delete tmp;
             this->pileC->push(res);
-            qDebug()<<res->toQString();
             return res;
 
         }
         else
         {
-            qDebug()<<"Rien2";
           // erreur
         }
     }
     else
-    {   qDebug()<<"Rien3";
+    {
     // erreur
     }
 
@@ -530,16 +567,51 @@ Reel* e = new Reel(1./2.);
 
 
 Element* Calculateur::sqr()
-{   qDebug()<<"on passe par là";
-   Entier* e = new Entier(2);
-   this->pileC->push(e);
-   return pow();
+{
+    if(typeid(*this->pileC->top()) == typeid(Complexe))
+    {   /*!< (a + bi)² = a² - b² + 2bai */
+        qDebug()<<"Complexe sqr";
+        Complexe* c = dynamic_cast<Complexe*>(this->pileC->pop());
+        this->pileC->push(c->getRe()->clone());
+        this->sqr();
+        this->pileC->push(c->getIm()->clone());
+        this->sqr();
+        this->sign();
+        this->pileC->push(c->getIm()->clone());
+        this->pileC->push(c->getRe()->clone());
+        this->pileC->push(new Entier(2));
+        delete c;
+        this->multiplication();
+        this->multiplication();
+        qDebug()<<this->pileC->top()->toQString();
+        Complexe* im = dynamic_cast<Complexe*>(this->pileC->pop());
+        this->push(new Complexe(new Entier(0),im->getRe()->clone()));
+        delete im;
+        this->addition();
+        this->addition();
+    }
+    else
+    {
+        Entier* e = new Entier(2);
+        this->pileC->push(e);
+        return pow();
+    }
 }
 Element* Calculateur::cube()
-{   qDebug()<<"on passe par là";
-   Entier* e = new Entier(3);
-   this->pileC->push(e);
-   return pow();
+{
+    if(typeid(*this->pileC->top()) == typeid(Complexe))
+    {   /*!< (a + bi)*(a + bi)² */
+        Element* e = this->pileC->top()->clone();
+        this->sqr();
+        this->push(e);
+        this->multiplication();
+    }
+    else
+    {
+        Entier* e = new Entier(3);
+        this->pileC->push(e);
+        return pow();
+    }
 }
 Element* Calculateur::sign()
 {
