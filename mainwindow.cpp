@@ -7,7 +7,40 @@ MainWindow::MainWindow(QWidget *parent)
     waitingForOperand = true;
     ui->setupUi(this);
     mapper = new QSignalMapper(this);
-
+    if(this->leCalculateur->isComplexe())
+    {
+        ui->modeComplexe->setChecked(true);
+    }
+    if(this->leCalculateur->isEntier())
+    {
+        ui->modeEntier->setChecked(true);
+    }
+    else if(this->leCalculateur->isRationnel())
+    {
+        ui->modeRationnel->setChecked(true);
+    }
+    else if(this->leCalculateur->isReel())
+    {
+        ui->modeReel->setChecked(true);
+    }
+    else
+    {
+        ui->modeBestFit->setChecked(true);
+    }
+    if(this->leCalculateur->isDegre())
+    {
+        ui->modeDegre->setChecked(true);
+    }
+    if(this->leCalculateur->isRadian())
+    {
+        ui->modeRadiant->setChecked(true);
+    }
+    connect(ui->modeComplexe, SIGNAL(toggled(bool)), this, SLOT(toModeComplexe()));
+    connect(ui->modeRationnel, SIGNAL(toggled(bool)), this, SLOT(toModeRationnel()));
+    connect(ui->modeReel, SIGNAL(toggled(bool)), this, SLOT(toModeReel()));
+    connect(ui->modeDegre, SIGNAL(toggled(bool)), this, SLOT(toModeDegre()));
+    connect(ui->modeRadiant, SIGNAL(toggled(bool)), this, SLOT(toModeRadiant()));
+    connect(ui->modeEntier, SIGNAL(toggled(bool)), this, SLOT(toModeEntier()));
     connect(ui->opEgalButton, SIGNAL(clicked()), this, SLOT(evaluate()));
     //connect(ui->BtVider, SIGNAL(clicked()), ui->entreeTxt, SLOT(clear()));
     //connect(ui->BtEnvoyer, SIGNAL(clicked()), this, SLOT(envoyer()));
@@ -203,79 +236,86 @@ void MainWindow::evaluate()
                 multiplication->Execute();
                 ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
             }
-            else if(c[i]=='sqr')
+            else if(str.contains("sqrt", Qt::CaseInsensitive))
             {
+                CommandUnArg* sqrt =  new CommandUnArg(leCalculateur,&Calculateur::sqrt);
+                sqrt->Execute();
+                ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
+            }
+            else if(str.contains("sqr", Qt::CaseInsensitive))
+            {   qDebug()<<"on est dans sqr";
                 CommandUnArg* sqr =  new CommandUnArg(leCalculateur,&Calculateur::sqr);
                 sqr->Execute();
+                ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
+            }
+            else if(str.contains("cube", Qt::CaseInsensitive))
+            {
+                CommandUnArg* cube =  new CommandUnArg(leCalculateur,&Calculateur::cube);
+                cube->Execute();
                 ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
             }
             else if(c[i]=='^')
             {
                 CommandDeuxArg* pow =  new CommandDeuxArg(leCalculateur,&Calculateur::pow);
                 pow->Execute();
+                qDebug()<<"un bug ici";
                 ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
             }
-            else if(c[i]=='ln')
+            else if(str.contains("ln", Qt::CaseInsensitive))
             {
                 CommandUnArg* ln =  new CommandUnArg(leCalculateur,&Calculateur::ln);
                 ln->Execute();
                 ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
             }
-            else if(c[i]=='log')
+            else if(str.contains("log", Qt::CaseInsensitive))
             {
                 CommandUnArg* log =  new CommandUnArg(leCalculateur,&Calculateur::log);
                 log->Execute();
                 ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
             }
-            else if(c[i]=='cos')
-            {
-                CommandUnArg* cos =  new CommandUnArg(leCalculateur,&Calculateur::cos);
-                cos->Execute();
-                ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
-            }
-            else if(c[i]=='cosh')
+            else if(str.contains("cosh", Qt::CaseInsensitive))
             {
                 CommandUnArg* cosh =  new CommandUnArg(leCalculateur,&Calculateur::cosh);
                 cosh->Execute();
                 ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
             }
-            else if(c[i]=='sin')
+            else if(str.contains("cos", Qt::CaseInsensitive))
             {
-                CommandUnArg* sin =  new CommandUnArg(leCalculateur,&Calculateur::sin);
-                sin->Execute();
+                CommandUnArg* cos =  new CommandUnArg(leCalculateur,&Calculateur::cos);
+                cos->Execute();
                 ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
             }
-            else if(c[i]=='sinh')
+            else if(str.contains("sinh", Qt::CaseInsensitive))
             {
                 CommandUnArg* sinh =  new CommandUnArg(leCalculateur,&Calculateur::sinh);
                 sinh->Execute();
                 ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
             }
-            else if(c[i]=='tan')
+            else if(str.contains("sin", Qt::CaseInsensitive))
             {
-                CommandUnArg* tan =  new CommandUnArg(leCalculateur,&Calculateur::tan);
-                tan->Execute();
+                CommandUnArg* sin =  new CommandUnArg(leCalculateur,&Calculateur::sin);
+                sin->Execute();
                 ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
             }
-            else if(c[i]=='tanh')
+            else if(str.contains("tanh", Qt::CaseInsensitive))
             {
                 CommandUnArg* tanh =  new CommandUnArg(leCalculateur,&Calculateur::tanh);
                 tanh->Execute();
                 ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
             }
-            else if(c[i]=='inv')
+            else if(str.contains("tan", Qt::CaseInsensitive))
+            {
+                CommandUnArg* tan =  new CommandUnArg(leCalculateur,&Calculateur::tan);
+                tan->Execute();
+                ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
+            }
+            else if(str.contains("inv", Qt::CaseInsensitive))
             {
                 CommandUnArg* inv =  new CommandUnArg(leCalculateur,&Calculateur::inv);
                 inv->Execute();
                 ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
             }
-            else if(c[i]=='sqrt')
-            {
-                CommandUnArg* sqrt =  new CommandUnArg(leCalculateur,&Calculateur::sqrt);
-                sqrt->Execute();
-                ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
-            }
-             else if(c[i]=='sign')
+             else if(str.contains("sign", Qt::CaseInsensitive))
             {
                 CommandUnArg* sign =  new CommandUnArg(leCalculateur,&Calculateur::sign);
                 sign->Execute();
@@ -284,6 +324,49 @@ void MainWindow::evaluate()
         }
     }
 }
+
+void MainWindow::toModeEntier()
+{   qDebug()<<"toModeEntier()";
+    this->leCalculateur->setToEntier();
+}
+
+void MainWindow::toModeReel()
+{
+    this->leCalculateur->setToReel();
+}
+
+void MainWindow::toModeRationnel()
+{
+    this->leCalculateur->setToRationnel();
+}
+
+void MainWindow::toModeRadiant()
+{
+    this->leCalculateur->setToRadian();
+}
+
+void MainWindow::toModeDegre()
+{
+    this->leCalculateur->setToDegre();
+}
+
+void MainWindow::toModeComplexe()
+{
+    if(this->leCalculateur->isComplexe())
+    {
+        this->leCalculateur->setToComplexe();
+    }
+    else
+    {
+        this->leCalculateur->setToNoComplexe();
+    }
+}
+
+void MainWindow::toModeBestFit()
+{
+    this->leCalculateur->setNoMode();
+}
+
 
 Element* MainWindow::getComplexe(QString str)
 {

@@ -28,6 +28,13 @@ public:
 private slots:
     void clickedBt(QString);
     void evaluate();
+    void toModeEntier();
+    void toModeReel();
+    void toModeRationnel();
+    void toModeComplexe();
+    void toModeBestFit();
+    void toModeRadiant();
+    void toModeDegre();
     void cos(){}
     void sin(){}
     void tan(){}

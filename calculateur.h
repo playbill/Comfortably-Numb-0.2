@@ -39,6 +39,7 @@ class Calculateur
         Element* inv();
         Element* sqrt();
         Element* sqr();
+        Element* cube();
         Element* sign();
         Element* push(Element*);
         Element* pop();
@@ -49,6 +50,14 @@ class Calculateur
         bool isRadian();
         bool isRationnel();
         bool isReel();
+        void setToComplexe();
+        void setToNoComplexe();
+        void setToEntier();
+        void setToDegre();
+        void setToRadian();
+        void setToRationnel();
+        void setToReel();
+        void setNoMode();
 };
 
 #endif // CALCULATEUR_H

@@ -134,17 +134,17 @@ Element* Calculateur::addition()
 
 Element* Calculateur::pow()
 {
-
+qDebug()<<"ici c'est pow";
     if(typeid(*this->pileC->top()) == typeid(Expression))
-    {
+    {   qDebug()<<"Expression";
         this->eval();
     }
     if(typeid(*this->pileC->top()) == typeid(Complexe))
-    {
+    {   qDebug()<<"Complexe";
          // throw std::logic_error( "POW : le premier parametre doit être un entier");
     }
     else if(typeid(*this->pileC->top())== typeid(Entier))
-    {
+    {   qDebug()<<"Entier";
         Entier* e = dynamic_cast<Entier*>(this->pileC->pop());
 
         if(typeid(*this->pileC->top()) == typeid(Expression))
@@ -159,6 +159,7 @@ Element* Calculateur::pow()
             if(e->getXAsInt()>= 0)
             {
                 Rationnel* tmp = new Rationnel(::pow(c->getXAsInt(),e->getXAsInt()),::pow(c->getYAsInt(),e->getXAsInt()));
+                qDebug()<<tmp->toQString();
                 Element* res = this->cast(tmp);
                 delete e;
                 delete c;
@@ -168,6 +169,7 @@ Element* Calculateur::pow()
             else
             {
                 Reel* tmp = new Reel(::pow(c->getXAsFloat()/c->getYAsFloat(),e->getXAsInt()));
+
                 Element* res = this->cast(tmp);
                 delete e;
                 delete c;
@@ -187,32 +189,36 @@ Element* Calculateur::pow()
 
         }
         else
-        {
+        {qDebug()<<"Rien1";
         // erreur
         }
     }
     else if(typeid(*this->pileC->top()) == typeid(Reel) || typeid(*this->pileC->top()) == typeid(Rationnel))
-    {
-        Constante* p = dynamic_cast<Constante*>(this->pileC->top());
+    {   qDebug()<<"puissance reelle ou rationnelle";
+        Constante* p = dynamic_cast<Constante*>(this->pileC->pop());
 
         if((typeid(*this->pileC->top()) == typeid(Entier))||(typeid(*this->pileC->top()) == typeid(Rationnel)) || typeid(*this->pileC->top()) == typeid(Reel))
         {
-            Constante* c = dynamic_cast<Constante*>(this->pileC->top());
+            Constante* c = dynamic_cast<Constante*>(this->pileC->pop());
+            qDebug()<<"deuxième pop()";
             Reel* tmp = new Reel(::pow(c->getXAsFloat()/c->getYAsFloat(),p->getXAsFloat()/p->getYAsFloat()));
             Element* res = this->cast(tmp);
             delete p;
             delete c;
             delete tmp;
+            this->pileC->push(res);
+            qDebug()<<res->toQString();
             return res;
 
         }
         else
         {
+            qDebug()<<"Rien2";
           // erreur
         }
     }
     else
-    {
+    {   qDebug()<<"Rien3";
     // erreur
     }
 
@@ -431,7 +437,7 @@ Element* Calculateur::ln()
             }
         else
         {
-            Reel* resu = new Reel(::log((tmp->getXAsFloat()/tmp->getYAsFloat())*PI/180.0));
+            Reel* resu = new Reel(::log((tmp->getXAsFloat()/tmp->getYAsFloat())));
             delete tmp;
             this->pileC->push(resu);
             return resu;
@@ -476,7 +482,7 @@ Element* Calculateur::log()
             }
         else
         {
-            Reel* resu = new Reel(::log10((tmp->getXAsFloat()/tmp->getYAsFloat())*PI/180.0));
+            Reel* resu = new Reel(::log10((tmp->getXAsFloat()/tmp->getYAsFloat())));
             delete tmp;
             this->pileC->push(resu);
             return resu;
@@ -491,23 +497,47 @@ Element* Calculateur::inv()
     {
         this->eval();
     }
-    Element* e = this->pileC->pop();
-    Element* res = e->sign();
-    delete e;
+    if(typeid(*this->pileC->top()) == typeid(Complexe))
+    {
+        //throw error \todo
+    }
 
-   return res;
+    Constante* c = dynamic_cast<Constante *>(this->pileC->pop());
+    Element* res;
+    if(typeid(*c)== typeid(Entier) || typeid(*c)== typeid(Rationnel))
+    {
+
+        res = new Rationnel(c->getYAsInt(),c->getXAsInt());
+
+    }
+    else
+    {
+        res = new Reel(1./c->getXAsFloat());
+
+    }
+
+        delete c;
+        this->pileC->push(res);
+        return res;
 }
 
 Element* Calculateur::sqrt()
 {
-Reel* e = new Reel(-1./2.);
+Reel* e = new Reel(1./2.);
    this->pileC->push(e);
    return pow();
 }
 
+
 Element* Calculateur::sqr()
-{
+{   qDebug()<<"on passe par là";
    Entier* e = new Entier(2);
+   this->pileC->push(e);
+   return pow();
+}
+Element* Calculateur::cube()
+{   qDebug()<<"on passe par là";
+   Entier* e = new Entier(3);
    this->pileC->push(e);
    return pow();
 }
@@ -522,6 +552,7 @@ Element* Calculateur::sign()
         Element* tmp = this->pileC->pop();
         Element* e = tmp->sign();
         delete tmp;
+        this->pileC->push(e);
         return e;
     }
 }
@@ -579,4 +610,52 @@ Element* Calculateur::pop()
     return pileC->pop();
 }
 
+void Calculateur::setToComplexe()
+{
+    modeComplexe = true;
+}
+void Calculateur::setToNoComplexe()
+{
+    modeComplexe = false;
+}
+
+void Calculateur::setToEntier()
+{
+    modeEntier = true;
+    modeReel = false;
+    modeRationnel = false;
+}
+
+void Calculateur::setToDegre()
+{
+    modeDegre = true;
+    modeRadian = false;
+
+}
+
+void Calculateur::setToRadian()
+{
+    modeDegre = false;
+    modeRadian = true;
+}
+
+void Calculateur::setToRationnel()
+{
+    modeEntier = false;
+    modeReel = false;
+    modeRationnel = true;
+}
+
+void Calculateur::setToReel()
+{
+    modeEntier = false;
+    modeReel = true;
+    modeRationnel = false;
+}
+void Calculateur::setNoMode()
+{
+    modeEntier = false;
+    modeReel = false;
+    modeRationnel = false;
+}
 
