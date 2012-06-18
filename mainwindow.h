@@ -9,6 +9,10 @@
 #include <QLineEdit>
 #include <QStringList>
 #include <QDEBUG>
+#include <QMessageBox>
+#include <typeinfo>
+#include <stdexcept>
+
 
 namespace Ui
 {
@@ -29,6 +33,9 @@ private slots:
     void clickedBt(QString);
     void evaluate();
     void eval();
+    void duplicate();
+    void drop();
+    void clear();
     void toModeEntier();
     void toModeReel();
     void toModeRationnel();

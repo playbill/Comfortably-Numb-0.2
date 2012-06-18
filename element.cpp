@@ -92,6 +92,7 @@ Rationnel* Reel::toRationnel()
 Entier* Reel::toEntier()
 {
     Entier* tmp = new Entier((int)x);
+    qDebug()<<"test";
     return tmp;
 }
 

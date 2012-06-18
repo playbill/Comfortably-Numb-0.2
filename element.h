@@ -4,6 +4,8 @@
 #include <QString>
 #include <iostream>
 #include <math.h>
+#include <typeinfo>
+# include <stdexcept>
 
 class Reel;
 class Entier;
@@ -46,6 +48,8 @@ class Element
         virtual Element& operator-(Element& c){}
         virtual Element& operator/(Element& c){}
         virtual Element& operator*(Element& c){}
+        virtual int getXAsInt() const {}
+        virtual int getYAsInt() const { return 1.;}
 
 
 };

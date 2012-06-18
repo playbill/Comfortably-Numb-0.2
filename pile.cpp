@@ -80,10 +80,13 @@ Element* Pile::depilerElement(){
 * \param x , y les éléments de numero x et y depuis le haut de la pile
 */
 void Pile::swap(const unsigned int x,const unsigned int y){
+
     if(!pile->isEmpty()){
+ //\todo gestion erreur
+        qDebug()<<pile->at(4)->toQString();
         if( (x <pile->size()) && (y<pile->size())){
             Element * e = pile->at(x);
-            pile->replace(x,pile->at(y));
+            pile->replace(x, pile->at(y));
             pile->replace(y,e);
         }
     }
@@ -131,12 +134,7 @@ pile->clear();
 * \fn  void dup()
 * \brief Fonction : duplique le premier élément de la pile
 */
-void Pile::dup(){
-if(!pile->isEmpty()){
-Element* e= *(new Element*(pile->top()));/*!< on crée dynamyquement un pointeur d'élément */
-pile->push(e); /*!< on le met sur le haut de la pile */
-}
-}
+
 
 /**
 * \fn  void drop()

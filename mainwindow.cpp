@@ -4,6 +4,7 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow),leCalculateur(new Calculateur())
 {
+
     waitingForOperand = true;
     ui->setupUi(this);
     mapper = new QSignalMapper(this);
@@ -43,6 +44,9 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->modeEntier, SIGNAL(toggled(bool)), this, SLOT(toModeEntier()));
     connect(ui->opEgalButton, SIGNAL(clicked()), this, SLOT(evaluate()));
     connect(ui->opEvalButton, SIGNAL(clicked()), this, SLOT(eval()));
+    connect(ui->opDupButton, SIGNAL(clicked()), this, SLOT(duplicate()));
+    connect(ui->opDropButton, SIGNAL(clicked()), this, SLOT(drop()));
+    connect(ui->opClearButton, SIGNAL(clicked()), this, SLOT(clear()));
     //connect(ui->BtVider, SIGNAL(clicked()), ui->entreeTxt, SLOT(clear()));
     //connect(ui->BtEnvoyer, SIGNAL(clicked()), this, SLOT(envoyer()));
     // PAVE NUMERIQUE
@@ -143,219 +147,458 @@ MainWindow::~MainWindow()
 void MainWindow::evaluate()
 {
     QString txt = ui->display->text();
-
-    if(txt.count("'")%2 != 0) return; //\todo il manque une quote
-    if(txt.contains("$") && !this->leCalculateur->isComplexe()) return; //\todo vous n'êtes pas en mode complexe
-    if(txt.isEmpty())
-    {
-        Command* duplicate = new CommandUnArg(this->leCalculateur,&Calculateur::duplicate);
-        duplicate->Execute();
-    }
-
-
-    //txt.replace("+"," + ");
-    //txt.replace("-"," - ");
-    //txt.replace("*"," * ");
-    txt.simplified();
-    QString nb;
-    QStringList list = txt.split(' ');
-
-    foreach(QString str, list)
-    {
-      if(str.count(".")>0 && (this->leCalculateur->isEntier() || this->leCalculateur->isRationnel()))
-      {
-        //\todo warning : attention vous n'êtes pas en en mode reel
-      }
-
-      if(str.count("$")>1) return;  //\todo throw exception
-
-      if(str.count("/")>0 && (this->leCalculateur->isEntier() || this->leCalculateur->isReel()))
-      {
-        //\todo warning : attention vous n'êtes pas en mode rationnel
-      }
-      if(str.count("/")>0 && str.count("."))
-      {
-        //\todo erreur un rationnel est composé de deux entiers
-          return;
-      }
-      if(str.count("/")>1) return;  //\todo throw exception
-    }
-
-    qDebug()<<list;
-    int j=0;
-    bool expression = false;
-    QString res;
-    int i;
-    foreach (QString str, list)
-    {
-        QChar* c = str.data();
-        i = 0;
-        if(str.compare("'")==0 && expression == true )
+try{
+        if(txt.count("'")%2 != 0)
         {
-            if(res.isEmpty())
-            {
-                //\todo trow_error
+            throw std::logic_error( "Quote en nombre impair : verifier votre nombre de quote");
+            return;
+        }
+        if(txt.contains("$") && !this->leCalculateur->isComplexe())
+        {
+            throw std::logic_error("Vous n'êtes pas en mode complexe");
+            return;
+        }
+        if(txt.isEmpty())
+        {   qDebug()<<"dup";
+            this->duplicate();
+            return;
+        }
+
+        txt.simplified();
+        QString nb;
+        QStringList list = txt.split(' ');
+
+        foreach(QString str, list)
+        {
+          if(str.count(".")>0 && (this->leCalculateur->isEntier() || this->leCalculateur->isRationnel()))
+          {
+                        QMessageBox cast;
+                        cast.setIcon(QMessageBox::Warning);
+                        if(this->leCalculateur->isRationnel()){
+                        cast.setText("Le nombre "+ str + " est un reel, la calculatrice en en mode Rationnel"); }
+                        else{cast.setText("Le nombre "+ str + " est un reel, la calculatrice en en mode Entier");}
+                        cast.setInformativeText("Que voulez-vous faire?");
+                        QPushButton* annuler = cast.addButton(tr("Annuler"),QMessageBox::ActionRole);
+                        QPushButton* modeReel = cast.addButton(tr("Mode Reel"),QMessageBox::ActionRole);
+                        QPushButton* modeBestFit = cast.addButton(tr("Mode Best Fit"),QMessageBox::ActionRole);
+                        QPushButton* caster = cast.addButton(tr("Caster"),QMessageBox::ActionRole);
+                        cast.setDefaultButton(annuler);
+                        cast.exec();
+                        if (cast.clickedButton() == modeReel) {
+                            this->leCalculateur->setToReel();
+                            ui->modeReel->setChecked(true);
+                        }
+                        if (cast.clickedButton() == modeBestFit){
+                            this->leCalculateur->setNoMode();
+                            ui->modeBestFit->setChecked(true);
+                        }
+                        if (cast.clickedButton() == annuler){
+                            return;
+                        }
             }
-            else
+
+
+          if(str.count("$")>1){
+            throw std::logic_error("Il y a un complexe dans un complexe");
+            return;
+          }
+
+          if(str.count("/")>0 && (this->leCalculateur->isEntier() || this->leCalculateur->isReel())){
+                         QMessageBox cast;
+                        cast.setIcon(QMessageBox::Warning);
+                        if(this->leCalculateur->isReel()){
+                        cast.setText("Le nombre "+ str + " est un rationnel, la calculatrice en en mode Reel"); }
+                        else{cast.setText("Le nombre "+ str + " est un rationnel, la calculatrice en en mode Entier");}
+                        cast.setInformativeText("Que voulez-vous faire?");
+                        QPushButton* annuler = cast.addButton(tr("Annuler"),QMessageBox::ActionRole);
+                        QPushButton* modeRationnel = cast.addButton(tr("Mode Rationnel"),QMessageBox::ActionRole);
+                        QPushButton* modeBestFit = cast.addButton(tr("Mode Best Fit"),QMessageBox::ActionRole);
+                        QPushButton* caster = cast.addButton(tr("Caster"),QMessageBox::ActionRole);
+                        cast.setDefaultButton(annuler);
+                        cast.exec();
+                        if (cast.clickedButton() == modeRationnel) {
+                            this->leCalculateur->setToRationnel();
+                            ui->modeRationnel->setChecked(true);
+                        }
+                        if (cast.clickedButton() == modeBestFit){
+                            this->leCalculateur->setNoMode();
+                            ui->modeBestFit->setChecked(true);
+                        }
+                        if (cast.clickedButton() == annuler){
+                            return;
+                        }
+          }
+          if(str.count("/")>0 && str.count(".")){
+            throw std::logic_error("Un rationnel est composé de deux entiers, pas de reel");
+            return;
+          }
+          if(str.count("/")>1){
+            throw std::logic_error("Un rationnel est composé de deux entiers, pas de rationnel");
+            return;
+          }
+        }
+
+        qDebug()<<list;
+        int j=0;
+        bool expression = false;
+        QString res;
+        int i;
+        foreach (QString str, list)
+        {
+            QChar* c = str.data();
+            i = 0;
+            if(str.compare("'")==0 && expression == true )
             {
-                Expression* e = new Expression(res);
+                if(res.isEmpty())
+                {
+                    throw std::logic_error("Problème accolade : inclusion d'accolade, double accolade,...");
+                    return;
+                }
+                else
+                {
+                    Expression* e = new Expression(res);
+                    CommandPush* push = new CommandPush(leCalculateur,e);
+                    push->Execute();
+                    ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
+                    res = "";
+                    expression = false;
+                }
+            }
+            else if(str.compare("'")==0)
+            {
+                expression = true;
+            }
+            else if(expression == true)
+            {
+                res += " " + str;
+            }
+            else if(c[i].isDigit())
+            {
+
+                Element* e;
+
+                if(str.contains("$") && this->leCalculateur->isComplexe())
+                {
+                    e = this->getComplexe(str);
+
+                }
+                else
+                {
+                    e = this->getConstante (str);
+                }
                 CommandPush* push = new CommandPush(leCalculateur,e);
                 push->Execute();
                 ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
-                res = "";
-                expression = false;
-            }
-        }
-        else if(str.compare("'")==0)
-        {
-            expression = true;
-        }
-        else if(expression == true)
-        {
-            res += " " + str;
-        }
-        else if(c[i].isDigit())
-        {
-            
-            Element* e;
-
-            if(str.contains("$") && this->leCalculateur->isComplexe())
-            {
-                e = this->getComplexe(str);
-
+                j++;
             }
             else
-            {   
-                e = this->getConstante (str);
+            {
+                if(c[i]=='+')
+                {
+                    if(this->leCalculateur->getPile()->size()<2){
+                        throw std::logic_error("Il y a moins de 2 élements sur la pile");
+                        return;
+                    }
+                    CommandUnArg* addition =  new CommandUnArg(leCalculateur,&Calculateur::addition);
+                    addition->Execute();
+                    ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
+                } else if(c[i]=='-')
+                {
+                    if(this->leCalculateur->getPile()->size()<2){
+                        throw std::logic_error("Il y a moins de 2 élements sur la pile");
+                        return;
+                    }
+                    CommandUnArg* soustraction =  new CommandUnArg(leCalculateur,&Calculateur::soustraction);
+                    soustraction->Execute();
+                    ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
+                }
+                else if(c[i]=='/')
+                {
+                    if(this->leCalculateur->getPile()->size()<2){
+                        throw std::logic_error("Il y a moins de 2 élements sur la pile");
+                        return;
+                    }
+                    CommandUnArg* division =  new CommandUnArg(leCalculateur,&Calculateur::division);
+                    division->Execute();
+                    ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
+                }
+                else if(c[i]=='*')
+                {
+                    if(this->leCalculateur->getPile()->size()<2){
+                        throw std::logic_error("Il y a moins de 2 élements sur la pile");
+                        return;
+                    }
+                    CommandUnArg* multiplication =  new CommandUnArg(leCalculateur,&Calculateur::multiplication);
+                    multiplication->Execute();
+                    ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
+                }
+                else if(str.contains("sqrt", Qt::CaseInsensitive))
+                {
+                    if(this->leCalculateur->getPile()->size()<1){
+                        throw std::logic_error("Il y a moins d' 1 élements sur la pile");
+                        return;
+                    }
+                    CommandUnArg* sqrt =  new CommandUnArg(leCalculateur,&Calculateur::sqrt);
+                    sqrt->Execute();
+                    ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
+                }
+                else if(str.contains("sqr", Qt::CaseInsensitive))
+                {
+                    if(this->leCalculateur->getPile()->size()<1){
+                        throw std::logic_error("Il y a moins de 1 élements sur la pile");
+                        return;
+                    }
+                    CommandUnArg* sqr =  new CommandUnArg(leCalculateur,&Calculateur::sqr);
+                    sqr->Execute();
+                    ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
+                }
+                else if(str.contains("cube", Qt::CaseInsensitive))
+                {
+                    if(this->leCalculateur->getPile()->size()<1){
+                        throw std::logic_error("Il y a moins d' 1 élements sur la pile");
+                        return;
+                    }
+                    CommandUnArg* cube =  new CommandUnArg(leCalculateur,&Calculateur::cube);
+                    cube->Execute();
+                    ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
+                }
+                else if(c[i]=='!')
+                {
+                    if(this->leCalculateur->getPile()->size()<1){
+                        throw std::logic_error("Il y a moins de 1 élements sur la pile");
+                        return;
+                    }
+                    CommandUnArg* fact=  new CommandUnArg(leCalculateur,&Calculateur::fact);
+                    fact->Execute();
+                    ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
+                }
+                 else if(str.contains("swap", Qt::CaseInsensitive))
+                {
+                    if(this->leCalculateur->getPile()->size()<2){
+                        throw std::logic_error("Il y a moins de 2 élements sur la pile");
+                        return;
+                    }
+                    CommandDeuxArg* swap=  new CommandDeuxArg(leCalculateur,
+                                                              this->leCalculateur->getPile()->getPile().top(),
+                                                              this->leCalculateur->getPile()->getPile().at(this->leCalculateur->getPile()->size()-2),
+                                                              &Calculateur::swap);
+                    swap->Execute();
+                    ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
+                }
+                else if(c[i]=='%')
+                {
+                    if(this->leCalculateur->getPile()->size()<2){
+                        throw std::logic_error("Il y a moins de 2 élements sur la pile");
+                        return;
+                    }
+                    CommandDeuxArg* mod=  new CommandDeuxArg(leCalculateur,
+                                                             this->leCalculateur->getPile()->top(),
+                                                             this->leCalculateur->getPile()->getPile().at(this->leCalculateur->getPile()->getPile().size()-2),
+                                                             &Calculateur::mod);
+                    mod->Execute();
+                    ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
+                }
+                else if(c[i]=='^')
+                {
+                    if(this->leCalculateur->getPile()->size()<2){
+                        throw std::logic_error("Il y a moins de 2 élements sur la pile");
+                        return;
+                    }
+                    CommandDeuxArg* pow =  new CommandDeuxArg(leCalculateur,
+                                                             this->leCalculateur->getPile()->top(),
+                                                             this->leCalculateur->getPile()->getPile().at(this->leCalculateur->getPile()->getPile().size()-2),
+                                                             &Calculateur::pow);
+                    pow->Execute();
+                    ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
+                }
+                else if(str.contains("ln", Qt::CaseInsensitive))
+                {
+                    if(this->leCalculateur->getPile()->size()<1){
+                        throw std::logic_error("Il y a moins de 1 élements sur la pile");
+                        return;
+                    }
+                    CommandUnArg* ln =  new CommandUnArg(leCalculateur,&Calculateur::ln);
+                    ln->Execute();
+                    ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
+                }
+                else if(str.contains("log", Qt::CaseInsensitive))
+                {
+                    if(this->leCalculateur->getPile()->size()<1){
+                        throw std::logic_error("Il y a moins de 1 élements sur la pile");
+                        return;
+                    }
+                    CommandUnArg* log =  new CommandUnArg(leCalculateur,&Calculateur::log);
+                    log->Execute();
+                    ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
+                }
+                else if(str.contains("cosh", Qt::CaseInsensitive))
+                {
+                    if(this->leCalculateur->getPile()->size()<1){
+                        throw std::logic_error("Il y a moins de 1 élements sur la pile");
+                        return;
+                    }
+                    CommandUnArg* cosh =  new CommandUnArg(leCalculateur,&Calculateur::cosh);
+                    cosh->Execute();
+                    ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
+                }
+                else if(str.contains("cos", Qt::CaseInsensitive))
+                {
+                    if(this->leCalculateur->getPile()->size()<1){
+                        throw std::logic_error("Il y a moins de 1 élements sur la pile");
+                        return;
+                    }
+                    CommandUnArg* cos =  new CommandUnArg(leCalculateur,&Calculateur::cos);
+                    cos->Execute();
+                    ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
+                }
+                else if(str.contains("sinh", Qt::CaseInsensitive))
+                {
+                    if(this->leCalculateur->getPile()->size()<1){
+                        throw std::logic_error("Il y a moins de 1 élements sur la pile");
+                        return;
+                    }
+                    CommandUnArg* sinh =  new CommandUnArg(leCalculateur,&Calculateur::sinh);
+                    sinh->Execute();
+                    ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
+                }
+                else if(str.contains("mean", Qt::CaseInsensitive))
+                {
+                    if(this->leCalculateur->getPile()->size()<1){
+                        throw std::logic_error("Il y a moins de 1 élements sur la pile");
+                    }
+                    if(typeid(*this->leCalculateur->getPile()->top())!=typeid(Entier))
+                    {
+                        QMessageBox cast;
+                        cast.setIcon(QMessageBox::Warning);
+                        cast.setText("Le nombre n'est pas un entier");
+                        cast.setInformativeText("Voulez-vous le casté?");
+                        QPushButton* annuler = cast.addButton(tr("Annuler"),QMessageBox::RejectRole);
+                        QPushButton* caster = cast.addButton(tr("Caster"),QMessageBox::AcceptRole);
+                        cast.setDefaultButton(annuler);
+                        int ret = cast.exec();
+                        qDebug()<<ret;
+                         if(ret == 1){
+                            Element* tmp = this->leCalculateur->getPile()->pop();
+                                  Entier* e = tmp->toEntier();
+                                  this->leCalculateur->getPile()->push(e);
+                                  delete tmp;}
+
+                    }
+                    if(this->leCalculateur->getPile()->top()->getXAsInt() >= this->leCalculateur->getPile()->size())
+                    {
+                        throw std::logic_error("L'argument est supérieur au nombre d'élément sur la pile");
+                    }
+                    else if(typeid(*this->leCalculateur->getPile()->top()) == typeid(Entier))
+                    {
+                        qDebug()<<this->leCalculateur->getPile()->top()->toQString();
+                        CommandPolyArg* mean =  new CommandPolyArg(leCalculateur,this->leCalculateur->getPile()->top()->getXAsInt(),1,&Calculateur::mean);
+                        //qDebug()<<passe par là";
+                        mean->Execute();
+                        ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
+                    }
+                    else
+                    {
+                        throw std::logic_error("L'argument n'est pas de type entier");
+                    }
+                }
+                else if(str.contains("sum", Qt::CaseInsensitive))
+                {
+                    if(this->leCalculateur->getPile()->size()<1){
+                        throw std::logic_error("Il y a moins de 1 élements sur la pile");
+                    }
+                    if(typeid(*this->leCalculateur->getPile()->top())!=typeid(Entier))
+                    {
+                        QMessageBox cast;
+                        cast.setIcon(QMessageBox::Warning);
+                        cast.setText("Le nombre n'est pas un entier");
+                        cast.setInformativeText("Voulez-vous le casté?");
+                        QPushButton* annuler = cast.addButton(tr("Annuler"),QMessageBox::RejectRole);
+                        QPushButton* caster = cast.addButton(tr("Caster"),QMessageBox::AcceptRole);
+                        cast.setDefaultButton(annuler);
+                        int ret = cast.exec();
+                        qDebug()<<ret;
+                         if(ret == 1){
+                            Element* tmp = this->leCalculateur->getPile()->pop();
+                                  Entier* e = tmp->toEntier();
+                                  this->leCalculateur->getPile()->push(e);
+                                  delete tmp;}
+
+                    }
+                    if(this->leCalculateur->getPile()->top()->getXAsInt() >= this->leCalculateur->getPile()->size())
+                    {
+                        throw std::logic_error("L'argument est supérieur au nombre d'élément sur la pile");
+                    }
+                    else if(typeid(*this->leCalculateur->getPile()->top()) == typeid(Entier))
+                    {
+                        qDebug()<<this->leCalculateur->getPile()->top()->toQString();
+                        CommandPolyArg* sum =  new CommandPolyArg(leCalculateur,this->leCalculateur->getPile()->top()->getXAsInt(),1,&Calculateur::sum);
+                        sum->Execute();
+                        ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
+                    }
+                    else
+                    {
+                        throw std::logic_error("L'argument n'est pas de type entier");
+                    }
+                }
+                else if(str.contains("sin", Qt::CaseInsensitive))
+                {
+                    if(this->leCalculateur->getPile()->size()<1){
+                        throw std::logic_error("Il y a moins de 1 élements sur la pile");
+                    }
+                    CommandUnArg* sin =  new CommandUnArg(leCalculateur,&Calculateur::sin);
+                    sin->Execute();
+                    ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
+                }
+                else if(str.contains("tanh", Qt::CaseInsensitive))
+                {
+                    if(this->leCalculateur->getPile()->size()<1){
+                        throw std::logic_error("Il y a moins de 1 élements sur la pile");
+                    }
+                    CommandUnArg* tanh =  new CommandUnArg(leCalculateur,&Calculateur::tanh);
+                    tanh->Execute();
+                    ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
+                }
+                else if(str.contains("tan", Qt::CaseInsensitive))
+                {
+                    if(this->leCalculateur->getPile()->size()<1){
+                        throw std::logic_error("Il y a moins de 1 élements sur la pile");
+                    }
+                    CommandUnArg* tan =  new CommandUnArg(leCalculateur,&Calculateur::tan);
+                    tan->Execute();
+                    ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
+                }
+                else if(str.contains("inv", Qt::CaseInsensitive))
+                {
+                    if(this->leCalculateur->getPile()->size()<1){
+                        throw std::logic_error("Il y a moins de 1 élements sur la pile");
+                    }
+                    CommandUnArg* inv =  new CommandUnArg(leCalculateur,&Calculateur::inv);
+                    inv->Execute();
+                    ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
+                }
+                 else if(str.contains("sign", Qt::CaseInsensitive))
+                {
+                    if(this->leCalculateur->getPile()->size()<1){
+                        throw std::logic_error("Il y a moins de 1 élements sur la pile");
+                    }
+                    CommandUnArg* sign =  new CommandUnArg(leCalculateur,&Calculateur::sign);
+                    sign->Execute();
+                    ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
+                }
+                 else if(str.isEmpty())
+                 {
+
+                 }
+                 else
+                 {
+                     throw std::logic_error("Ce n'est pas une entrée valide");
+                 }
             }
-            CommandPush* push = new CommandPush(leCalculateur,e);
-            push->Execute();
-            ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
-            j++;
         }
-        else
-        {
-            if(c[i]=='+')
-            {
-                CommandUnArg* addition =  new CommandUnArg(leCalculateur,&Calculateur::addition);
-                addition->Execute();
-                ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
-            } else if(c[i]=='-')
-            {
-                CommandUnArg* soustraction =  new CommandUnArg(leCalculateur,&Calculateur::soustraction);
-                soustraction->Execute();
-                ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
-            }
-            else if(c[i]=='/')
-            {
-                CommandUnArg* division =  new CommandUnArg(leCalculateur,&Calculateur::division);
-                division->Execute();
-                ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
-            }
-            else if(c[i]=='*')
-            {
-                CommandUnArg* multiplication =  new CommandUnArg(leCalculateur,&Calculateur::multiplication);
-                multiplication->Execute();
-                ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
-            }
-            else if(str.contains("sqrt", Qt::CaseInsensitive))
-            {
-                CommandUnArg* sqrt =  new CommandUnArg(leCalculateur,&Calculateur::sqrt);
-                sqrt->Execute();
-                ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
-            }
-            else if(str.contains("sqr", Qt::CaseInsensitive))
-            {
-                CommandUnArg* sqr =  new CommandUnArg(leCalculateur,&Calculateur::sqr);
-                sqr->Execute();
-                ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
-            }
-            else if(str.contains("cube", Qt::CaseInsensitive))
-            {
-                CommandUnArg* cube =  new CommandUnArg(leCalculateur,&Calculateur::cube);
-                cube->Execute();
-                ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
-            }
-            else if(c[i]=='!')
-            {
-                CommandDeuxArg* fact=  new CommandDeuxArg(leCalculateur,&Calculateur::fact);
-                fact->Execute();
-                ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
-            }
-            else if(c[i]=='%')
-            {
-                CommandDeuxArg* mod=  new CommandDeuxArg(leCalculateur,&Calculateur::mod);
-                mod->Execute();
-                ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
-            }
-            else if(c[i]=='^')
-            {
-                CommandDeuxArg* pow =  new CommandDeuxArg(leCalculateur,&Calculateur::pow);
-                pow->Execute();
-                ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
-            }
-            else if(str.contains("ln", Qt::CaseInsensitive))
-            {
-                CommandUnArg* ln =  new CommandUnArg(leCalculateur,&Calculateur::ln);
-                ln->Execute();
-                ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
-            }
-            else if(str.contains("log", Qt::CaseInsensitive))
-            {
-                CommandUnArg* log =  new CommandUnArg(leCalculateur,&Calculateur::log);
-                log->Execute();
-                ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
-            }
-            else if(str.contains("cosh", Qt::CaseInsensitive))
-            {
-                CommandUnArg* cosh =  new CommandUnArg(leCalculateur,&Calculateur::cosh);
-                cosh->Execute();
-                ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
-            }
-            else if(str.contains("cos", Qt::CaseInsensitive))
-            {
-                CommandUnArg* cos =  new CommandUnArg(leCalculateur,&Calculateur::cos);
-                cos->Execute();
-                ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
-            }
-            else if(str.contains("sinh", Qt::CaseInsensitive))
-            {
-                CommandUnArg* sinh =  new CommandUnArg(leCalculateur,&Calculateur::sinh);
-                sinh->Execute();
-                ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
-            }
-            else if(str.contains("sin", Qt::CaseInsensitive))
-            {
-                CommandUnArg* sin =  new CommandUnArg(leCalculateur,&Calculateur::sin);
-                sin->Execute();
-                ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
-            }
-            else if(str.contains("tanh", Qt::CaseInsensitive))
-            {
-                CommandUnArg* tanh =  new CommandUnArg(leCalculateur,&Calculateur::tanh);
-                tanh->Execute();
-                ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
-            }
-            else if(str.contains("tan", Qt::CaseInsensitive))
-            {
-                CommandUnArg* tan =  new CommandUnArg(leCalculateur,&Calculateur::tan);
-                tan->Execute();
-                ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
-            }
-            else if(str.contains("inv", Qt::CaseInsensitive))
-            {
-                CommandUnArg* inv =  new CommandUnArg(leCalculateur,&Calculateur::inv);
-                inv->Execute();
-                ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
-            }
-             else if(str.contains("sign", Qt::CaseInsensitive))
-            {
-                CommandUnArg* sign =  new CommandUnArg(leCalculateur,&Calculateur::sign);
-                sign->Execute();
-                ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
-            }
-        }
+    }catch(std::logic_error e){
+        ui->displaytop->setText(e.what());
     }
+qDebug()<<"yo";
 }
 
 void MainWindow::toModeEntier()
@@ -441,7 +684,7 @@ Constante* MainWindow::getConstante(QString str)
     }
     else
     {
-        res = e->toReel();
+        res = e->clone();
     }
     return res;
 
@@ -449,26 +692,76 @@ Constante* MainWindow::getConstante(QString str)
 
 void MainWindow::eval()
 {
-    if(typeid(*this->leCalculateur->getPile()->top()) != typeid(Expression))
+    try
     {
-        //\todo ce n'est pas une expression
-         ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
+        if(this->leCalculateur->getPile()->getPile().isEmpty())
+        {   qDebug()<<"on est là";
+            throw std::logic_error("La pile est vide");
+        }
+        else if(typeid(*this->leCalculateur->getPile()->top()) != typeid(Expression))
+        {
+            ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
+            throw std::logic_error("Ce n'est pas une expression");
+        }
+        else
+        {
+            Element* exp = this->leCalculateur->pop();
+            ui->display->setText(exp->toQString());
+            this->evaluate();
+        }
+    }
+    catch(std::logic_error e)
+    {
+        ui->displaytop->setText(e.what());
+    }
 
-    }
-    else
-    {
-        Element* exp = this->leCalculateur->pop();
-        ui->display->setText(exp->toQString());
-        this->evaluate();
-    }
 }
 
  void MainWindow::clickedBt(QString txt)
  {
      if (waitingForOperand) {
-         qDebug()<<"passe par là";
          ui->display->clear();
          waitingForOperand = false;
      }
      ui->display->setText(ui->display->text() + txt);
+ }
+
+ void MainWindow::duplicate()
+ {  qDebug()<<"dup2";
+     try{
+    if(!this->leCalculateur->getPile()->getPile().isEmpty())
+    {   qDebug()<<"là";
+        CommandUnArg* duplicate = new CommandUnArg(leCalculateur,&Calculateur::duplicate);
+        duplicate->Execute();
+        ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
+    }
+    else
+    {
+        throw std::logic_error("La pile est vide");
+        return;
+    }}catch(std::logic_error &e){this->ui->displaytop->setText(e.what());}
+ }
+
+ void MainWindow::drop()
+ {try{
+    if(!this->leCalculateur->getPile()->getPile().isEmpty())
+    {
+        CommandUnArg* drop = new CommandUnArg(leCalculateur,&Calculateur::drop);
+        drop->Execute();
+        ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
+    }
+    else
+    {
+        throw std::logic_error("La pile est vide");
+    }}catch(std::logic_error &e){this->ui->displaytop->setText(e.what());}
+ }
+
+ void MainWindow::clear()
+ {
+
+        CommandPolyArg* clear = new CommandPolyArg(leCalculateur,leCalculateur->getPile()->getPile().size(),0,&Calculateur::clear);
+        clear->Execute();
+        ui->display->setText("0");
+        this->waitingForOperand = true;
+
  }

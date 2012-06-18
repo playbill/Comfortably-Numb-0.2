@@ -14,7 +14,7 @@ Calculateur::Calculateur()
 
 Element* Calculateur::cast(Element* e)
 {
-    if(isComplexe())
+    if(isComplexe())//\todo ici il faudrait faire attention de ne pas transformer les parties imaginaire et réelle d'un complexe en complexe
     {   qDebug()<<"cast Complexe";
         return e->toComplexe();
     }
@@ -44,7 +44,7 @@ Element* Calculateur::multiplication()
 {
 
   if(pileC->donneInstance()->size()<2){
-        //throw std::logic_error( "Multiplication : il n'y a pas assez de paramatres");
+        throw std::logic_error("La pile à moins de 2 éléments");
     }
   else
   {
@@ -63,7 +63,7 @@ Element* Calculateur::multiplication()
 Element* Calculateur::soustraction()
 {
       if(pileC->donneInstance()->size()<2){
-        //throw std::logic_error( "SOUSTRACTION : il n'y a pas assez de paramatres");
+         throw std::logic_error("La pile à moins de deux éléments");
     }
   else
   {
@@ -84,7 +84,7 @@ Element* Calculateur::division()
 {
 
       if(pileC->donneInstance()->size()<2){
-        //throw std::logic_error( "DIVISION : il n'y a pas assez de paramatres");
+         throw std::logic_error("La pile à moins de deux éléments");
     }
   else
   {
@@ -103,7 +103,7 @@ Element* Calculateur::division()
 Element* Calculateur::addition()
 {
       if(pileC->donneInstance()->size()<2){
-        //throw std::logic_error( "ADDITION : il n'y a pas assez de paramatres");
+         throw std::logic_error("La pile à moins de deux éléments");
     }
   else
   {
@@ -123,15 +123,15 @@ Element* Calculateur::fact()
 {
     if(typeid(*this->pileC->top()) == typeid(Expression))
     {
-        this->eval();
+         throw std::logic_error("L'élément du haut de la pile est une expression");
     }
     if(typeid(*this->pileC->top()) == typeid(Complexe))
     {   qDebug()<<"on est en complexe";
-         // throw std::logic_error( "mod : le premier parametre doit être une constante");
+         throw std::logic_error("La fonction factorielle ne s'applique pas au complexe");
     }
     if(typeid(*this->pileC->top()) != typeid(Entier))
     {   qDebug()<<"on est en non entier";
-        // \todo throw stc:: il faut que ce soit un entier attention nous le convertissons
+        throw std::logic_error("La fonction factorielle ne s'applique qu'au entier");
     }
     if(typeid(*this->pileC->top()) == typeid(Entier))
     {   qDebug()<<"on est en entier";
@@ -143,7 +143,7 @@ Element* Calculateur::fact()
     }
     else
     {
-        //\todo throw error
+        throw std::logic_error("L'élément du haut de la pile n'est pas un élement valide");
     }
 }
 
@@ -155,11 +155,11 @@ Element* Calculateur::mod()
     }
     if(typeid(*this->pileC->top()) == typeid(Complexe))
     {   qDebug()<<"on est en complexe";
-         // throw std::logic_error( "mod : le premier parametre doit être une constante");
+         throw std::logic_error( "mod : le premier parametre doit être une constante");
     }
     if(typeid(*this->pileC->top()) != typeid(Entier))
-    {   qDebug()<<"on est en non entier";
-        // \todo throw stc:: il faut que ce soit un entier attention nous le convertissons
+    {
+         throw std::logic_error("Il faut que l'élément soit un entier");
     }
     if(typeid(*this->pileC->top()) == typeid(Entier))
     {   qDebug()<<"on est en entier";
@@ -168,16 +168,17 @@ Element* Calculateur::mod()
 
         if(typeid(*this->pileC->top()) == typeid(Expression))
         { qDebug()<<"on est en expression";
-            this->eval();
+            this->pileC->push(m);
+            throw std::logic_error("Le deuxième élément est une expression");
         }
         if(typeid(*this->pileC->top()) == typeid(Complexe))
         {   qDebug()<<"on est en complexe";
             this->pileC->push(m);
-            // \todo throw error
+             throw std::logic_error("Le deuxième élément est un complexe");
         }
         if(typeid(*this->pileC->top()) != typeid(Entier))
         {   qDebug()<<"on est en non entier";
-            // \todo nous le convertissons
+             throw std::logic_error("Le deuxième élément n'est pas de type entier");
         }
         if(typeid(*this->pileC->top()) == typeid(Entier))
         {   qDebug()<<"on est en entier";
@@ -192,12 +193,12 @@ Element* Calculateur::mod()
         }
         else
         {
-            //\todo throw error
+             throw std::logic_error("Le deuxième élément n'est pas un élément valide");
         }
     }
     else
     {
-        //\todo throw error
+         throw std::logic_error("Le premier élément n'est pas un élément valide");
     }
 }
 
@@ -209,7 +210,7 @@ Element* Calculateur::pow()
     }
     if(typeid(*this->pileC->top()) == typeid(Complexe))
     {
-         // throw std::logic_error( "POW : le premier parametre doit être un entier");
+         throw std::logic_error("Le premier élément ne peut pas être un complexe");
     }
     else if(typeid(*this->pileC->top())== typeid(Entier))
     {
@@ -258,7 +259,7 @@ Element* Calculateur::pow()
         }
         else
         {
-        // erreur
+         throw std::logic_error("L'élément n'est pas un type connu");
         }
     }
     else if(typeid(*this->pileC->top()) == typeid(Reel) || typeid(*this->pileC->top()) == typeid(Rationnel))
@@ -279,12 +280,12 @@ Element* Calculateur::pow()
         }
         else
         {
-          // erreur
+           throw std::logic_error("Le deuxième élément n'est pas un type valide");
         }
     }
     else
     {
-    // erreur
+     throw std::logic_error("Le premier élément n'est pas un élément valide");
     }
 
 }
@@ -560,11 +561,11 @@ Element* Calculateur::inv()
 {
     if(typeid(*this->pileC->top()) == typeid(Expression))
     {
-        this->eval();
+         throw std::logic_error("L'élément du haut de la pile est une expression");
     }
     if(typeid(*this->pileC->top()) == typeid(Complexe))
     {
-        //throw error \todo
+         throw std::logic_error("L'inverse d'un complexe n'est pas une commande disponible");
     }
 
     Constante* c = dynamic_cast<Constante *>(this->pileC->pop());
@@ -588,7 +589,7 @@ Element* Calculateur::inv()
 
 Element* Calculateur::sqrt()
 {
-Reel* e = new Reel(1./2.);
+    Reel* e = new Reel(1./2.);
    this->pileC->push(e);
    return pow();
 }
@@ -596,6 +597,10 @@ Reel* e = new Reel(1./2.);
 
 Element* Calculateur::sqr()
 {
+    if(typeid(*this->pileC->top()) == typeid(Expression))
+    {
+        throw std::logic_error("L'élément du huat de la pile est une expression");
+    }
     if(typeid(*this->pileC->top()) == typeid(Complexe))
     {   /*!< (a + bi)² = a² - b² + 2bai */
         qDebug()<<"Complexe sqr";
@@ -627,7 +632,10 @@ Element* Calculateur::sqr()
 }
 Element* Calculateur::cube()
 {
-    if(typeid(*this->pileC->top()) == typeid(Complexe))
+    if(typeid(*this->pileC->top()) == typeid(Expression))
+    {    throw std::logic_error("L'élément du huat de la pile est une expression");
+    }
+    else if(typeid(*this->pileC->top()) == typeid(Complexe))
     {   /*!< (a + bi)*(a + bi)² */
         Element* e = this->pileC->top()->clone();
         this->sqr();
@@ -644,8 +652,7 @@ Element* Calculateur::cube()
 Element* Calculateur::sign()
 {
     if(typeid(*this->pileC->top()) == typeid(Expression))
-    {   //trow_error
-        return 0;
+    {    throw std::logic_error("L'élément du huat de la pile est une expression");
     }
     else
     {
@@ -655,6 +662,54 @@ Element* Calculateur::sign()
         this->pileC->push(e);
         return e;
     }
+}
+
+Element* Calculateur::swap()
+{
+    Element* a = getPile()->pop();
+    Element* b = getPile()->pop();
+    this->getPile()->swap(a->getXAsInt(),b->getXAsInt());
+    delete a;
+    delete b;
+}
+
+Element* Calculateur::drop()
+{
+    Element* a = getPile()->pop();
+    delete a;
+}
+
+Element* Calculateur::sum()
+{
+   Entier* e = dynamic_cast<Entier*>(this->pop());
+    qDebug()<<"ici ça marche";
+    for(unsigned int i=0;i<e->getXAsInt()-1;i++)
+    {
+        this->addition();
+    }
+    qDebug()<<this->getPile()->top()->toQString();
+
+}
+
+Element* Calculateur::mean()
+{
+    Entier* e = dynamic_cast<Entier*>(this->pop());
+    unsigned int i;
+    for(i=0;i<e->getXAsInt()-1;i++)
+    {
+        this->addition();
+    }
+    Reel* div = new Reel(i+1);
+    Element* sum = this->pop();
+    Element* res = this->cast(&(sum->operator /(*div)));
+    delete div;
+    delete sum;
+    this->push(res);
+}
+
+Element* Calculateur::clear()
+{
+    this->getPile()->clear();
 }
 
 Element* Calculateur::eval()

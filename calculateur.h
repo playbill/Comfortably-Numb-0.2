@@ -43,6 +43,12 @@ class Calculateur
         Element* mod();
         Element* fact();
         Element* sign();
+        Element* swap();
+        Element* dup();
+        Element* drop();
+        Element* sum();
+        Element* mean();
+        Element* clear();
         Element* push(Element*);
         Element* pop();
         Element* operator!();

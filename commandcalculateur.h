@@ -37,7 +37,7 @@ private:
     Element* arg2;
     Element* (Calculateur::*method)();
 public:
-    CommandDeuxArg(Calculateur*,Element*(Calculateur::*)());
+    CommandDeuxArg(Calculateur*,Element*,Element*,Element*(Calculateur::*)());
     virtual ~CommandDeuxArg();
     void Execute();
 };
@@ -50,7 +50,7 @@ private:
     unsigned int nElements;
     Element* (Calculateur::*method)();
 public:
-    CommandPolyArg(Calculateur*,unsigned int,Element*(Calculateur::*)());
+    CommandPolyArg(Calculateur*,unsigned int taille,unsigned int depart,Element*(Calculateur::*)());
     virtual ~CommandPolyArg();
     void Execute();
 };

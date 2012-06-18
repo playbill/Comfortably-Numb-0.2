@@ -3,6 +3,7 @@
 #include <QStack> /*!< Pour pouvoir utiliser Qstack*/
 #include <iostream>
 #include "element.h"
+#include <QDEBUG>
 
 /**
  * \class Pile
