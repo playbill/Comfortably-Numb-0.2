@@ -2,11 +2,11 @@ INPUT(
 ./release\main.o
 ./release\mainwindow.o
 ./release\element.o
-./release\constante.o
-./release\reel.o
-./release\entier.o
-./release\rationnel.o
-./release\complexe.o
 ./release\pile.o
+./release\calculateur.o
+./release\command.o
+./release\commandcalculateur.o
+./release\tabwidget.o
 ./release\moc_mainwindow.o
+./release\moc_tabwidget.o
 );

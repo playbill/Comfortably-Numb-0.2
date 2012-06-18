@@ -2,11 +2,11 @@ INPUT(
 ./debug\main.o
 ./debug\mainwindow.o
 ./debug\element.o
-./debug\constante.o
-./debug\reel.o
-./debug\entier.o
-./debug\rationnel.o
-./debug\complexe.o
 ./debug\pile.o
+./debug\calculateur.o
+./debug\command.o
+./debug\commandcalculateur.o
+./debug\tabwidget.o
 ./debug\moc_mainwindow.o
+./debug\moc_tabwidget.o
 );

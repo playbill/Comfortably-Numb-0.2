@@ -7,9 +7,13 @@ SOURCES += main.cpp \
     mainwindow.cpp \
     element.cpp \
     pile.cpp \
-    calculateur.cpp
+    calculateur.cpp \
+    command.cpp \
+    commandcalculateur.cpp
 HEADERS += mainwindow.h \
     element.h \
     pile.h \
-    calculateur.h
+    calculateur.h \
+    command.h \
+    commandcalculateur.h
 FORMS += mainwindow.ui
