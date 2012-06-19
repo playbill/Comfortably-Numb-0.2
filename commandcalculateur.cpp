@@ -66,8 +66,13 @@ void CommandDeuxArg::Execute()
 }
 
 QString CommandDeuxArg::toQString(){
-if(method == &Calculateur::fact){return arg1->toQString() + " fact "; }
-else if(method == &Calculateur::cos){return arg1->toQString() + " cos "; }
+if(method == &Calculateur::addition){return arg1->toQString() + ' ' + arg2->toQString() + " + "; }
+else if(method == &Calculateur::multiplication){return arg1->toQString() + ' ' + arg2->toQString() + " * ";  }
+else if(method == &Calculateur::division){return arg1->toQString() + ' ' + arg2->toQString() + " / ";  }
+else if(method == &Calculateur::pow){return arg1->toQString() + ' ' + arg2->toQString() + " ^ ";  }
+else if(method == &Calculateur::mod){return arg1->toQString() + ' ' + arg2->toQString() + " % ";  }
+else if(method == &Calculateur::swap){return arg1->toQString() + ' ' + arg2->toQString() + " swap ";  }
+else if(method == &Calculateur::soustraction){return arg1->toQString() + ' ' + arg2->toQString() + " - ";  }
 }
 
 CommandPolyArg::CommandPolyArg(Calculateur* c,unsigned int taille, unsigned int depart,Element*(Calculateur::*m)()): cal(c),method(m),nElements(taille), tab(new Element*[nElements])
@@ -87,6 +92,21 @@ void CommandPolyArg::Execute()
     (cal->*method)();
 }
 QString CommandPolyArg::toQString(){
-if(method == &Calculateur::fact){return  " fact "; }
-else if(method == &Calculateur::cos){return  " cos "; }
+if(method == &Calculateur::mean){
+    QString a = " mean ";
+    for(unsigned i = 0; i<nElements; i++){
+    a.push_front(' '+tab[i]->toQString()+' ');
+    }
+    return a;
+}
+else if(method == &Calculateur::sum){
+        QString a = " sum ";
+    for(unsigned i = 0; i<nElements; i++){
+    a.push_front(' '+tab[i]->toQString()+' ');
+    }
+    return a;
+}
+else if(method == &Calculateur::clear){
+    return " clear ";
+}
 }

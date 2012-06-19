@@ -36,6 +36,8 @@ public:
 
 
 private slots:
+    void undo();
+    void redo();
     void clickedBt(QString);
     void evaluate();
     void eval();
@@ -70,7 +72,6 @@ private:
     GestionCommande* pileCommande;
     bool waitingForOperand;
     Affichage* view;
-    std::set<Affichage*> list_observers;
 
 };
 

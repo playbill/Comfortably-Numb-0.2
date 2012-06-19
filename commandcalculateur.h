@@ -13,6 +13,7 @@ private:
     Element* (Calculateur::*method)();
 public:
     CommandUnArg(Calculateur*,Element*(Calculateur::*)()=0);
+    Element* getArg(){return arg;}
     virtual ~CommandUnArg();
     void Execute();
     QString toQString();
@@ -42,6 +43,8 @@ private:
 public:
     CommandDeuxArg(Calculateur*,Element*,Element*,Element*(Calculateur::*)());
     virtual ~CommandDeuxArg();
+    Element* getArg1(){return arg1;}
+    Element* getArg2(){return arg2;}
     void Execute();
     virtual QString toQString();
 };
@@ -54,6 +57,8 @@ private:
     unsigned int nElements;
     Element* (Calculateur::*method)();
 public:
+    Element* getArg(unsigned int i){return tab[i];}
+    unsigned int getN(){return nElements;}
     CommandPolyArg(Calculateur*,unsigned int taille,unsigned int depart,Element*(Calculateur::*)());
     virtual ~CommandPolyArg();
     void Execute();

@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'mainwindow.ui'
 **
-** Created: Sun 17. Jun 14:35:51 2012
+** Created: Tue 19. Jun 04:45:45 2012
 **      by: Qt User Interface Compiler version 4.5.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -19,6 +19,7 @@
 #include <QtGui/QHeaderView>
 #include <QtGui/QLineEdit>
 #include <QtGui/QMainWindow>
+#include <QtGui/QMenu>
 #include <QtGui/QMenuBar>
 #include <QtGui/QPushButton>
 #include <QtGui/QRadioButton>
@@ -31,6 +32,8 @@ QT_BEGIN_NAMESPACE
 class Ui_MainWindow
 {
 public:
+    QAction *actionUndo;
+    QAction *actionRedo;
     QWidget *centralWidget;
     QPushButton *num6Button;
     QPushButton *num3Button;
@@ -88,6 +91,8 @@ public:
     QPushButton *opDupButton;
     QPushButton *opClearButton;
     QMenuBar *menuBar;
+    QMenu *menuFile;
+    QMenu *menuEdit;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
     QToolBar *toolBar;
@@ -97,6 +102,10 @@ public:
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
         MainWindow->resize(551, 399);
+        actionUndo = new QAction(MainWindow);
+        actionUndo->setObjectName(QString::fromUtf8("actionUndo"));
+        actionRedo = new QAction(MainWindow);
+        actionRedo->setObjectName(QString::fromUtf8("actionRedo"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         num6Button = new QPushButton(centralWidget);
@@ -319,6 +328,10 @@ public:
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
         menuBar->setGeometry(QRect(0, 0, 551, 22));
+        menuFile = new QMenu(menuBar);
+        menuFile->setObjectName(QString::fromUtf8("menuFile"));
+        menuEdit = new QMenu(menuBar);
+        menuEdit->setObjectName(QString::fromUtf8("menuEdit"));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QString::fromUtf8("mainToolBar"));
@@ -329,6 +342,11 @@ public:
         toolBar = new QToolBar(MainWindow);
         toolBar->setObjectName(QString::fromUtf8("toolBar"));
         MainWindow->addToolBar(Qt::TopToolBarArea, toolBar);
+
+        menuBar->addAction(menuFile->menuAction());
+        menuBar->addAction(menuEdit->menuAction());
+        menuEdit->addAction(actionUndo);
+        menuEdit->addAction(actionRedo);
 
         retranslateUi(MainWindow);
 
@@ -341,6 +359,10 @@ public:
 #ifndef QT_NO_TOOLTIP
         MainWindow->setToolTip(QString());
 #endif // QT_NO_TOOLTIP
+        actionUndo->setText(QApplication::translate("MainWindow", "Undo", 0, QApplication::UnicodeUTF8));
+        actionUndo->setShortcut(QApplication::translate("MainWindow", "Ctrl+Z", 0, QApplication::UnicodeUTF8));
+        actionRedo->setText(QApplication::translate("MainWindow", "Redo", 0, QApplication::UnicodeUTF8));
+        actionRedo->setShortcut(QApplication::translate("MainWindow", "Ctrl+Y", 0, QApplication::UnicodeUTF8));
         num6Button->setText(QApplication::translate("MainWindow", "6", 0, QApplication::UnicodeUTF8));
         num6Button->setShortcut(QApplication::translate("MainWindow", "6", 0, QApplication::UnicodeUTF8));
         num3Button->setText(QApplication::translate("MainWindow", "3", 0, QApplication::UnicodeUTF8));
@@ -421,8 +443,9 @@ public:
         opDupButton->setShortcut(QApplication::translate("MainWindow", "!", 0, QApplication::UnicodeUTF8));
         opClearButton->setText(QApplication::translate("MainWindow", "clear", 0, QApplication::UnicodeUTF8));
         opClearButton->setShortcut(QApplication::translate("MainWindow", "!", 0, QApplication::UnicodeUTF8));
+        menuFile->setTitle(QApplication::translate("MainWindow", "File", 0, QApplication::UnicodeUTF8));
+        menuEdit->setTitle(QApplication::translate("MainWindow", "Edit", 0, QApplication::UnicodeUTF8));
         toolBar->setWindowTitle(QApplication::translate("MainWindow", "toolBar", 0, QApplication::UnicodeUTF8));
-        Q_UNUSED(MainWindow);
     } // retranslateUi
 
 };

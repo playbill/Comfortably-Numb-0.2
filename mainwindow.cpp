@@ -2,10 +2,11 @@
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent), ui(new Ui::MainWindow),leCalculateur(new Calculateur())
+    : QMainWindow(parent), ui(new Ui::MainWindow),leCalculateur(new Calculateur()),pileCommande(new GestionCommande())
 {
     this->view = new Affichage(parent,this);
     this->leCalculateur->getPile()->addAffichage(view);
+    this->pileCommande->addAffichage(view);
     waitingForOperand = true;
     ui->setupUi(this);
     mapper = new QSignalMapper(this);
@@ -37,6 +38,8 @@ MainWindow::MainWindow(QWidget *parent)
     {
         ui->modeRadiant->setChecked(true);
     }
+    connect(ui->actionUndo, SIGNAL(triggered()), this, SLOT(undo()));
+    connect(ui->actionRedo, SIGNAL(triggered()), this, SLOT(redo()));
     connect(ui->modeComplexe, SIGNAL(toggled(bool)), this, SLOT(toModeComplexe()));
     connect(ui->modeRationnel, SIGNAL(toggled(bool)), this, SLOT(toModeRationnel()));
     connect(ui->modeReel, SIGNAL(toggled(bool)), this, SLOT(toModeReel()));
@@ -261,6 +264,7 @@ try{
                     CommandPush* push = new CommandPush(leCalculateur,e);
                     push->Execute();
                     this->pileCommande->getUndo()->push(push);
+                    this->pileCommande->pushCommand(push);
                     ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
                     res = "";
                     expression = false;
@@ -291,6 +295,7 @@ try{
                 CommandPush* push = new CommandPush(leCalculateur,e);
                 push->Execute();
                 this->pileCommande->getUndo()->push(push);
+                this->pileCommande->pushCommand(push);
                 ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
                 j++;
             }
@@ -302,9 +307,13 @@ try{
                         throw std::logic_error("Il y a moins de 2 élements sur la pile");
                         return;
                     }
-                    CommandUnArg* addition =  new CommandUnArg(leCalculateur,&Calculateur::addition);
+                    CommandDeuxArg* addition =  new CommandDeuxArg(leCalculateur,
+                                                                    this->leCalculateur->getPile()->getPile().top(),
+                                                                    this->leCalculateur->getPile()->getPile().at(this->leCalculateur->getPile()->size()-2),
+                                                                   &Calculateur::addition);
                     addition->Execute();
                      this->pileCommande->getUndo()->push(addition);
+                     this->pileCommande->deuxArgCommand(addition);
                     ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
                 } else if(c[i]=='-')
                 {
@@ -312,9 +321,13 @@ try{
                         throw std::logic_error("Il y a moins de 2 élements sur la pile");
                         return;
                     }
-                    CommandUnArg* soustraction =  new CommandUnArg(leCalculateur,&Calculateur::soustraction);
+                    CommandDeuxArg* soustraction =  new CommandDeuxArg(leCalculateur,
+                                                                        this->leCalculateur->getPile()->getPile().top(),
+                                                                        this->leCalculateur->getPile()->getPile().at(this->leCalculateur->getPile()->size()-2),
+                                                                       &Calculateur::soustraction);
                     soustraction->Execute();
                      this->pileCommande->getUndo()->push(soustraction);
+                     this->pileCommande->deuxArgCommand(soustraction);
                     ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
                 }
                 else if(c[i]=='/')
@@ -323,9 +336,13 @@ try{
                         throw std::logic_error("Il y a moins de 2 élements sur la pile");
                         return;
                     }
-                    CommandUnArg* division =  new CommandUnArg(leCalculateur,&Calculateur::division);
+                    CommandDeuxArg* division =  new CommandDeuxArg(leCalculateur,
+                                                                    this->leCalculateur->getPile()->getPile().top(),
+                                                                    this->leCalculateur->getPile()->getPile().at(this->leCalculateur->getPile()->size()-2),
+                                                                   &Calculateur::division);
                     division->Execute();
                      this->pileCommande->getUndo()->push(division);
+                     this->pileCommande->deuxArgCommand(division);
                     ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
                 }
                 else if(c[i]=='*')
@@ -334,9 +351,13 @@ try{
                         throw std::logic_error("Il y a moins de 2 élements sur la pile");
                         return;
                     }
-                    CommandUnArg* multiplication =  new CommandUnArg(leCalculateur,&Calculateur::multiplication);
+                    CommandDeuxArg* multiplication =  new CommandDeuxArg(leCalculateur,
+                                                                        this->leCalculateur->getPile()->getPile().top(),
+                                                                        this->leCalculateur->getPile()->getPile().at(this->leCalculateur->getPile()->size()-2),
+                                                                         &Calculateur::multiplication);
                     multiplication->Execute();
                     this->pileCommande->getUndo()->push(multiplication);
+                    this->pileCommande->deuxArgCommand(multiplication);
                     ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
                 }
                 else if(str.contains("sqrt", Qt::CaseInsensitive))
@@ -348,6 +369,7 @@ try{
                     CommandUnArg* sqrt =  new CommandUnArg(leCalculateur,&Calculateur::sqrt);
                     sqrt->Execute();
                      this->pileCommande->getUndo()->push(sqrt);
+                     this->pileCommande->unArgCommand(sqrt);
                     ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
                 }
                 else if(str.contains("sqr", Qt::CaseInsensitive))
@@ -359,6 +381,7 @@ try{
                     CommandUnArg* sqr =  new CommandUnArg(leCalculateur,&Calculateur::sqr);
                     sqr->Execute();
                      this->pileCommande->getUndo()->push(sqr);
+                     this->pileCommande->unArgCommand(sqr);
                     ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
                 }
                 else if(str.contains("cube", Qt::CaseInsensitive))
@@ -370,6 +393,7 @@ try{
                     CommandUnArg* cube =  new CommandUnArg(leCalculateur,&Calculateur::cube);
                     cube->Execute();
                      this->pileCommande->getUndo()->push(cube);
+                     this->pileCommande->unArgCommand(cube);
                     ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
                 }
                 else if(c[i]=='!')
@@ -381,6 +405,7 @@ try{
                     CommandUnArg* fact=  new CommandUnArg(leCalculateur,&Calculateur::fact);
                     fact->Execute();
                      this->pileCommande->getUndo()->push(fact);
+                     this->pileCommande->unArgCommand(fact);
                     ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
                 }
                  else if(str.contains("swap", Qt::CaseInsensitive))
@@ -407,6 +432,7 @@ try{
                                                               &Calculateur::swap);
                     swap->Execute();
                      this->pileCommande->getUndo()->push(swap);
+                     this->pileCommande->deuxArgCommand(swap);
                     ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
                 }
                 else if(c[i]=='%')
@@ -421,6 +447,7 @@ try{
                                                              &Calculateur::mod);
                     mod->Execute();
                      this->pileCommande->getUndo()->push(mod);
+                     this->pileCommande->deuxArgCommand(mod);
                     ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
                 }
                 else if(c[i]=='^')
@@ -435,6 +462,7 @@ try{
                                                              &Calculateur::pow);
                     pow->Execute();
                      this->pileCommande->getUndo()->push(pow);
+                     this->pileCommande->deuxArgCommand(pow);
                     ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
                 }
                 else if(str.contains("ln", Qt::CaseInsensitive))
@@ -446,6 +474,7 @@ try{
                     CommandUnArg* ln =  new CommandUnArg(leCalculateur,&Calculateur::ln);
                     ln->Execute();
                      this->pileCommande->getUndo()->push(ln);
+                     this->pileCommande->unArgCommand(ln);
                     ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
                 }
                 else if(str.contains("log", Qt::CaseInsensitive))
@@ -457,6 +486,7 @@ try{
                     CommandUnArg* log =  new CommandUnArg(leCalculateur,&Calculateur::log);
                     log->Execute();
                      this->pileCommande->getUndo()->push(log);
+                     this->pileCommande->unArgCommand(log);
                     ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
                 }
                 else if(str.contains("cosh", Qt::CaseInsensitive))
@@ -468,6 +498,7 @@ try{
                     CommandUnArg* cosh =  new CommandUnArg(leCalculateur,&Calculateur::cosh);
                     cosh->Execute();
                      this->pileCommande->getUndo()->push(cosh);
+                     this->pileCommande->unArgCommand(cosh);
                     ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
                 }
                 else if(str.contains("cos", Qt::CaseInsensitive))
@@ -479,6 +510,7 @@ try{
                     CommandUnArg* cos =  new CommandUnArg(leCalculateur,&Calculateur::cos);
                     cos->Execute();
                      this->pileCommande->getUndo()->push(cos);
+                     this->pileCommande->unArgCommand(cos);
                     ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
                 }
                 else if(str.contains("sinh", Qt::CaseInsensitive))
@@ -490,6 +522,7 @@ try{
                     CommandUnArg* sinh =  new CommandUnArg(leCalculateur,&Calculateur::sinh);
                     sinh->Execute();
                      this->pileCommande->getUndo()->push(sinh);
+                     this->pileCommande->unArgCommand(sinh);
                     ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
                 }
                 else if(str.contains("mean", Qt::CaseInsensitive))
@@ -526,6 +559,7 @@ try{
                         //qDebug()<<passe par là";
                         mean->Execute();
                          this->pileCommande->getUndo()->push(mean);
+                         this->pileCommande->polyArgCommand(mean);
                         ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
                     }
                     else
@@ -566,6 +600,7 @@ try{
                         CommandPolyArg* sum =  new CommandPolyArg(leCalculateur,this->leCalculateur->getPile()->top()->getXAsInt(),1,&Calculateur::sum);
                         sum->Execute();
                          this->pileCommande->getUndo()->push(sum);
+                         this->pileCommande->polyArgCommand(sum);
                         ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
                     }
                     else
@@ -581,6 +616,7 @@ try{
                     CommandUnArg* sin =  new CommandUnArg(leCalculateur,&Calculateur::sin);
                     sin->Execute();
                      this->pileCommande->getUndo()->push(sin);
+                     this->pileCommande->unArgCommand(sin);
                     ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
                 }
                 else if(str.contains("tanh", Qt::CaseInsensitive))
@@ -591,6 +627,7 @@ try{
                     CommandUnArg* tanh =  new CommandUnArg(leCalculateur,&Calculateur::tanh);
                     tanh->Execute();
                      this->pileCommande->getUndo()->push(tanh);
+                     this->pileCommande->unArgCommand(tanh);
                     ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
                 }
                 else if(str.contains("tan", Qt::CaseInsensitive))
@@ -601,6 +638,7 @@ try{
                     CommandUnArg* tan =  new CommandUnArg(leCalculateur,&Calculateur::tan);
                     tan->Execute();
                      this->pileCommande->getUndo()->push(tan);
+                     this->pileCommande->unArgCommand(tan);
                     ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
                 }
                 else if(str.contains("inv", Qt::CaseInsensitive))
@@ -611,6 +649,7 @@ try{
                     CommandUnArg* inv =  new CommandUnArg(leCalculateur,&Calculateur::inv);
                     inv->Execute();
                      this->pileCommande->getUndo()->push(inv);
+                     this->pileCommande->unArgCommand(inv);
                     ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
                 }
                  else if(str.contains("sign", Qt::CaseInsensitive))
@@ -621,6 +660,7 @@ try{
                     CommandUnArg* sign =  new CommandUnArg(leCalculateur,&Calculateur::sign);
                     sign->Execute();
                      this->pileCommande->getUndo()->push(sign);
+                     this->pileCommande->unArgCommand(sign);
                     ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
                 }
                  else if(str.isEmpty())
@@ -772,6 +812,7 @@ void MainWindow::eval()
         CommandUnArg* duplicate = new CommandUnArg(leCalculateur,&Calculateur::duplicate);
         duplicate->Execute();
         this->pileCommande->getUndo()->push(duplicate);
+        this->pileCommande->unArgCommand(duplicate);
         ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
     }
     else
@@ -788,6 +829,7 @@ void MainWindow::eval()
         CommandUnArg* drop = new CommandUnArg(leCalculateur,&Calculateur::drop);
         drop->Execute();
          this->pileCommande->getUndo()->push(drop);
+         this->pileCommande->unArgCommand(drop);
         if(!this->leCalculateur->getPile()->getPile().isEmpty()){
         ui->display->setText(this->leCalculateur->getPile()->top()->toQString());
             }else{
@@ -806,8 +848,55 @@ void MainWindow::eval()
         CommandPolyArg* clear = new CommandPolyArg(leCalculateur,leCalculateur->getPile()->getPile().size(),0,&Calculateur::clear);
         clear->Execute();
          this->pileCommande->getUndo()->push(clear);
+         this->pileCommande->polyArgCommand(clear);
         ui->display->setText("0");
         this->waitingForOperand = true;
+
+ }
+ void MainWindow::undo(){
+ try{
+     if(this->pileCommande->getUndo()->isEmpty()){
+   throw std::logic_error("Aucune action à annuler");
+ }
+
+ Command* tmp = this->pileCommande->getUndo()->pop();
+ if(typeid(*tmp)==typeid(CommandUnArg))
+ {
+    CommandUnArg* c = dynamic_cast<CommandUnArg*>(tmp);
+    delete this->leCalculateur->pop();
+    this->leCalculateur->push(c->getArg()->clone());
+    this->pileCommande->getRedo()->push(c);
+    this->pileCommande->popCommand();
+ }
+ else if(typeid(*tmp)==typeid(CommandPush))
+ {
+     this->pileCommande->getRedo()->push(tmp);
+     this->pileCommande->popCommand();
+      this->leCalculateur->pop();
+ }
+  else if(typeid(*tmp)==typeid(CommandDeuxArg))
+ {
+    CommandDeuxArg* c = dynamic_cast<CommandDeuxArg*>(tmp);
+    delete this->leCalculateur->pop();
+    this->leCalculateur->push(c->getArg1()->clone());
+    this->leCalculateur->push(c->getArg2()->clone());
+    this->pileCommande->getRedo()->push(c);
+    this->pileCommande->popCommand();
+ }
+    else if(typeid(*tmp)==typeid(CommandPolyArg))
+ {
+    CommandPolyArg* c = dynamic_cast<CommandPolyArg*>(tmp);
+    delete this->leCalculateur->pop();
+    for(unsigned int i = 0; i<c->getN(); i++){
+    this->leCalculateur->push(c->getArg(i)->clone());
+    }
+    this->pileCommande->getRedo()->push(c);
+    this->pileCommande->popCommand();
+ }}catch(std::logic_error & e){ui->displaytop->setText(e.what());}
+          qDebug()<<"empty";
+ }
+
+ void MainWindow::redo(){
 
  }
 

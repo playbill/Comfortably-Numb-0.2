@@ -21,6 +21,10 @@ public:
     virtual void pop(QString data = 0, QString ok = 0);
     virtual void swap(QString data1, QString data2);
     virtual void pushCommand(QString data);
+    virtual void Affichage::unArgCommand(QString data);
+    virtual void Affichage::deuxArgCommand(QString data);
+    virtual void Affichage::polyArgCommand(QString data);
+    virtual void Affichage::popCommand();
     /*virtual void pop(QString data = 0, QString ok = 0);
     virtual void swap(QString data1, QString data2);*/
 
