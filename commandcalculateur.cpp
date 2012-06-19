@@ -13,6 +13,13 @@ void CommandUnArg::Execute()
     (cal->*method)();
 }
 
+QString CommandUnArg::toQString(){
+/*if(Calculateur::*method == Calculateur::fact){}
+else if(*method == Calculateur::cos){}*/
+
+
+}
+
 
 CommandPush::CommandPush(Calculateur* c, Element* e): cal(c)
 {

@@ -14,13 +14,13 @@ Calculateur::Calculateur()
 
 Element* Calculateur::cast(Element* e)
 {
-    if(isComplexe())//\todo ici il faudrait faire attention de ne pas transformer les parties imaginaire et réelle d'un complexe en complexe
-    {   qDebug()<<"cast Complexe";
-        return e->toComplexe();
-    }
-    if(typeid(e) == typeid(Expression*))
+    if(typeid(*e) == typeid(Expression))
     { qDebug()<<"cast expression";
         return e->clone();
+    }
+    else if(isComplexe())//\todo ici il faudrait faire attention de ne pas transformer les parties imaginaire et réelle d'un complexe en complexe
+    {   qDebug()<<"cast Complexe";
+        return e->toComplexe();
     }
     else if(isEntier())
     {   qDebug()<<"cast entier";

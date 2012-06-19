@@ -6,7 +6,8 @@ INPUT(
 ./release\calculateur.o
 ./release\command.o
 ./release\commandcalculateur.o
-./release\tabwidget.o
+./release\affichage.o
+./release\gestioncommande.o
 ./release\moc_mainwindow.o
-./release\moc_tabwidget.o
+./release\moc_affichage.o
 );

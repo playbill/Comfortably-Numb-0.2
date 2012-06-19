@@ -9,11 +9,18 @@ SOURCES += main.cpp \
     pile.cpp \
     calculateur.cpp \
     command.cpp \
-    commandcalculateur.cpp
+    commandcalculateur.cpp \
+    affichage.cpp \
+    gestioncommande.cpp
 HEADERS += mainwindow.h \
     element.h \
     pile.h \
     calculateur.h \
     command.h \
-    commandcalculateur.h
-FORMS += mainwindow.ui
+    commandcalculateur.h \
+    affichage.h \
+    observer.h \
+    observable.h \
+    gestioncommande.h
+FORMS += mainwindow.ui \
+    affichage.ui

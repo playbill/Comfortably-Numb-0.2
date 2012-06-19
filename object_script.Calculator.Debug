@@ -6,7 +6,8 @@ INPUT(
 ./debug\calculateur.o
 ./debug\command.o
 ./debug\commandcalculateur.o
-./debug\tabwidget.o
+./debug\affichage.o
+./debug\gestioncommande.o
 ./debug\moc_mainwindow.o
-./debug\moc_tabwidget.o
+./debug\moc_affichage.o
 );

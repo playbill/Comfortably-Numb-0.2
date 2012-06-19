@@ -203,6 +203,10 @@ class Expression : public Element
         QString toQString() const;
         QString getX() const;
         Expression* clone() const;
+        Element& operator+(Element& e);
+        Element& operator-(Element& e);
+        Element& operator*(Element& e);
+        Element& operator/(Element& e);
 
 };
 

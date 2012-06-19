@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+
 #include <QtGui/QMainWindow>
 #include "commandcalculateur.h"
 #include <QSignalMapper>
@@ -12,6 +13,9 @@
 #include <QMessageBox>
 #include <typeinfo>
 #include <stdexcept>
+#include "affichage.h"
+#include "gestioncommande.h"
+
 
 
 namespace Ui
@@ -28,6 +32,8 @@ public:
     ~MainWindow();
     Element* getComplexe(QString str);
     Constante* getConstante(QString str);
+    void show();
+
 
 private slots:
     void clickedBt(QString);
@@ -61,10 +67,10 @@ private:
     Ui::MainWindow *ui;
     QSignalMapper* mapper;
     Calculateur* leCalculateur;
-    QStack<Command *> pileRedo;
-    QStack<Command *> pileUndo;
+    GestionCommande* pileCommande;
     bool waitingForOperand;
-
+    Affichage* view;
+    std::set<Affichage*> list_observers;
 
 };
 

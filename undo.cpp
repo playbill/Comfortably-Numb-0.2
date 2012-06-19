@@ -1,6 +1,5 @@
 #include "undo.h"
-/*
-undo::undo()
+
+Undo::Undo()
 {
 }
-*/

@@ -60,6 +60,7 @@ QStack<Element*> Pile::getPile()const{return *pile;}// /todo à remplacer par une
  */
 void Pile::empilerElement(Element * e){
     pile->push(e);
+    this->add(e->toQString());
 }
 
  /**
@@ -69,9 +70,9 @@ void Pile::empilerElement(Element * e){
 * \return : élement dépilé
 */
 Element* Pile::depilerElement(){
-    if(!pile->isEmpty())
-        return pile->pop();
-        return 0;
+    if(!pile->isEmpty()){
+        this->del();
+        return pile->pop();}
 }
 
  /**
@@ -88,6 +89,7 @@ void Pile::swap(const unsigned int x,const unsigned int y){
             Element * e = pile->at(x);
             pile->replace(x, pile->at(y));
             pile->replace(y,e);
+            this->exchange(QString::number(x),QString::number(y));
         }
     }
 }
@@ -141,17 +143,20 @@ pile->clear();
 * \brief Fonction : supprime le premier élément de la pile
 */
 void Pile::drop(){
+    this->del();
 delete pile->pop(); /*!< on enlève l'élement du haut de la pile et on le delete */
 }
 
 Element* Pile::pop()
-{
+{   this->del();
     return pile->pop();
+
 }
 
 void Pile::push(Element* e)
 {
     pile->push(e);
+    this->add(e->toQString());
 }
 
 int Pile::size()
