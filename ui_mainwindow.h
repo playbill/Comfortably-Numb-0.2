@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'mainwindow.ui'
 **
-** Created: Tue 19. Jun 04:45:45 2012
+** Created: Tue 19. Jun 15:22:30 2012
 **      by: Qt User Interface Compiler version 4.5.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -34,6 +34,9 @@ class Ui_MainWindow
 public:
     QAction *actionUndo;
     QAction *actionRedo;
+    QAction *actionAddpile;
+    QAction *actionAfficherClavier;
+    QAction *actionQuitter;
     QWidget *centralWidget;
     QPushButton *num6Button;
     QPushButton *num3Button;
@@ -90,6 +93,8 @@ public:
     QPushButton *opDropButton;
     QPushButton *opDupButton;
     QPushButton *opClearButton;
+    QCheckBox *clavier;
+    QPushButton *backspace;
     QMenuBar *menuBar;
     QMenu *menuFile;
     QMenu *menuEdit;
@@ -106,77 +111,85 @@ public:
         actionUndo->setObjectName(QString::fromUtf8("actionUndo"));
         actionRedo = new QAction(MainWindow);
         actionRedo->setObjectName(QString::fromUtf8("actionRedo"));
+        actionAddpile = new QAction(MainWindow);
+        actionAddpile->setObjectName(QString::fromUtf8("actionAddpile"));
+        actionAfficherClavier = new QAction(MainWindow);
+        actionAfficherClavier->setObjectName(QString::fromUtf8("actionAfficherClavier"));
+        actionQuitter = new QAction(MainWindow);
+        actionQuitter->setObjectName(QString::fromUtf8("actionQuitter"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
+        centralWidget->setMinimumSize(QSize(0, 0));
+        centralWidget->setMaximumSize(QSize(550, 350));
         num6Button = new QPushButton(centralWidget);
         num6Button->setObjectName(QString::fromUtf8("num6Button"));
-        num6Button->setGeometry(QRect(440, 213, 41, 31));
+        num6Button->setGeometry(QRect(440, 230, 41, 31));
         num6Button->setLayoutDirection(Qt::LeftToRight);
         num3Button = new QPushButton(centralWidget);
         num3Button->setObjectName(QString::fromUtf8("num3Button"));
-        num3Button->setGeometry(QRect(440, 173, 41, 31));
+        num3Button->setGeometry(QRect(440, 190, 41, 31));
         num3Button->setLayoutDirection(Qt::LeftToRight);
         opDivButton = new QPushButton(centralWidget);
         opDivButton->setObjectName(QString::fromUtf8("opDivButton"));
-        opDivButton->setGeometry(QRect(440, 133, 41, 31));
+        opDivButton->setGeometry(QRect(440, 150, 41, 31));
         opDivButton->setLayoutDirection(Qt::LeftToRight);
         opPointButton = new QPushButton(centralWidget);
         opPointButton->setObjectName(QString::fromUtf8("opPointButton"));
-        opPointButton->setGeometry(QRect(440, 293, 41, 31));
+        opPointButton->setGeometry(QRect(440, 310, 41, 31));
         opPointButton->setLayoutDirection(Qt::LeftToRight);
         opFoisButton = new QPushButton(centralWidget);
         opFoisButton->setObjectName(QString::fromUtf8("opFoisButton"));
-        opFoisButton->setGeometry(QRect(490, 133, 41, 31));
+        opFoisButton->setGeometry(QRect(490, 150, 41, 31));
         opFoisButton->setLayoutDirection(Qt::LeftToRight);
         opPlusButton = new QPushButton(centralWidget);
         opPlusButton->setObjectName(QString::fromUtf8("opPlusButton"));
-        opPlusButton->setGeometry(QRect(490, 213, 41, 31));
+        opPlusButton->setGeometry(QRect(490, 230, 41, 31));
         opPlusButton->setLayoutDirection(Qt::LeftToRight);
         opMoinsButton = new QPushButton(centralWidget);
         opMoinsButton->setObjectName(QString::fromUtf8("opMoinsButton"));
-        opMoinsButton->setGeometry(QRect(490, 173, 41, 31));
+        opMoinsButton->setGeometry(QRect(490, 190, 41, 31));
         opMoinsButton->setLayoutDirection(Qt::LeftToRight);
         num2Button = new QPushButton(centralWidget);
         num2Button->setObjectName(QString::fromUtf8("num2Button"));
-        num2Button->setGeometry(QRect(390, 173, 41, 31));
+        num2Button->setGeometry(QRect(390, 190, 41, 31));
         num2Button->setLayoutDirection(Qt::LeftToRight);
         num4Button = new QPushButton(centralWidget);
         num4Button->setObjectName(QString::fromUtf8("num4Button"));
-        num4Button->setGeometry(QRect(340, 213, 41, 31));
+        num4Button->setGeometry(QRect(340, 230, 41, 31));
         num4Button->setLayoutDirection(Qt::LeftToRight);
         opEgalButton = new QPushButton(centralWidget);
         opEgalButton->setObjectName(QString::fromUtf8("opEgalButton"));
-        opEgalButton->setGeometry(QRect(490, 253, 41, 71));
+        opEgalButton->setGeometry(QRect(490, 270, 41, 71));
         opEgalButton->setLayoutDirection(Qt::LeftToRight);
         num1Button = new QPushButton(centralWidget);
         num1Button->setObjectName(QString::fromUtf8("num1Button"));
-        num1Button->setGeometry(QRect(340, 173, 41, 31));
+        num1Button->setGeometry(QRect(340, 190, 41, 31));
         num1Button->setLayoutDirection(Qt::LeftToRight);
         num8Button = new QPushButton(centralWidget);
         num8Button->setObjectName(QString::fromUtf8("num8Button"));
-        num8Button->setGeometry(QRect(390, 253, 41, 31));
+        num8Button->setGeometry(QRect(390, 270, 41, 31));
         num8Button->setLayoutDirection(Qt::LeftToRight);
         num9Button = new QPushButton(centralWidget);
         num9Button->setObjectName(QString::fromUtf8("num9Button"));
-        num9Button->setGeometry(QRect(440, 253, 41, 31));
+        num9Button->setGeometry(QRect(440, 270, 41, 31));
         num9Button->setLayoutDirection(Qt::LeftToRight);
         num7Button = new QPushButton(centralWidget);
         num7Button->setObjectName(QString::fromUtf8("num7Button"));
-        num7Button->setGeometry(QRect(340, 253, 41, 31));
+        num7Button->setGeometry(QRect(340, 270, 41, 31));
         num7Button->setLayoutDirection(Qt::LeftToRight);
         num5Button = new QPushButton(centralWidget);
         num5Button->setObjectName(QString::fromUtf8("num5Button"));
-        num5Button->setGeometry(QRect(390, 213, 41, 31));
+        num5Button->setGeometry(QRect(390, 230, 41, 31));
         num5Button->setLayoutDirection(Qt::LeftToRight);
         num0Button = new QPushButton(centralWidget);
         num0Button->setObjectName(QString::fromUtf8("num0Button"));
-        num0Button->setGeometry(QRect(340, 293, 91, 31));
+        num0Button->setGeometry(QRect(340, 310, 91, 31));
         num0Button->setLayoutDirection(Qt::LeftToRight);
         display = new QLineEdit(centralWidget);
         display->setObjectName(QString::fromUtf8("display"));
         display->setGeometry(QRect(12, 50, 451, 51));
         QFont font;
-        font.setPointSize(36);
+        font.setPointSize(24);
         display->setFont(font);
         display->setCursor(QCursor(Qt::SizeVerCursor));
         display->setMouseTracking(false);
@@ -187,6 +200,7 @@ public:
         displaytop = new QLineEdit(centralWidget);
         displaytop->setObjectName(QString::fromUtf8("displaytop"));
         displaytop->setGeometry(QRect(12, 20, 451, 31));
+        displaytop->setReadOnly(true);
         modeComplexe = new QCheckBox(centralWidget);
         modeComplexe->setObjectName(QString::fromUtf8("modeComplexe"));
         modeComplexe->setGeometry(QRect(170, 110, 72, 18));
@@ -324,6 +338,12 @@ public:
         opClearButton->setObjectName(QString::fromUtf8("opClearButton"));
         opClearButton->setGeometry(QRect(260, 10, 41, 31));
         opClearButton->setLayoutDirection(Qt::LeftToRight);
+        clavier = new QCheckBox(centralWidget);
+        clavier->setObjectName(QString::fromUtf8("clavier"));
+        clavier->setGeometry(QRect(340, 110, 91, 20));
+        backspace = new QPushButton(centralWidget);
+        backspace->setObjectName(QString::fromUtf8("backspace"));
+        backspace->setGeometry(QRect(344, 150, 81, 31));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
@@ -345,6 +365,8 @@ public:
 
         menuBar->addAction(menuFile->menuAction());
         menuBar->addAction(menuEdit->menuAction());
+        menuFile->addAction(actionAddpile);
+        menuFile->addAction(actionQuitter);
         menuEdit->addAction(actionUndo);
         menuEdit->addAction(actionRedo);
 
@@ -363,6 +385,10 @@ public:
         actionUndo->setShortcut(QApplication::translate("MainWindow", "Ctrl+Z", 0, QApplication::UnicodeUTF8));
         actionRedo->setText(QApplication::translate("MainWindow", "Redo", 0, QApplication::UnicodeUTF8));
         actionRedo->setShortcut(QApplication::translate("MainWindow", "Ctrl+Y", 0, QApplication::UnicodeUTF8));
+        actionAddpile->setText(QApplication::translate("MainWindow", "add Pile", 0, QApplication::UnicodeUTF8));
+        actionAddpile->setShortcut(QApplication::translate("MainWindow", "Ctrl+N", 0, QApplication::UnicodeUTF8));
+        actionAfficherClavier->setText(QApplication::translate("MainWindow", "afficherClavier", 0, QApplication::UnicodeUTF8));
+        actionQuitter->setText(QApplication::translate("MainWindow", "quitter", 0, QApplication::UnicodeUTF8));
         num6Button->setText(QApplication::translate("MainWindow", "6", 0, QApplication::UnicodeUTF8));
         num6Button->setShortcut(QApplication::translate("MainWindow", "6", 0, QApplication::UnicodeUTF8));
         num3Button->setText(QApplication::translate("MainWindow", "3", 0, QApplication::UnicodeUTF8));
@@ -442,7 +468,10 @@ public:
         opDupButton->setText(QApplication::translate("MainWindow", "dup", 0, QApplication::UnicodeUTF8));
         opDupButton->setShortcut(QApplication::translate("MainWindow", "!", 0, QApplication::UnicodeUTF8));
         opClearButton->setText(QApplication::translate("MainWindow", "clear", 0, QApplication::UnicodeUTF8));
-        opClearButton->setShortcut(QApplication::translate("MainWindow", "!", 0, QApplication::UnicodeUTF8));
+        opClearButton->setShortcut(QApplication::translate("MainWindow", "Ctrl+C", 0, QApplication::UnicodeUTF8));
+        clavier->setText(QApplication::translate("MainWindow", "Clavier", 0, QApplication::UnicodeUTF8));
+        backspace->setText(QApplication::translate("MainWindow", "Backspace", 0, QApplication::UnicodeUTF8));
+        backspace->setShortcut(QApplication::translate("MainWindow", "Backspace", 0, QApplication::UnicodeUTF8));
         menuFile->setTitle(QApplication::translate("MainWindow", "File", 0, QApplication::UnicodeUTF8));
         menuEdit->setTitle(QApplication::translate("MainWindow", "Edit", 0, QApplication::UnicodeUTF8));
         toolBar->setWindowTitle(QApplication::translate("MainWindow", "toolBar", 0, QApplication::UnicodeUTF8));

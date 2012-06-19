@@ -46,6 +46,7 @@ class Pile {
                 list_observers.insert(affichage);
         }
 
+
         void removeAffichage(Affichage* affichage)
         {
                 // Enlever un observer a la liste

@@ -13,9 +13,12 @@
   <property name="windowTitle">
    <string>TabWidget</string>
   </property>
-  <widget class="QWidget" name="tab">
+  <property name="currentIndex">
+   <number>0</number>
+  </property>
+  <widget class="QWidget" name="pile">
    <attribute name="title">
-    <string>Tab 1</string>
+    <string>pile 1</string>
    </attribute>
    <widget class="QListWidget" name="listStack">
     <property name="geometry">
@@ -40,11 +43,32 @@
      </rect>
     </property>
    </widget>
-  </widget>
-  <widget class="QWidget" name="tab">
-   <attribute name="title">
-    <string>Tab 2</string>
-   </attribute>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>10</y>
+      <width>31</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>PILE</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>10</y>
+      <width>61</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Commande</string>
+    </property>
+   </widget>
   </widget>
  </widget>
  <resources/>

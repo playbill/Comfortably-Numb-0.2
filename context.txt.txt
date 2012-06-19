@@ -1,0 +1,13 @@
+********Contexte Sauvegarde********
+--> MODE DE LA CALCULATRICE : 
+Complexe
+BestFit
+--> TYPE D'ANGLES DE LA CALCULATIRCE : 
+Degre
+********Contenu de la pile : ********
+5
+4
+3
+2
+1
+END

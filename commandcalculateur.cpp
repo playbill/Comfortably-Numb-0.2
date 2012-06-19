@@ -6,7 +6,9 @@ CommandUnArg::CommandUnArg(Calculateur* c,Element*(Calculateur::*m)()):cal(c),me
     this->arg=c->getPile()->top()->clone();
 }
 
-CommandUnArg::~CommandUnArg(){}
+CommandUnArg::~CommandUnArg(){
+delete arg;
+}
 
 void CommandUnArg::Execute()
 {
@@ -42,6 +44,7 @@ CommandPush::CommandPush(Calculateur* c, Element* e): cal(c)
 }
 CommandPush::~CommandPush()
 {
+    delete arg;
 }
 
 void CommandPush::Execute()
@@ -58,6 +61,8 @@ CommandDeuxArg::CommandDeuxArg(Calculateur* c,Element* e1,Element* e2,Element*(C
 }
 CommandDeuxArg::~CommandDeuxArg()
 {
+    delete arg1;
+    delete arg2;
 }
 
 void CommandDeuxArg::Execute()
@@ -84,7 +89,8 @@ CommandPolyArg::CommandPolyArg(Calculateur* c,unsigned int taille, unsigned int 
 }
 
 CommandPolyArg::~CommandPolyArg()
-{ qDebug()<<"destructeur poyarg";
+{
+    delete[] tab;
 }
 
 void CommandPolyArg::Execute()

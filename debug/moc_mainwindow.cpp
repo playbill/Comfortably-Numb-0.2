@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'mainwindow.h'
 **
-** Created: Tue 19. Jun 05:21:14 2012
+** Created: Tue 19. Jun 15:22:38 2012
 **      by: The Qt Meta Object Compiler version 61 (Qt 4.5.1)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,45 +23,49 @@ static const uint qt_meta_data_MainWindow[] = {
        2,       // revision
        0,       // classname
        0,    0, // classinfo
-      27,   12, // methods
+      30,   12, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
 
  // slots: signature, parameters, type, tag, flags
       12,   11,   11,   11, 0x08,
-      19,   11,   11,   11, 0x08,
-      26,   11,   11,   11, 0x08,
-      45,   11,   11,   11, 0x08,
+      22,   11,   11,   11, 0x08,
+      32,   11,   11,   11, 0x08,
+      42,   11,   11,   11, 0x08,
+      49,   11,   11,   11, 0x08,
       56,   11,   11,   11, 0x08,
-      63,   11,   11,   11, 0x08,
       75,   11,   11,   11, 0x08,
-      82,   11,   11,   11, 0x08,
-      90,   11,   11,   11, 0x08,
+      86,   11,   11,   11, 0x08,
+      93,   11,   11,   11, 0x08,
      105,   11,   11,   11, 0x08,
-     118,   11,   11,   11, 0x08,
-     136,   11,   11,   11, 0x08,
-     153,   11,   11,   11, 0x08,
-     169,   11,   11,   11, 0x08,
-     185,   11,   11,   11, 0x08,
+     112,   11,   11,   11, 0x08,
+     120,   11,   11,   11, 0x08,
+     135,   11,   11,   11, 0x08,
+     148,   11,   11,   11, 0x08,
+     166,   11,   11,   11, 0x08,
+     183,   11,   11,   11, 0x08,
      199,   11,   11,   11, 0x08,
-     205,   11,   11,   11, 0x08,
-     211,   11,   11,   11, 0x08,
-     217,   11,   11,   11, 0x08,
-     224,   11,   11,   11, 0x08,
-     231,   11,   11,   11, 0x08,
-     238,   11,   11,   11, 0x08,
-     243,   11,   11,   11, 0x08,
-     249,   11,   11,   11, 0x08,
-     255,   11,   11,   11, 0x08,
-     262,   11,   11,   11, 0x08,
+     215,   11,   11,   11, 0x08,
+     229,   11,   11,   11, 0x08,
+     235,   11,   11,   11, 0x08,
+     241,   11,   11,   11, 0x08,
+     247,   11,   11,   11, 0x08,
+     254,   11,   11,   11, 0x08,
+     261,   11,   11,   11, 0x08,
      268,   11,   11,   11, 0x08,
+     273,   11,   11,   11, 0x08,
+     279,   11,   11,   11, 0x08,
+     285,   11,   11,   11, 0x08,
+     292,   11,   11,   11, 0x08,
+     298,   11,   11,   11, 0x08,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_MainWindow[] = {
-    "MainWindow\0\0undo()\0redo()\0clickedBt(QString)\0"
+    "MainWindow\0\0clavier()\0effacer()\0"
+    "addpile()\0undo()\0redo()\0clickedBt(QString)\0"
     "evaluate()\0eval()\0duplicate()\0drop()\0"
     "clear()\0toModeEntier()\0toModeReel()\0"
     "toModeRationnel()\0toModeComplexe()\0"
@@ -96,36 +100,39 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
         switch (_id) {
-        case 0: undo(); break;
-        case 1: redo(); break;
-        case 2: clickedBt((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 3: evaluate(); break;
-        case 4: eval(); break;
-        case 5: duplicate(); break;
-        case 6: drop(); break;
-        case 7: clear(); break;
-        case 8: toModeEntier(); break;
-        case 9: toModeReel(); break;
-        case 10: toModeRationnel(); break;
-        case 11: toModeComplexe(); break;
-        case 12: toModeBestFit(); break;
-        case 13: toModeRadiant(); break;
-        case 14: toModeDegre(); break;
-        case 15: cos(); break;
-        case 16: sin(); break;
-        case 17: tan(); break;
-        case 18: cosh(); break;
-        case 19: sinh(); break;
-        case 20: tanh(); break;
-        case 21: ln(); break;
-        case 22: log(); break;
-        case 23: inv(); break;
-        case 24: sqrt(); break;
-        case 25: sqr(); break;
-        case 26: sign(); break;
+        case 0: clavier(); break;
+        case 1: effacer(); break;
+        case 2: addpile(); break;
+        case 3: undo(); break;
+        case 4: redo(); break;
+        case 5: clickedBt((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 6: evaluate(); break;
+        case 7: eval(); break;
+        case 8: duplicate(); break;
+        case 9: drop(); break;
+        case 10: clear(); break;
+        case 11: toModeEntier(); break;
+        case 12: toModeReel(); break;
+        case 13: toModeRationnel(); break;
+        case 14: toModeComplexe(); break;
+        case 15: toModeBestFit(); break;
+        case 16: toModeRadiant(); break;
+        case 17: toModeDegre(); break;
+        case 18: cos(); break;
+        case 19: sin(); break;
+        case 20: tan(); break;
+        case 21: cosh(); break;
+        case 22: sinh(); break;
+        case 23: tanh(); break;
+        case 24: ln(); break;
+        case 25: log(); break;
+        case 26: inv(); break;
+        case 27: sqrt(); break;
+        case 28: sqr(); break;
+        case 29: sign(); break;
         default: ;
         }
-        _id -= 27;
+        _id -= 30;
     }
     return _id;
 }

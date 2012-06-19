@@ -17,11 +17,23 @@
    <string/>
   </property>
   <widget class="QWidget" name="centralWidget">
+   <property name="minimumSize">
+    <size>
+     <width>0</width>
+     <height>0</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>550</width>
+     <height>350</height>
+    </size>
+   </property>
    <widget class="QPushButton" name="num6Button">
     <property name="geometry">
      <rect>
       <x>440</x>
-      <y>213</y>
+      <y>230</y>
       <width>41</width>
       <height>31</height>
      </rect>
@@ -40,7 +52,7 @@
     <property name="geometry">
      <rect>
       <x>440</x>
-      <y>173</y>
+      <y>190</y>
       <width>41</width>
       <height>31</height>
      </rect>
@@ -59,7 +71,7 @@
     <property name="geometry">
      <rect>
       <x>440</x>
-      <y>133</y>
+      <y>150</y>
       <width>41</width>
       <height>31</height>
      </rect>
@@ -78,7 +90,7 @@
     <property name="geometry">
      <rect>
       <x>440</x>
-      <y>293</y>
+      <y>310</y>
       <width>41</width>
       <height>31</height>
      </rect>
@@ -97,7 +109,7 @@
     <property name="geometry">
      <rect>
       <x>490</x>
-      <y>133</y>
+      <y>150</y>
       <width>41</width>
       <height>31</height>
      </rect>
@@ -116,7 +128,7 @@
     <property name="geometry">
      <rect>
       <x>490</x>
-      <y>213</y>
+      <y>230</y>
       <width>41</width>
       <height>31</height>
      </rect>
@@ -135,7 +147,7 @@
     <property name="geometry">
      <rect>
       <x>490</x>
-      <y>173</y>
+      <y>190</y>
       <width>41</width>
       <height>31</height>
      </rect>
@@ -154,7 +166,7 @@
     <property name="geometry">
      <rect>
       <x>390</x>
-      <y>173</y>
+      <y>190</y>
       <width>41</width>
       <height>31</height>
      </rect>
@@ -173,7 +185,7 @@
     <property name="geometry">
      <rect>
       <x>340</x>
-      <y>213</y>
+      <y>230</y>
       <width>41</width>
       <height>31</height>
      </rect>
@@ -192,7 +204,7 @@
     <property name="geometry">
      <rect>
       <x>490</x>
-      <y>253</y>
+      <y>270</y>
       <width>41</width>
       <height>71</height>
      </rect>
@@ -211,7 +223,7 @@
     <property name="geometry">
      <rect>
       <x>340</x>
-      <y>173</y>
+      <y>190</y>
       <width>41</width>
       <height>31</height>
      </rect>
@@ -230,7 +242,7 @@
     <property name="geometry">
      <rect>
       <x>390</x>
-      <y>253</y>
+      <y>270</y>
       <width>41</width>
       <height>31</height>
      </rect>
@@ -249,7 +261,7 @@
     <property name="geometry">
      <rect>
       <x>440</x>
-      <y>253</y>
+      <y>270</y>
       <width>41</width>
       <height>31</height>
      </rect>
@@ -268,7 +280,7 @@
     <property name="geometry">
      <rect>
       <x>340</x>
-      <y>253</y>
+      <y>270</y>
       <width>41</width>
       <height>31</height>
      </rect>
@@ -287,7 +299,7 @@
     <property name="geometry">
      <rect>
       <x>390</x>
-      <y>213</y>
+      <y>230</y>
       <width>41</width>
       <height>31</height>
      </rect>
@@ -306,7 +318,7 @@
     <property name="geometry">
      <rect>
       <x>340</x>
-      <y>293</y>
+      <y>310</y>
       <width>91</width>
       <height>31</height>
      </rect>
@@ -332,7 +344,7 @@
     </property>
     <property name="font">
      <font>
-      <pointsize>36</pointsize>
+      <pointsize>24</pointsize>
      </font>
     </property>
     <property name="cursor">
@@ -365,6 +377,9 @@
       <width>451</width>
       <height>31</height>
      </rect>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QCheckBox" name="modeComplexe">
@@ -952,9 +967,38 @@
       <string>clear</string>
      </property>
      <property name="shortcut">
-      <string>!</string>
+      <string>Ctrl+C</string>
      </property>
     </widget>
+   </widget>
+   <widget class="QCheckBox" name="clavier">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>110</y>
+      <width>91</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Clavier</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="backspace">
+    <property name="geometry">
+     <rect>
+      <x>344</x>
+      <y>150</y>
+      <width>81</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Backspace</string>
+    </property>
+    <property name="shortcut">
+     <string>Backspace</string>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -970,6 +1014,8 @@
     <property name="title">
      <string>File</string>
     </property>
+    <addaction name="actionAddpile"/>
+    <addaction name="actionQuitter"/>
    </widget>
    <widget class="QMenu" name="menuEdit">
     <property name="title">
@@ -1015,6 +1061,24 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+Y</string>
+   </property>
+  </action>
+  <action name="actionAddpile">
+   <property name="text">
+    <string>add Pile</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
+  </action>
+  <action name="actionAfficherClavier">
+   <property name="text">
+    <string>afficherClavier</string>
+   </property>
+  </action>
+  <action name="actionQuitter">
+   <property name="text">
+    <string>quitter</string>
    </property>
   </action>
  </widget>

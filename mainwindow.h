@@ -15,6 +15,9 @@
 #include <stdexcept>
 #include "affichage.h"
 #include "gestioncommande.h"
+#include <fstream>
+#include <stream.h>
+
 
 
 
@@ -32,10 +35,16 @@ public:
     ~MainWindow();
     Element* getComplexe(QString str);
     Constante* getConstante(QString str);
+    QVector<Calculateur*>* getCalculateur(){return leCalculateur;}
+    void saveContext (const char* path);
+    void loadContext(const char* path);
     void show();
 
 
 private slots:
+    void clavier();
+    void effacer();
+    void addpile();
     void undo();
     void redo();
     void clickedBt(QString);
@@ -68,7 +77,8 @@ private slots:
 private:
     Ui::MainWindow *ui;
     QSignalMapper* mapper;
-    Calculateur* leCalculateur;
+    QVector<Calculateur*>* leCalculateur;
+    unsigned int current;
     GestionCommande* pileCommande;
     bool waitingForOperand;
     Affichage* view;
