@@ -28,7 +28,7 @@ public:
     CommandPush(Calculateur*,Element*);
     virtual ~CommandPush();
     void Execute();
-    QString toQString(){return "push " + arg->toQString();}
+    QString toQString(){return arg->toQString() + " push ";}
 };
 
 
@@ -43,7 +43,7 @@ public:
     CommandDeuxArg(Calculateur*,Element*,Element*,Element*(Calculateur::*)());
     virtual ~CommandDeuxArg();
     void Execute();
-    virtual QString toQString(){}
+    virtual QString toQString();
 };
 
 class CommandPolyArg : public Command
@@ -57,7 +57,7 @@ public:
     CommandPolyArg(Calculateur*,unsigned int taille,unsigned int depart,Element*(Calculateur::*)());
     virtual ~CommandPolyArg();
     void Execute();
-    virtual QString toQString(){}
+    virtual QString toQString();
 };
 
 #endif // COMMANDCALCULATEUR_H

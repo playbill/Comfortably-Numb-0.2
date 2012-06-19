@@ -14,9 +14,24 @@ void CommandUnArg::Execute()
 }
 
 QString CommandUnArg::toQString(){
-/*if(Calculateur::*method == Calculateur::fact){}
-else if(*method == Calculateur::cos){}*/
-
+if(method == &Calculateur::fact){return arg->toQString() + " fact "; }
+else if(method == &Calculateur::cos){return arg->toQString() + " cos "; }
+else if(method == &Calculateur::cosh){return arg->toQString() + " cosh "; }
+else if(method == &Calculateur::sin){return arg->toQString() + " sin ";}
+else if(method == &Calculateur::sinh){return arg->toQString() + " sinh ";}
+else if(method == &Calculateur::tan){return arg->toQString() + " tan ";}
+else if(method == &Calculateur::tanh){return arg->toQString() + " tanh ";}
+else if(method == &Calculateur::fact){return arg->toQString() + " fact ";}
+else if(method == &Calculateur::eval){return arg->toQString() + " eval ";}
+else if(method == &Calculateur::ln){return arg->toQString() + " ln ";}
+else if(method == &Calculateur::log){return arg->toQString() + " log ";}
+else if(method == &Calculateur::inv){return arg->toQString() + " inv ";}
+else if(method == &Calculateur::sqrt){return arg->toQString() + " sqrt ";}
+else if(method == &Calculateur::sqr){return arg->toQString() + " sqr ";}
+else if(method == &Calculateur::cube){return arg->toQString() + " cube ";}
+else if(method == &Calculateur::sign){return arg->toQString() + " sign ";}
+else if(method == &Calculateur::duplicate){return arg->toQString() + " dup ";}
+else if(method == &Calculateur::drop){return arg->toQString() + " drop ";}
 
 }
 
@@ -50,6 +65,11 @@ void CommandDeuxArg::Execute()
     (cal->*method)();
 }
 
+QString CommandDeuxArg::toQString(){
+if(method == &Calculateur::fact){return arg1->toQString() + " fact "; }
+else if(method == &Calculateur::cos){return arg1->toQString() + " cos "; }
+}
+
 CommandPolyArg::CommandPolyArg(Calculateur* c,unsigned int taille, unsigned int depart,Element*(Calculateur::*m)()): cal(c),method(m),nElements(taille), tab(new Element*[nElements])
 {
     for(unsigned int i=0; i<taille; i++)
@@ -65,4 +85,8 @@ CommandPolyArg::~CommandPolyArg()
 void CommandPolyArg::Execute()
 {
     (cal->*method)();
+}
+QString CommandPolyArg::toQString(){
+if(method == &Calculateur::fact){return  " fact "; }
+else if(method == &Calculateur::cos){return  " cos "; }
 }
