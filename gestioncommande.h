@@ -25,21 +25,9 @@ public:
             // Enlever un observer a la liste
             list_observers.erase(affichage);
     }
-    void pushCommand(Command* c){
+    void afficheCommand(Command* c){
     for (std::set<Affichage*>::const_iterator it = list_observers.begin(); it != list_observers.end(); ++it)
-                (*it)->pushCommand(c->toQString());
-    }
-    void unArgCommand(Command* c){
-    for (std::set<Affichage*>::const_iterator it = list_observers.begin(); it != list_observers.end(); ++it)
-                (*it)->unArgCommand(c->toQString());
-    }
-    void deuxArgCommand(Command* c){
-    for (std::set<Affichage*>::const_iterator it = list_observers.begin(); it != list_observers.end(); ++it)
-                (*it)->deuxArgCommand(c->toQString());
-    }
-    void polyArgCommand(Command* c){
-    for (std::set<Affichage*>::const_iterator it = list_observers.begin(); it != list_observers.end(); ++it)
-                (*it)->polyArgCommand(c->toQString());
+                (*it)->afficheCommand(c->toQString());
     }
     void popCommand(){
         for (std::set<Affichage*>::const_iterator it = list_observers.begin(); it != list_observers.end(); ++it)

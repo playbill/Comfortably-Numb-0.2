@@ -50,18 +50,9 @@ void Affichage::swap(QString data1, QString data2)
     m_ui->listStack->item(data1.toInt())->setText(item2);
     m_ui->listStack->item(data2.toInt())->setText(item1);}
 
-void Affichage::pushCommand(QString data){
+void Affichage::afficheCommand(QString data){
       m_ui->listWidget_2->insertItem(0,data);
     }
-void Affichage::unArgCommand(QString data){
-      m_ui->listWidget_2->insertItem(0,data);
-    }
-void Affichage::deuxArgCommand(QString data){
-      m_ui->listWidget_2->insertItem(0,data);
-}
-void Affichage::polyArgCommand(QString data){
-      m_ui->listWidget_2->insertItem(0,data);
-}
 void Affichage::popCommand(){
         delete m_ui->listWidget_2->item(0);
 }
