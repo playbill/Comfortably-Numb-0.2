@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'mainwindow.ui'
 **
-** Created: Tue 19. Jun 15:22:30 2012
+** Created: Tue 19. Jun 20:54:59 2012
 **      by: Qt User Interface Compiler version 4.5.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -324,7 +324,7 @@ public:
         opMeanButton->setLayoutDirection(Qt::LeftToRight);
         opSumButton = new QPushButton(groupBox);
         opSumButton->setObjectName(QString::fromUtf8("opSumButton"));
-        opSumButton->setGeometry(QRect(110, 10, 41, 31));
+        opSumButton->setGeometry(QRect(110, 20, 41, 31));
         opSumButton->setLayoutDirection(Qt::LeftToRight);
         opDropButton = new QPushButton(groupBox);
         opDropButton->setObjectName(QString::fromUtf8("opDropButton"));

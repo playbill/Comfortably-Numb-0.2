@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'affichage.ui'
 **
-** Created: Tue 19. Jun 14:47:05 2012
+** Created: Tue 19. Jun 20:50:10 2012
 **      by: Qt User Interface Compiler version 4.5.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
